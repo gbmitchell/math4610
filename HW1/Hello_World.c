@@ -2,7 +2,7 @@
 
 int main() {
 	int i = 0;
-	int j = 0;
+	int k = 0;
 
 	printf("How many times?\n\n> ");
 
@@ -14,7 +14,7 @@ int main() {
 		printf("Hello World\n\n");
 	}
 
-	scanf_s("%d", &j);
+	scanf_s("%d", &k);
 
 	return 0;
 }
