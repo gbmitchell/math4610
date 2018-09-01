@@ -4,7 +4,7 @@
 ## Math 4610 README.md File
 A First Course In Numerical Methods
 
-The repository that you are looking at is for building my math4610 software 
+The repository that you are looking at is for building my math4610 software  
 manuel and for submitting homework assignments to the course instructor.
 
 ### Repository Links
