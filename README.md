@@ -1,6 +1,3 @@
-# math4610
-
-
 ## Math 4610 README.md File
 A First Course In Numerical Methods
 
