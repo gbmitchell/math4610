@@ -12,3 +12,5 @@ manuel and for submitting homework assignments to the course instructor.
 - [Homework 3](https://gbmitchell.github.io/math4610/HW3/problem)  
 - [Homework 4](https://gbmitchell.github.io/math4610/HW4/problem)  
 - [Homework 5](https://gbmitchell.github.io/math4610/HW5/problem)  
+  
+- [Home Page](https://gbmitchell.github.io/)  
