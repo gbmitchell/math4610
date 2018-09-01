@@ -1,6 +1,5 @@
 ## Software Manuel Math 4610
 
-### Table of Contents
 
 1. Error Caluclation
     * [one](https://gbmitchell.github.io/math4610/softwareManuel/errorCalculation/one/problem)
