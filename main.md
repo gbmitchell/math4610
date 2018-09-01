@@ -1,13 +1,14 @@
-# Math 4610 Main Web Page
+## Math 4610 README.md File
+A First Course In Numerical Methods
 
-## Development of Math 4610
+The repository that you are looking at is for building my math4610 software  
+manuel and for submitting homework assignments to the course instructor.
 
-This course was developed by [Joe Koebbe](http://www.math.usu.edu/~koebbe) at [Utah State University](http://www.usu.edu)
-in the [Department of Mathematics and Statistics](http://www.math.usu.edu/). The course is
-intended for students in the [College of Science](https://www.usu.edu/science), the College of Engineering, and any other
-students who have completed a basic course in linear algebra (e.g, Math 2270 Linear Algebra) AND ordinary differential
-equations (e.g, Math 2280 Ordinary Differential Equations). Students who have completed the combined course Math 2250
-are also well qualified to be in this course. Primarily, the course presents computational methods for the approximate solution 
-of a number of mathematical problems. The amount of analysis needed is minimal (e.g, Taylor series and knowledge of results from 
-Linear Algebra). The goal is to introduce students into the world of computer coding and simulation. Later courses (e.g,
-Math 5610 and Math 6610) treat analysis of the methods at a more advanced level.
+### Repository Links
+
+1. [Math 4610 Software Manuel](https://gbmitchell.github.io/math4610/softwareManuel/)
+2. [Math 4610 Homework 1](https://gbmitchell.github.io/math4610/HW1/)
+3. [Math 4610 Homework 2](https://gbmitchell.github.io/math4610/HW2/)
+4. [Math 4610 Homework 3](https://gbmitchell.github.io/math4610/HW3/)
+5. [Math 4610 Homework 4](https://gbmitchell.github.io/math4610/HW4/)
+6. [Math 4610 Homework 5](https://gbmitchell.github.io/math4610/HW5/)
