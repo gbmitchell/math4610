@@ -6,7 +6,7 @@ manuel and for submitting homework assignments to the course instructor.
 
 ### Repository Links
 
-1. [Math 4610 Software Manuel](https://gbmitchell.github.io/math4610/softwareManuel/)
+1. [Math 4610 Software Manuel](https://gbmitchell.github.io/math4610/softwareManuel/main)
 2. [Math 4610 Homework 1](https://gbmitchell.github.io/math4610/HW1/main)
 3. [Math 4610 Homework 2](https://gbmitchell.github.io/math4610/HW2/main)
 4. [Math 4610 Homework 3](https://gbmitchell.github.io/math4610/HW3/main)
