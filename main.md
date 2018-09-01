@@ -1,4 +1,4 @@
-## Math 4610 README.md File
+## Math 4610
 A First Course In Numerical Methods
 
 The repository that you are looking at is for building my math4610 software  
