@@ -15,4 +15,4 @@ manuel and for submitting homework assignments to the course instructor.
   
   
   
- ### [Home Page](https://gbmitchell.github.io/)
+ #### [Home Page](https://gbmitchell.github.io/)
