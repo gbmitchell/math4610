@@ -11,7 +11,7 @@ For example,
 
     smaceps.c
 
-will produce an executable **smaceps.exe** than can be executed.
+will produce an executable **smaceps.exe** that can be executed.
 
 **Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
 in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
