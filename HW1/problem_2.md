@@ -58,7 +58,7 @@ The first value (53) is the number of binary digits that define the machine epsi
 decimal version of the same value. The number of decimal digits that can be represented is roughly sixteen (e-16 on the
 end of the second value).
 
-**Implementation/Code:** The following is the code for smaceps()
+**Implementation/Code:** The following is the code for dmaceps()
 
     void dmaceps(double *seps, int *ipow) {
     
