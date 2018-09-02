@@ -32,15 +32,15 @@ second is an integer.
 
     int main() {
     	float seps = 1.0;
-	int ipow = 0;
+    	int ipow = 0;
 
-	smaceps(&seps, &ipow);
+    	smaceps(&seps, &ipow);
 
-	printf("\n%d\t%.8e", ipow, seps);
+    	printf("\n%d\t%.8e", ipow, seps);
 
-	getch();
+    	getch();
 
-	return 0;
+    	return 0;
     }
 
 Output from the lines above:
