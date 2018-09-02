@@ -13,31 +13,35 @@ For example,
 
 will produce an executable **smaceps.exe** than can be executed.
 
-**Description/Purpose:** This routine will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a routine for analyzing the behavior of any computer. This
+**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
+in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
 usually will need to be run one time for each computer.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the routine will change their values.
+**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
 The real purpose is to produce values in those variables to be used as needed.
 
-**Output:** This routine returns a single precision value for the number of decimal digits that can be represented on the
+**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
 computer being queried.
 
 **Usage/Example:**
 
-The routine has two arguments needed to return the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C subroutine, the values of the machine epsilon (seps) and the power
-of two that gives the machine epsilon (ipow). The first argument type in C is a single precision value (float) and the
-second is an integer.
+The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
+represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
+precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer.
 
     int main() {
+    
+        // create and initialize arguments
     	float seps = 1.0;
     	int ipow = 0;
-
+        
+        // call smaceps function passing arguments by reference
     	smaceps(&seps, &ipow);
-
+        
+        // print the resulting values to the console
     	printf("\n%d\t%.8e", ipow, seps);
-
+        
+        // keeps the console open until a key is pressed
     	getch();
 
     	return 0;
