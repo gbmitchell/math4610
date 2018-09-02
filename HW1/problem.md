@@ -31,17 +31,16 @@ of two that gives the machine epsilon (ipow). The first argument type in C is a 
 second is an integer.
 
     int main() {
+    	float seps = 1.0;
+	int ipow = 0;
 
-	    float seps = 1.0;
-	    int ipow = 0;
+	smaceps(&seps, &ipow);
 
-	    smaceps(&seps, &ipow);
+	printf("\n%d\t%.8e", ipow, seps);
 
-	    printf("\n%d\t%.8e", ipow, seps);
+	getch();
 
-	    getch();
-
-	    return 0;
+	return 0;
     }
 
 Output from the lines above:
@@ -55,24 +54,24 @@ end of the second value).
 **Implementation/Code:** The following is the code for smaceps()
 
     void smaceps(float *seps, int *ipow) {
-	    float one = 0.0, appone = 0.0;
-	    int i = 0;
+    	float one = 0.0, appone = 0.0;
+    	int i = 0;
 
-	    one = 1.0;
-	    *seps = 1.0;
-	    appone = one + *seps;
-	    *ipow = 0;
+    	one = 1.0;
+    	*seps = 1.0;
+    	appone = one + *seps;
+    	*ipow = 0;
 
-	    for (i = 0; i < 1000; i++) {
-		    *ipow = *ipow + 1;
-		    *seps = *seps / 2.0;
-		    appone = one + *seps;
-		    if (fabs(appone - one) == 0.0) return;
-	    }
+    	for (i = 0; i < 1000; i++) {
+    	    *ipow = *ipow + 1;
+    	    *seps = *seps / 2.0;
+    	    appone = one + *seps;
+    	    if (fabs(appone - one) == 0.0) return;
+    	}
 
-	    printf("The loop limit has been exceeded");
+    	printf("The loop limit has been exceeded");
 
-	    return;
+    	return;
     }
 
 **Last Modified:** September/2018
