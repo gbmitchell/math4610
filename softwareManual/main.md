@@ -3,7 +3,7 @@
 
 1. Error Caluclation
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/smaceps)
-    * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/dmaceps)
+    * [dmaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/dmaceps)
   
 2. Root Finding
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/smaceps)
