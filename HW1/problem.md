@@ -33,18 +33,18 @@ precision value (float) and the power of two that gives the machine epsilon (ipo
     
         // create and initialize arguments
         float seps = 1.0;
-    	int ipow = 0;
+        int ipow = 0;
         
         // call smaceps function passing arguments by reference
-    	smaceps(&seps, &ipow);
+        smaceps(&seps, &ipow);
         
         // print the resulting values to the console
-    	printf("\n%d\t%.8e", ipow, seps);
+        printf("\n%d\t%.8e", ipow, seps);
         
         // keeps the console open until a key is pressed
-    	getch();
+        getch();
 
-    	return 0;
+        return 0;
     }
 
 Output from the lines above:
