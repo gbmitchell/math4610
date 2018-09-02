@@ -1,8 +1,9 @@
-## Software Manuel Math 4610
+## Software Manual Math 4610
 
 
 1. Error Caluclation
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManuel/errorCalculation/smaceps)
+    * [smaceps](https://gbmitchell.github.io/math4610/softwareManuel/errorCalculation/dmaceps)
   
 2. Root Finding
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManuel/rootFinding/smaceps)
