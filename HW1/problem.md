@@ -32,7 +32,7 @@ precision value (float) and the power of two that gives the machine epsilon (ipo
     int main() {
     
         // create and initialize arguments
-    	float seps = 1.0;
+        float seps = 1.0;
     	int ipow = 0;
         
         // call smaceps function passing arguments by reference
