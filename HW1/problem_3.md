@@ -6,8 +6,18 @@ Common machine routines can be used in many different programs. Libraries are us
 to reinvent the routine for each program. 
   
 This solution demonstrates how to make a static library. A static library is used at compile time and gets
-coppied dirrectly into your program code. Libraries are platform dependent, a static library for windows
-would named something like .lib platform
+coppied dirrectly into your program code. Libraries are platform dependent, a static library for Windows
+would be named something like,
+
+    example.lib 
+
+and on a Linux platform the same library would be named,
+
+    libexample.a
+
+On a Linux machine, I starting with the c code version of the smaceps and dmaceps functions in a single folder.
+Next, I compiled both files using gcc compiler with the following command line,
+
 
 The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
 represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
