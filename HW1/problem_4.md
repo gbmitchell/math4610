@@ -51,7 +51,7 @@ Output from the lines above:
     hellow world from thread 2
     There are 4 threads!
   
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
+Each thread printed hello world along with its thread id. Parallel threads run at the same time, but one thread can be ahead or behind the other in terms of a timeline. The barrier in the code ensures that all threads have reached the barrier before proceding order each thread printed indicates value (24) is the number of binary digits that define the machine epsilon and the second is related to the
 decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
 end of the second value).
   
