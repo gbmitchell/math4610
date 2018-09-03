@@ -12,7 +12,8 @@ and report back which thread is printing and the total number of threads running
 use of a machines available resources and is important for use in problems that require speed with large volumes of
 calculation.
   
-The following code was written in C language and compiled using Microsoft Visual Compiler. Microsoft Visual Studio the option of openMP support that needs to be activated through the project options.
+The following code was written in C language and compiled using Microsoft Visual Compiler. Microsoft Visual Studio
+has the option of openMP support that needs to be activated through the project options.
   
 **Implementation/Code:** The following is the code for openMP.c
 
@@ -53,6 +54,11 @@ Output from the lines above:
     hellow world from thread 2
     There are 4 threads!
   
-Each thread printed hello world followed by its thread id. Parallel threads run at the same time, but one thread can be ahead or behind the other in terms of a timeline. The barrier in the code ensures that all threads have reached the specified barrier before proceding. According to the output, the order each thread reached the barrier was thread 0 first, thread 3 second, thread 1 third, and thread 2 last. Once they all reached the berrier, they all continued and only thread 0 was allowed to print the total number of threads. If the machine had more than 4 processors availale, the output would reflect it with added lines of hello world and thread id numbers.
+Each thread printed hello world followed by its thread id. Parallel threads run at the same time, but one thread
+can be ahead or behind the other in terms of a timeline. The barrier in the code ensures that all threads have
+reached the specified barrier before proceding. According to the output, the order each thread reached the barrier
+was thread 0 first, thread 3 second, thread 1 third, and thread 2 last. Once they all reached the berrier, they all
+continued and only thread 0 was allowed to print the total number of threads. If the machine had more than 4 processors
+availale, the output would reflect it with added lines of hello world and thread id numbers.
   
 **Last Modified:** September/2018
