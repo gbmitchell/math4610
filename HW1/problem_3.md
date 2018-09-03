@@ -19,7 +19,8 @@ On a Linux machine, I starting with the c code version of the smaceps and dmacep
 Also in the folder was a header file I made containing the library function declarations and an application file
 to link the libray to. Next, I compiled the smaceps and dmaceps functions using gcc compiler. Compiling the
 functions produced object files and these object files were used to create one static library file containing both
-the smaceps and dmaceps functions. This process is shown in Figure 1.
+the smaceps and dmaceps functions. Finally, the application was compiled with the static library linked to it and
+executing the application resulted in the output shown in Figure 1.
   
 ![](gcc(Linux).png)
 **Figure 1**
