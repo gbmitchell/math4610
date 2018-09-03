@@ -177,5 +177,3 @@ end of the second value).
     }
 
 **Last Modified:** September/2018
-
-**Last Modified:** September/2018
