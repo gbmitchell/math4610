@@ -25,34 +25,19 @@ executing the application resulted in the output shown in Figure 1.
 ![](gcc(Linux).png)
 **Figure 1**
   
+**Library Header File:** The following is the code for mylib.h
+
+    #ifndef MYLIB_H
+    #define MYLIB_H
+    void smaceps(float *seps, int *ipow);
+    void dmaceps(double *seps, int *ipow);
+    #endif
+  
+**Function smaceps:** The following is the code for smaceps.c
+  
     #include <stdio.h>
     #include <math.h>
     
-    int main() {
-    
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
-        return 0;
-    }
-
-Output from the lines above:
-
-      24    5.96046448e-08
-
-
-**Implementation/Code:** The following is the code for smaceps()
-
     void smaceps(float *seps, int *ipow) {
     
         // create an initialize function variables
@@ -79,5 +64,72 @@ Output from the lines above:
 
         return;
     }
+  
+**Function dmaceps:** The following is the code for dmaceps.c
+  
+    #include <stdio.h>
+    #include <math.h>
+    
+    void dmaceps(double *seps, int *ipow) {
+    
+        // create an initialize function variables
+        // initialized to find machine value near 1.0
+        double one = 0.0, appone = 0.0;
+        int i = 0;
+        one = 1.0;
+        *seps = 1.0;
+        appone = one + *seps;
+        *ipow = 0;
+
+        // loop, dividing by 2 each time to determine when the difference
+        //  between one and the approximation is zero in double precision
+        for (i = 0; i < 1000; i++) {
+            *ipow = *ipow + 1;
+            *seps = *seps / 2.0;
+            appone = one + *seps;
+            if (fabs(appone - one) == 0.0) return;
+        }
+
+        // print error message to console if loops more than 1000 times
+        // code should never reach this point unless there is an error
+        printf("The loop limit has been exceeded");
+
+        return;
+    }
+  
+**Application File:** The following is the code for errorCalculation.c
+  
+    #include "mylib.h"
+    
+    int main() {
+    
+        // create and initialize arguments
+        float seps1 = 1.0;
+        int ipow = 0;
+        
+        // call smaceps function passing arguments by reference
+        smaceps(&seps1, &ipow);
+        
+        // print the resulting values to the console
+        printf("\n%d\t%.8e", ipow, seps1);
+        
+        // create and initialize arguments
+        double seps2 = 1.0;
+        ipow = 0;
+        
+        // call smaceps function passing arguments by reference
+        dmaceps(&seps2, &ipow);
+        
+        // print the resulting values to the console
+        printf("\n%d\t%.8e", ipow, seps2);
+
+        return 0;
+    }
+
+Output from the lines above:
+
+      24    5.96046448e-08
+      53    1.11022302e-16
+    
 
 **Last Modified:** September/2018
