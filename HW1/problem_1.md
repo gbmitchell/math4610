@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 1, Solution 1a.
+**Homework 1, Solution 1a.**
 
 **Routine Name:**           smaceps
 
@@ -88,7 +88,7 @@ end of the second value).
     }
     
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 1, Solution 1b.
+**Homework 1, Solution 1b.**
 
 **Routine Name:**           dmaceps
 
