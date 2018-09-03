@@ -16,15 +16,14 @@ and on a Linux platform the same library would be named,
     libexample.a
 
 On a Linux machine, I starting with the c code version of the smaceps and dmaceps functions in a single folder.
-Next, I compiled both files using gcc compiler with the following command line,
-
-
+Also in the folder was a header file I made containing the library function declarations and an application file
+to link the libray to. Next, I compiled the smaceps and dmaceps functions using gcc compiler. Compiling the
+functions produced object files and these object files were used to create one static library file containing both
+the smaceps and dmaceps functions. This process is shown in Figure 1.
+  
 ![](gcc(Linux).png)
-
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
-
+**Figure 1**
+  
     #include <stdio.h>
     #include <math.h>
     
@@ -50,9 +49,6 @@ Output from the lines above:
 
       24    5.96046448e-08
 
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
 
 **Implementation/Code:** The following is the code for smaceps()
 
