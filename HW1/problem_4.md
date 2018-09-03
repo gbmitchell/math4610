@@ -8,31 +8,40 @@ accomplish parallel programing, one solution is to use openMP.
   
 OpenMP is an application programming interface (API) that supports parallel programming in C language on platforms
 such as Windows and Linux. This solution shows how to use a simple C program with openMP to start multiple threads
-and report back which thread is printing and the total number of threads running. Parallel programing better use
-of a machines available resources and is important for use in problems that require speed with large volumes of
+and report back which thread is printing and the total number of threads running. Parallel programing makes better
+use of a machines available resources and is important for use in problems that require speed with large volumes of
 calculation.
-
   
+**Implementation/Code:** The following is the code for openMP.c
+
     #include <stdio.h>
-    #include <math.h>
     
     int main() {
     
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
+        // create and initialize variables
+        int i = 0, id = 0, nthrds = 0;
         
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
+        // begin parallel threads
+        #pragma omp parallel private(id)
+        {
+            id = omp_get_thread_num();
+            printf("hellow world from thread %d\n", id);
+            
+            // each thread executes and waits at the barrier, when all
+            // threads arrive at the barrier then each one continues.
+            // if statement allows only thread 0 to print nthrds.
+        #pragma omp barrier
+            if (id == 0) {
+                nthrds = omp_get_num_threads();
+                printf("There are %d threads!", nthrds);
+            }
+        }
+    
+        printf("\n\n\n");
         return 0;
     }
+  
+   
 
 Output from the lines above:
 
@@ -41,34 +50,5 @@ Output from the lines above:
 The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
 decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
 end of the second value).
-
-**Implementation/Code:** The following is the code for smaceps()
-
-    void smaceps(float *seps, int *ipow) {
-    
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
-
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
-        }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
-    }
-
+  
 **Last Modified:** September/2018
