@@ -59,6 +59,6 @@ can be ahead or behind the other in terms of a timeline. The barrier in the code
 reached the specified barrier before proceding. According to the output, the order each thread reached the barrier
 was thread 0 first, thread 3 second, thread 1 third, and thread 2 last. Once they all reached the berrier, they all
 continued and only thread 0 was allowed to print the total number of threads. If the machine had more than 4 processors
-availale, the output would reflect it with added lines of hello world and thread id numbers.
+availale, the output would reflect it with added lines of hello world, more thread id numbers, and a higher thread count.
   
 **Last Modified:** September/2018
