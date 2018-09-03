@@ -18,14 +18,20 @@ and so on. The repository also contains a file named,
 
     README.md 
 
-with links to help navigate to the software manual and homework solutions
-in github. The repository also contains a file named,
+The readme file has links to help navigate to the software manual and
+homework solutions in github. The repository also contains a file named,
 
     main.md 
 
-to provide webpage links for the same software manual and homework solutions.
-My github webpage address is,
+The main file has webpage links for the same software manual and homework
+solutions. My github webpage address is,
 
     https://gbmitchell.github.io
+
+To navigate the webpage click the link for Math 4610 and another page with
+more links will allow access to the software manual and homework solutions.
+To clone the reposity use the following link,
+
+    https://github.com/gbmitchell/math4610.git
   
 **Last Modified:** September/2018
