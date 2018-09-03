@@ -24,6 +24,7 @@ calculation.
         // begin parallel threads
         #pragma omp parallel private(id)
         {
+            // all available threads execute this code
             id = omp_get_thread_num();
             printf("hellow world from thread %d\n", id);
             
@@ -36,17 +37,20 @@ calculation.
                 printf("There are %d threads!", nthrds);
             }
         }
-    
+        
+        // parallel threads end and series program continues
         printf("\n\n\n");
         return 0;
     }
   
-   
-
 Output from the lines above:
-
-      24    5.96046448e-08
-
+  
+    hellow world from thread 0
+    hellow world from thread 3
+    hellow world from thread 1
+    hellow world from thread 2
+    There are 4 threads!
+  
 The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
 decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
 end of the second value).
