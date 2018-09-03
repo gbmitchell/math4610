@@ -19,6 +19,8 @@ On a Linux machine, I starting with the c code version of the smaceps and dmacep
 Next, I compiled both files using gcc compiler with the following command line,
 
 
+![](gcc(Linux).png)
+
 The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
 represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
 precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
