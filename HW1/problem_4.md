@@ -12,6 +12,8 @@ and report back which thread is printing and the total number of threads running
 use of a machines available resources and is important for use in problems that require speed with large volumes of
 calculation.
   
+The following code was written in C language and compiled using Microsoft Visual Compiler. Microsoft Visual Studio the option of openMP support that needs to be activated through the project options.
+  
 **Implementation/Code:** The following is the code for openMP.c
 
     #include <stdio.h>
