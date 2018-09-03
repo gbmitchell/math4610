@@ -1,29 +1,13 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 1, Solution 3.
+**Homework 1, Solution 3.**
 
-**Routine Name:**           smaceps
-
-**Author:** Gary Mitchell
-
-**Language:** C. The code can be compiled using the Microsoft Visual C compiler.
-
-For example,
-
-    smaceps.c
-
-will produce an executable **smaceps.exe** that can be executed.
-
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
-
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
-
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
-
-**Usage/Example:**
+A static library was created containing both the smaceps and dmaceps functions from solution 1a and 1b.
+Common machine routines can be used in many different programs. Libraries are used to eliminate the need
+to reinvent the routine for each program. 
+  
+This solution demonstrates how to make a static library. A static library is used at compile time and gets
+coppied dirrectly into your program code. Libraries are platform dependent, a static library for windows
+would named something like .lib platform
 
 The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
 represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
