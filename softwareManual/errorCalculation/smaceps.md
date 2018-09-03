@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 1 problem 1.
+Software Manual.
 
 **Routine Name:**           smaceps
 
