@@ -7,4 +7,4 @@
     </embed>
 </object>
 
-Typora Link [pdf test](https://gbmitchell.github.io/math4610/Hw1/IVP_Plot)
+Typora Link [pdf test](https://github.com/gbmitchell/math4610/blob/master/Hw1/IVP_Plot)
