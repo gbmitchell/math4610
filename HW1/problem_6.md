@@ -2,5 +2,3 @@
 **Homework 1, Solution 6.**
   
 ![Integration Problems](Integrate.pdf)
-  
-**Figure 1**
