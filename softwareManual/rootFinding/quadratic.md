@@ -33,55 +33,6 @@ Three arguments a, b, c are user input in double precision from a polynomial. Tw
 and root2 are to return the root values in double precision. One bool argument is used to indicate
 if the roots are imaginary or not.
 
-    void quadratic(double a, double b, double c, double *root1, double *root2, bool *imaginary) {
-
-        // check if roots are imaginary
-        if ( ( ( b * b ) - ( 4 * a * c ) ) < 0.0 ) {
-
-            *imaginary = true;
-
-            return;
-        }
-
-        // calculate roots if not imaginary
-        else {
-
-            *imaginary = false;
-
-            *root1 = ( -b + sqrt( ( b * b ) - (4.0 * a * c ) ) ) / ( 2.0 * a );
-
-            *root2 = ( -b - sqrt( ( b * b ) - (4.0 * a * c ) ) ) / ( 2.0 * a );
-
-            return;
-        }
-    }
-
-Output from the lines above:
-
-    Given    Y = a(x^2) + b(x) + c,   and a can not = 0,
-
-    Input a value for a
-    > 3
-
-    Input a value for b
-    > 20
-
-    Input a value for c
-    > 16
-
-    You entered:
-    a = 3.000000
-    b = 20.000000
-    c = 16.000000
-
-    The roots are:
-    root 1 = -0.929632
-    root 2 = -5.737034
-
-The output prints the user inputs along with the values calculated using the quadratic function.
-
-**Implementation/Code:** The following is the code for quadratic()
-
     #include <stdio.h>
     #include <math.h>
     #include <stdbool.h>
@@ -125,5 +76,56 @@ The output prints the user inputs along with the values calculated using the qua
 
         return 0;
     }
+
+Output from the lines above:
+
+    Given    Y = a(x^2) + b(x) + c,   and a can not = 0,
+
+    Input a value for a
+    > 3
+
+    Input a value for b
+    > 20
+
+    Input a value for c
+    > 16
+
+    You entered:
+    a = 3.000000
+    b = 20.000000
+    c = 16.000000
+
+    The roots are:
+    root 1 = -0.929632
+    root 2 = -5.737034
+
+The output prints the user inputs along with the values calculated using the quadratic function.
+
+**Implementation/Code:** The following is the code for quadratic()
+
+    void quadratic(double a, double b, double c, double *root1, double *root2, bool *imaginary) {
+
+        // check if roots are imaginary
+        if ( ( ( b * b ) - ( 4 * a * c ) ) < 0.0 ) {
+
+            *imaginary = true;
+
+            return;
+        }
+
+        // calculate roots if not imaginary
+        else {
+
+            *imaginary = false;
+
+            *root1 = ( -b + sqrt( ( b * b ) - (4.0 * a * c ) ) ) / ( 2.0 * a );
+
+            *root2 = ( -b - sqrt( ( b * b ) - (4.0 * a * c ) ) ) / ( 2.0 * a );
+
+            return;
+        }
+    }
+
+
 
 **Last Modified:** September/2018
