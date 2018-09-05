@@ -6,7 +6,7 @@
     * [dmaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/dmaceps)
   
 2. Root Finding
-    * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/smaceps)
+    * [quadratic](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/quadratic)
  
 3. Matrix Operations
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/matrixOperations/smaceps)
