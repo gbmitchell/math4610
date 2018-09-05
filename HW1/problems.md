@@ -4,5 +4,6 @@
 * [HW1 Problem 3](https://gbmitchell.github.io/math4610/HW1/problem_3)
 * [HW1 Problem 4](https://gbmitchell.github.io/math4610/HW1/problem_4)
 * [HW1 Problem 6](https://gbmitchell.github.io/math4610/HW1/problem_6)
+* [HW1 Problem 7](https://gbmitchell.github.io/math4610/HW1/problem_7)
 * [HW1 Problem 8](https://gbmitchell.github.io/math4610/HW1/problem_8)
 * [HW1 Problem 9](https://gbmitchell.github.io/math4610/HW1/problem_9)
