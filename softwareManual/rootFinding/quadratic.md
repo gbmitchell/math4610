@@ -58,11 +58,27 @@ if the roots are imaginary or not.
 
 Output from the lines above:
 
-      53    1.11022302e-16
+    Given    Y = a(x^2) + b(x) + c,   and a can not = 0,
 
-The first value (53) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly sixteen (e-16 on the
-end of the second value).
+    Input a value for a
+    > 3
+
+    Input a value for b
+    > 20
+
+    Input a value for c
+    > 16
+
+    You entered:
+    a = 3.000000
+    b = 20.000000
+    c = 16.000000
+
+    The roots are:
+    root 1 = -0.929632
+    root 2 = -5.737034
+
+The output prints the user inputs along with the values calculated using the quadratic function.
 
 **Implementation/Code:** The following is the code for dmaceps()
 
