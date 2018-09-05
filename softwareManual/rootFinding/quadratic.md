@@ -80,7 +80,7 @@ Output from the lines above:
 
 The output prints the user inputs along with the values calculated using the quadratic function.
 
-**Implementation/Code:** The following is the code for dmaceps()
+**Implementation/Code:** The following is the code for quadratic()
 
     #include <stdio.h>
     #include <math.h>
