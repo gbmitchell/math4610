@@ -22,5 +22,5 @@ functions produced object files and these object files were used to create one s
 the smaceps and dmaceps functions. Finally, the application was compiled with the static library linked to it and
 executing the application resulted in the output shown in Figure 1.
   
-![](Integrate.pdf)
+![Integration Problems](Integrate.pdf)
 **Figure 1**
