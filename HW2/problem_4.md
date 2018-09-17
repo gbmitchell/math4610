@@ -31,170 +31,182 @@ sin(Pi * x) as functions to find the roots of. To find the funcion g(x) = x, the
 to zero and either add or subtract x to both sides of the equation. The result is an equation in the form of
 X(n+1) = X(n) + C that can be itterated until X(n+1) is approximatly equal to X(n).
 
-    #include <stdio.h>
-    #include <math.h>
-    #include <mylib.h>
-    
-    int main() {
-        double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
-        int i = 0, j = 0, maxIteration = 0;
-        int ipow = 0;
-        double eps = 0.0;
-        double x = 0.0;
-        double h = 0.0;
-        double fxx = 0.0;
-        double expder = 0.0;
-        double eabsolute = 0.0;
-        double erelative = 0.0;
-    
-	//***************************************************************************************
-	//************ root finding fixed point iteration method 1 for x^2 - 3 ******************
-	//***************************************************************************************
-
-	Xn = 2;
-	i = 0;
-	count = 0;
-	maxIteration = 10;
-	root1 = 1.73205080757;
-	dmaceps(&eps, &ipow);
-	eabsolute = 1.0;
-
-	printf("dmaceps =  %.8e\n", eps);
-	printf("Initial value = %lf\n", Xn);
-	printf("roots of x^2 - 3 are, +%.11lf and -%.11lf\n\n", root1, root1);
-	printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
-	printf("--------------------------------------------------------------------------------------------\n");
-
-	while ( (eabsolute > eps) && (maxIteration > 0) && (count < 5) ) {
-
-		maxIteration--;
-		i++;
-
-		Xn1 = fixed1(fnct4, Xn);
-
-		eabsolute = eabs(Xn1, root1);
-		erelative = erel(Xn1, root1);
-
-		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
-		
-		if ( fabs(Xn1) > fabs(Xn) ) count++;
-
-		Xn = Xn1;
-	}
-	printf("\n\n\n");
+	#include <stdio.h>
+	#include <math.h>
+	#include <mylib.h>
 
 
-	//***************************************************************************************
-	//************ root finding fixed point iteration method 2 for x^2 - 3 ******************
-	//***************************************************************************************
+	int main() {
+		double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
+		int i = 0, j = 0, maxIteration = 0, maxIteration1 = 0;
+		int ipow = 0;
+		int count = 0;
+		double x = 0.0;
+		double h = 0.0;
+		double fxh = 0.0;
+		double fx = 0.0;
+		double fxx = 0.0;
+		double expder = 0.0;
+		double eabsolute = 0.0;
+		double erelative = 0.0;
+		double eps = 0.0;
 
-	Xn = 2;
-	i = 0;
-	count = 0;
-	maxIteration = 10;
-	root1 = 1.73205080757;
-	dmaceps(&eps, &ipow);
-	eabsolute = 1.0;
+		double X1 = 0.0;
+		double Xn = 0.0;
+		double Xn1 = 0.0;
+		double X1n = 0.0;
+		double iteration = 0.0;
+		double root = 0.0;
+		double root1 = 0.0;
 
-	printf("dmaceps =  %.8e\n", eps);
-	printf("Initial value = %lf\n", Xn);
-	printf("roots of x^2 - 3 are, +%.11lf and -%.11lf\n\n", root1, root1);
-	printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
-	printf("--------------------------------------------------------------------------------------------\n");
+		//***************************************************************************************
+		//************ root finding fixed point iteration method 1 for x^2 - 3 ******************
+		//***************************************************************************************
 
-	while ((eabsolute > eps) && (maxIteration > 0) && (count < 5)) {
+		Xn = 2;
+		i = 0;
+		count = 0;
+		maxIteration = 10;
+		root1 = 1.73205080757;
+		dmaceps(&eps, &ipow);
+		eabsolute = 1.0;
 
-		maxIteration--;
-		i++;
+		printf("dmaceps =  %.8e\n", eps);
+		printf("Initial value = %lf\n", Xn);
+		printf("roots of x^2 - 3 are, +%.11lf and -%.11lf\n\n", root1, root1);
+		printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
+		printf("--------------------------------------------------------------------------------------------\n");
 
-		Xn1 = fixed2(fnct4, Xn);
+		while ( (eabsolute > eps) && (maxIteration > 0) && (count < 5) ) {
 
-		eabsolute = eabs(Xn1, root1);
-		erelative = erel(Xn1, root1);
+			maxIteration--;
+			i++;
 
-		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
+			Xn1 = fixed1(fnct4, Xn);
 
-		if ( fabs(Xn1) > fabs(Xn) ) count++;
+			eabsolute = eabs(Xn1, root1);
+			erelative = erel(Xn1, root1);
 
-		Xn = Xn1;
-	}
-	printf("\n\n\n");
+			printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
 
+			if ( fabs(Xn1) > fabs(Xn) ) count++;
 
-	//*****************************************************************************************
-	//* root finding fixed point iteration method 1 for sin(Pi*x), roots at n = 0, 1, 2, ...  *
-	//*****************************************************************************************
-
-	dmaceps(&eps, &ipow);
-	Xn = 10.5;
-	i = 0;
-	count = 0;
-	maxIteration = 10;
-	root1 = 10.0;
-	eabsolute = 1.0;
-
-	printf("dmaceps =  %.8e\n", eps);
-	printf("Initial value = %.1lf\n", Xn);
-	printf("roots of sin(Pi * x), n, for n = 0, 1, 2, ... \n\n");
-	printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
-	printf("--------------------------------------------------------------------------------------------\n");
-
-	while ( (eabsolute > eps) && (maxIteration > 0) && (count < 5)) {
-		
-		maxIteration--;
-		i++;
-
-		Xn1 = fixed1(sin, (Xn*Pi));
-
-		eabsolute = eabs(Xn1, root1);
-		erelative = erel(Xn1, root1);
-
-		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
-
-		if ( fabs(Xn1) > fabs(Xn) ) count++;
-
-		Xn = Xn1;
-
-	}
-
-	printf("\n\n\n");
+			Xn = Xn1;
+		}
+		printf("\n\n\n");
 
 
-	//*****************************************************************************************
-	//* root finding fixed point iteration method 2 for sin(Pi*x), roots at n = 0, 1, 2, ...  *
-	//*****************************************************************************************
+		//***************************************************************************************
+		//************ root finding fixed point iteration method 2 for x^2 - 3 ******************
+		//***************************************************************************************
 
-	dmaceps(&eps, &ipow);
-	Xn = 10.5;
-	i = 0;
-	count = 0;
-	maxIteration = 10;
-	root1 = 10.0;
-	eabsolute = 1.0;
+		Xn = 2;
+		i = 0;
+		count = 0;
+		maxIteration = 10;
+		root1 = 1.73205080757;
+		dmaceps(&eps, &ipow);
+		eabsolute = 1.0;
 
-	printf("dmaceps =  %.8e\n", eps);
-	printf("Initial value = %.1lf\n", Xn);
-	printf("roots of sin(Pi * x), n, for n = 0, 1, 2, ... \n\n");
-	printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
-	printf("--------------------------------------------------------------------------------------------\n");
+		printf("dmaceps =  %.8e\n", eps);
+		printf("Initial value = %lf\n", Xn);
+		printf("roots of x^2 - 3 are, +%.11lf and -%.11lf\n\n", root1, root1);
+		printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
+		printf("--------------------------------------------------------------------------------------------\n");
 
-	while ((eabsolute > eps) && (maxIteration > 0) && (count < 5)) {
+		while ((eabsolute > eps) && (maxIteration > 0) && (count < 5)) {
 
-		maxIteration--;
-		i++;
+			maxIteration--;
+			i++;
 
-		Xn1 = fixed2(sin, (Xn*Pi));
+			Xn1 = fixed2(fnct4, Xn);
 
-		eabsolute = eabs(Xn1, root1);
-		erelative = erel(Xn1, root1);
+			eabsolute = eabs(Xn1, root1);
+			erelative = erel(Xn1, root1);
 
-		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
+			printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
 
-		if (fabs(Xn1) > fabs(Xn)) count++;
+			if ( fabs(Xn1) > fabs(Xn) ) count++;
 
-		Xn = Xn1;
+			Xn = Xn1;
+		}
+		printf("\n\n\n");
 
-	}
+
+		//*****************************************************************************************
+		//* root finding fixed point iteration method 1 for sin(Pi*x), roots at n = 0, 1, 2, ...  *
+		//*****************************************************************************************
+
+		dmaceps(&eps, &ipow);
+		Xn = 10.5;
+		i = 0;
+		count = 0;
+		maxIteration = 10;
+		root1 = 10.0;
+		eabsolute = 1.0;
+
+		printf("dmaceps =  %.8e\n", eps);
+		printf("Initial value = %.1lf\n", Xn);
+		printf("roots of sin(Pi * x), n, for n = 0, 1, 2, ... \n\n");
+		printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
+		printf("--------------------------------------------------------------------------------------------\n");
+
+		while ( (eabsolute > eps) && (maxIteration > 0) && (count < 5)) {
+
+			maxIteration--;
+			i++;
+
+			Xn1 = fixed1(sin, (Xn*Pi));
+
+			eabsolute = eabs(Xn1, root1);
+			erelative = erel(Xn1, root1);
+
+			printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
+
+			if ( fabs(Xn1) > fabs(Xn) ) count++;
+
+			Xn = Xn1;
+
+		}
+
+		printf("\n\n\n");
+
+
+		//*****************************************************************************************
+		//* root finding fixed point iteration method 2 for sin(Pi*x), roots at n = 0, 1, 2, ...  *
+		//*****************************************************************************************
+
+		dmaceps(&eps, &ipow);
+		Xn = 10.5;
+		i = 0;
+		count = 0;
+		maxIteration = 10;
+		root1 = 10.0;
+		eabsolute = 1.0;
+
+		printf("dmaceps =  %.8e\n", eps);
+		printf("Initial value = %.1lf\n", Xn);
+		printf("roots of sin(Pi * x), n, for n = 0, 1, 2, ... \n\n");
+		printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
+		printf("--------------------------------------------------------------------------------------------\n");
+
+		while ((eabsolute > eps) && (maxIteration > 0) && (count < 5)) {
+
+			maxIteration--;
+			i++;
+
+			Xn1 = fixed2(sin, (Xn*Pi));
+
+			eabsolute = eabs(Xn1, root1);
+			erelative = erel(Xn1, root1);
+
+			printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, Xn, Xn1, eabsolute, erelative);
+
+			if (fabs(Xn1) > fabs(Xn)) count++;
+
+			Xn = Xn1;
+
+		}
     
 Output from the lines above:
 
