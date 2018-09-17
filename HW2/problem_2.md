@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 2 problem 2.
 
-**Routine Name:**           smaceps
+**Routine Name:**           derivative
 
 **Author:** Gary Mitchell
 
@@ -9,13 +9,12 @@ Homework 2 problem 2.
 
 For example,
 
-    smaceps.c
+    approximation.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **approximation.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This function will compute an approximation for the derivative of a defined
+function f(x) at a given value of x.
 
 **Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
 The real purpose is to produce values in those variables to be used as needed.
@@ -60,31 +59,10 @@ end of the second value).
 
 **Implementation/Code:** The following is the code for smaceps()
 
-    void smaceps(float *seps, int *ipow) {
-    
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
-
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
-        }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
+    double derivative(double(*f)(double), double x, double h) {
+        double fxx = 0.0;
+        fxx = (f(x + h) - f(x)) / (h);
+        return fxx;
     }
 
 **Last Modified:** September/2018
