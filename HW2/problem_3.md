@@ -296,4 +296,207 @@ dirrect use of the derivative.
         return fxx;
     }
 
+# Math 4610 Fundamentals of Computational Mathematics
+Homework 2 problem 3b.
+
+**Routine Name:**           derivative
+
+**Author:** Gary Mitchell
+
+**Language:** C. The code can be compiled using the Microsoft Visual C compiler.
+
+For example,
+
+    approximation.c
+
+will produce an executable **approximation.exe** that can be executed.
+
+**Description/Purpose:** This function will compute an approximation for the derivative of a defined
+function f(x) at a given value of x.
+
+**Input:** There are three inputs needed in this case. A defined function f(x), an initial guess x,
+and h (a distance from x) are arguments passed to the function as inputs.
+
+**Output:** The function returns a double precision value that represents an approximation for a defined
+function f(x) given an initial guess for x and a value h (distance from x).
+
+**Usage/Example:**
+
+In this example we will use the derivative approximation to examin the funcion sin(x) at x = 0. Alternativly
+we will use a taylor series expansion of sin(x) and approximate its derivative.
+
+    #include <stdio.h>
+    #include <math.h>
+    #include <mylib.h>
+    
+    int main() {
+        double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
+        int i = 0, j = 0, maxIteration = 0;
+        int ipow = 0;
+        double eps = 0.0;
+        double x = 0.0;
+        double h = 0.0;
+        double fxx = 0.0;
+        double expder = 0.0;
+        double eabsolute = 0.0;
+        double erelative = 0.0;
+        
+        //***************************************************************************************
+        //************* approximation for d/dx( sin(x) ) at x = 0.0  ***************
+        //***************************************************************************************
+    
+        x = 0.0;
+        expder = 1.0;
+        eabsolute = 1.0;
+        erelative = 1.0;
+        h = 1.0;
+        i = 0;
+        maxIteration = 50;
+    
+        dmaceps(&eps, &ipow);
+    
+        printf("dmaceps =  %.8e\n", eps);
+        printf("x = %lf\n", x);
+        printf("d/dx( sin(x) ) = %.12lf\n\n", expder);
+    
+        printf("i\t| appoximate derivative\t\t| h\t\t\t| e absolute\t| e relative\n");
+        printf("--------------------------------------------------------------------------------------------\n");
+    
+        while ( (eabsolute > eps) && maxIteration > 0 ) {
+    
+            maxIteration--;
+            i++;
+    
+            fxx = derivative(sin, x, h);
+    
+            eabsolute = eabs(fxx, expder);
+            erelative = erel(fxx, expder);
+    
+            printf("%d\t| %.8e\t\t| %.3e\t\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
+            h = h / 2.0;
+    
+        }
+        printf("\n\n\n");
+    
+        //***************************************************************************************
+        //************* taylor series approximation for d/dx( sin(x) ) at x = 0.0  **************
+        //************************** f(x) = x - (x^3/6) *****************************************
+        //***************************************************************************************
+    
+        x = 0.0;
+        expder = 1.0;
+        eabsolute = 1.0;
+        erelative = 1.0;
+        h = 1.0;
+        i = 0;
+        maxIteration = 50;
+    
+        dmaceps(&eps, &ipow);
+    
+        printf("dmaceps =  %.8e\n", eps);
+        printf("x = %lf\n", x);
+        printf("d/dx( sin(x) ) = %.12lf\n\n", expder);
+    
+        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
+        printf("--------------------------------------------------------------------------------------------\n");
+        
+        while ((eabsolute > eps) && maxIteration > 0) {
+            maxIteration--;
+            i++;
+    
+            fxx = derivative(fnct2, x, h);
+    
+            eabsolute = eabs(fxx, expder);
+            erelative = erel(fxx, expder);
+    
+            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
+            h = h / 2.0;
+        }
+    }
+        
+    
+Output from the lines above:
+
+    dmaceps =  1.11022302e-16
+    x = 0.000000
+    d/dx( sin(x) ) = 1.000000000000
+
+    i       | appoximate derivative         | h                     | e absolute    | e relative
+    --------------------------------------------------------------------------------------------
+    1       | 8.41470985e-01                | 1.000e+00             | 1.585e-01     | 1.585e-01
+    2       | 9.58851077e-01                | 5.000e-01             | 4.115e-02     | 4.115e-02
+    3       | 9.89615837e-01                | 2.500e-01             | 1.038e-02     | 1.038e-02
+    4       | 9.97397867e-01                | 1.250e-01             | 2.602e-03     | 2.602e-03
+    5       | 9.99349085e-01                | 6.250e-02             | 6.509e-04     | 6.509e-04
+    6       | 9.99837248e-01                | 3.125e-02             | 1.628e-04     | 1.628e-04
+    7       | 9.99959310e-01                | 1.563e-02             | 4.069e-05     | 4.069e-05
+    8       | 9.99989828e-01                | 7.813e-03             | 1.017e-05     | 1.017e-05
+    9       | 9.99997457e-01                | 3.906e-03             | 2.543e-06     | 2.543e-06
+    10      | 9.99999364e-01                | 1.953e-03             | 6.358e-07     | 6.358e-07
+    11      | 9.99999841e-01                | 9.766e-04             | 1.589e-07     | 1.589e-07
+    12      | 9.99999960e-01                | 4.883e-04             | 3.974e-08     | 3.974e-08
+    13      | 9.99999990e-01                | 2.441e-04             | 9.934e-09     | 9.934e-09
+    14      | 9.99999998e-01                | 1.221e-04             | 2.484e-09     | 2.484e-09
+    15      | 9.99999999e-01                | 6.104e-05             | 6.209e-10     | 6.209e-10
+    16      | 1.00000000e+00                | 3.052e-05             | 1.552e-10     | 1.552e-10
+    17      | 1.00000000e+00                | 1.526e-05             | 3.881e-11     | 3.881e-11
+    18      | 1.00000000e+00                | 7.629e-06             | 9.701e-12     | 9.701e-12
+    19      | 1.00000000e+00                | 3.815e-06             | 2.425e-12     | 2.425e-12
+    20      | 1.00000000e+00                | 1.907e-06             | 6.063e-13     | 6.063e-13
+    21      | 1.00000000e+00                | 9.537e-07             | 1.515e-13     | 1.515e-13
+    22      | 1.00000000e+00                | 4.768e-07             | 3.786e-14     | 3.786e-14
+    23      | 1.00000000e+00                | 2.384e-07             | 9.437e-15     | 9.437e-15
+    24      | 1.00000000e+00                | 1.192e-07             | 2.331e-15     | 2.331e-15
+    25      | 1.00000000e+00                | 5.960e-08             | 5.551e-16     | 5.551e-16
+    26      | 1.00000000e+00                | 2.980e-08             | 1.110e-16     | 1.110e-16
+
+
+
+    dmaceps =  1.11022302e-16
+    x = 0.000000
+    d/dx( sin(x) ) = 1.000000000000
+
+    i       | appoximate derivative         | h             | e absolute    | e relative
+    --------------------------------------------------------------------------------------------
+    1       | 8.33333333e-01                | 1.000e+00     | 1.667e-01     | 1.667e-01
+    2       | 9.58333333e-01                | 5.000e-01     | 4.167e-02     | 4.167e-02
+    3       | 9.89583333e-01                | 2.500e-01     | 1.042e-02     | 1.042e-02
+    4       | 9.97395833e-01                | 1.250e-01     | 2.604e-03     | 2.604e-03
+    5       | 9.99348958e-01                | 6.250e-02     | 6.510e-04     | 6.510e-04
+    6       | 9.99837240e-01                | 3.125e-02     | 1.628e-04     | 1.628e-04
+    7       | 9.99959310e-01                | 1.563e-02     | 4.069e-05     | 4.069e-05
+    8       | 9.99989827e-01                | 7.813e-03     | 1.017e-05     | 1.017e-05
+    9       | 9.99997457e-01                | 3.906e-03     | 2.543e-06     | 2.543e-06
+    10      | 9.99999364e-01                | 1.953e-03     | 6.358e-07     | 6.358e-07
+    11      | 9.99999841e-01                | 9.766e-04     | 1.589e-07     | 1.589e-07
+    12      | 9.99999960e-01                | 4.883e-04     | 3.974e-08     | 3.974e-08
+    13      | 9.99999990e-01                | 2.441e-04     | 9.934e-09     | 9.934e-09
+    14      | 9.99999998e-01                | 1.221e-04     | 2.484e-09     | 2.484e-09
+    15      | 9.99999999e-01                | 6.104e-05     | 6.209e-10     | 6.209e-10
+    16      | 1.00000000e+00                | 3.052e-05     | 1.552e-10     | 1.552e-10
+    17      | 1.00000000e+00                | 1.526e-05     | 3.881e-11     | 3.881e-11
+    18      | 1.00000000e+00                | 7.629e-06     | 9.701e-12     | 9.701e-12
+    19      | 1.00000000e+00                | 3.815e-06     | 2.425e-12     | 2.425e-12
+    20      | 1.00000000e+00                | 1.907e-06     | 6.063e-13     | 6.063e-13
+    21      | 1.00000000e+00                | 9.537e-07     | 1.515e-13     | 1.515e-13
+    22      | 1.00000000e+00                | 4.768e-07     | 3.786e-14     | 3.786e-14
+    23      | 1.00000000e+00                | 2.384e-07     | 9.437e-15     | 9.437e-15
+    24      | 1.00000000e+00                | 1.192e-07     | 2.331e-15     | 2.331e-15
+    25      | 1.00000000e+00                | 5.960e-08     | 5.551e-16     | 5.551e-16
+    26      | 1.00000000e+00                | 2.980e-08     | 1.110e-16     | 1.110e-16    
+
+First the derivative function was used to approximate the derivative of sin(x) at x = 0 and the
+approximation converged to an approximate value of 1.00000000e+00 with absolute error of 1.110e-16.
+Next the function sin(x) was rewriten as a talor series expansion and the derivative approximation
+was used and converged to an approximation of 1.00000000e+00 with absolute error of 1.110e-16. Both
+using the sin(x) function and taylor series expansion resulted in convergance.
+
+**Implementation/Code:** The following is the code for derivative()
+
+    double derivative(double(*f)(double), double x, double h) {
+        double fxx = 0.0;
+        fxx = (f(x + h) - f(x)) / (h);
+        return fxx;
+    }
+
 **Last Modified:** September/2018
