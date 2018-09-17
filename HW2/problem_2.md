@@ -221,7 +221,7 @@ was used to approximate the derivative of e^x at x = 2.0 and the approximation c
 approximate value of 7.38905609893 with an absolute error of 1.239e-08. After this the approximation
 produced unexpected results with an increase in the absolute error.
 
-**Implementation/Code:** The following is the code for smaceps()
+**Implementation/Code:** The following is the code for derivative()
 
     double derivative(double(*f)(double), double x, double h) {
         double fxx = 0.0;
