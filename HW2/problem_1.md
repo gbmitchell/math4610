@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 1.
+Homework 2 problem 1a.
 
-**Routine Name:**           smaceps
+**Routine Name:**           eabs
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,55 @@ Homework 2 problem 1.
 
 For example,
 
-    smaceps.c
+    error.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **error.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** The eabs function will compute the absolute error between v and u. The variable v is 
+an approximation to the exact value u.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are two inputs needed in this case, the arguments v and u are passed to the function as inputs.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** The eabs function returns a double precision value that represents the absolute error based on the inputs.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+The function has two inputs, the arguments v an u are type double. The variable v is an approximation to the exact
+value u. The function returns a double precision value, the absolute error between v and u. 
 
-    #include <stdio.h>
-    #include <math.h>
+    #include <mylib.h>
     
     int main() {
     
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
-        return 0;
+    double  approximate = 0.0;
+    double exact = 0.0;
+    double e = 0.0;
+    
+    approximate = 3.001;
+    exact = 3.0;
+    
+    printf("x = %.8e, y = %.8e\n\n", approximate, exact);
+    
+    e = eabs(approximate, exact);
+    printf("absolute error = %.8e\n", e);
+    
+    return 0;
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
-
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
-
-**Implementation/Code:** The following is the code for smaceps()
-
-    void smaceps(float *seps, int *ipow) {
+    x = 3.00100000e+00, y = 3.00000000e+00
     
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+    absolute error = 1.00000000e-03
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
-        }
+The value of x = 3.001 is the approximation to the the exact value of y = 3.000. The computed absolute error
+between x and y is 1.000e-03.
 
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
+**Implementation/Code:** The following is the code for eabs()
 
-        return;
+    double eabs(double v, double u) {
+    double e = fabs(u - v);
+    return e;
     }
 
 **Last Modified:** September/2018
