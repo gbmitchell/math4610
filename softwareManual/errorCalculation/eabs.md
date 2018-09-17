@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 1a.
+Software Manual.
 
 **Routine Name:**           eabs
 
