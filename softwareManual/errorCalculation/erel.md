@@ -53,7 +53,7 @@ Output from the lines above:
 The value of x = 3.001 is the approximation to the the exact value of y = 3.000. The computed relative error
 between x and y is 3.333e-04.
 
-**Implementation/Code:** The following is the code for eabs()
+**Implementation/Code:** The following is the code for erel()
 
     double erel(double v, double u) {
     double e = (fabs(u- v)) / (fabs(u));
