@@ -206,7 +206,7 @@ X(n+1) = X(n) + C that can be itterated until X(n+1) is approximatly equal to X(
 
 			Xn = Xn1;
 
-		}
+	}
     
 Output from the lines above:
 
