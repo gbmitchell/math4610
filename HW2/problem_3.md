@@ -279,11 +279,14 @@ Output from the lines above:
     --------------------------------------------------------------------------------------------
     3.53553391e-01                  | 2.737e-13     | 7.742e-13
 
-First the derivative function was used to approximate the derivative of x^2 + 3 at x = 2.0 and the
-approximation converged to an approximate value of 4.0 which is correct. Next the dirivative function
-was used to approximate the derivative of e^x at x = 2.0 and the approximation converged to an expected
-approximate value of 7.38905609893 with an absolute error of 1.239e-08. After this the approximation
-produced unexpected results with an increase in the absolute error.
+First the derivative function was used to approximate the derivative of sqrt(x) at x = 2.0 and the
+approximation converged to an approximate value of 3.53553385e-01 with absolute error of 6.051e-09.
+The approximation then began to move away from the correct value and the error increased. Next the 
+dirivative function was rewriten by multiplying by the conjugate and the approximation converged
+to a value of 3.53553391e-01 and absolute error of 2.737e-13. Finaly the direct derivative of sqrt(x)
+was used and produced a value of 3.53553391e-01 and absolute error of 2.737e-13. Rewriting the
+derivative provided a better function for approximation as can be seen by comparing the result with the
+dirrect use of the derivative.
 
 **Implementation/Code:** The following is the code for derivative()
 
