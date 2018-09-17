@@ -4,14 +4,19 @@
 1. Error Caluclation
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/smaceps)
     * [dmaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/dmaceps)
+    * [eabs](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/eabs)
+    * [erel](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/erel)
   
 2. Root Finding
     * [quadratic](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/quadratic)
+    
+3. Derivative Approximation
+    * [derivative](https://gbmitchell.github.io/math4610/softwareManual/derivativeApproximation/derivative)
  
-3. Matrix Operations
+4. Matrix Operations
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/matrixOperations/smaceps)
  
-4. Linear Solvers
+5. Linear Solvers
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/smaceps)
   
   

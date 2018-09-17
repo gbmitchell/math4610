@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 2.
+Software Manual.
 
 **Routine Name:**           derivative
 

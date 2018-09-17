@@ -29,19 +29,19 @@ value u. The function returns a double precision value, the absolute error betwe
     
     int main() {
     
-    double  approximate = 0.0;
-    double exact = 0.0;
-    double e = 0.0;
+        double  approximate = 0.0;
+        double exact = 0.0;
+        double e = 0.0;
     
-    approximate = 3.001;
-    exact = 3.0;
+        approximate = 3.001;
+        exact = 3.0;
     
-    printf("x = %.8e, y = %.8e\n\n", approximate, exact);
+        printf("x = %.8e, y = %.8e\n\n", approximate, exact);
     
-    e = eabs(approximate, exact);
-    printf("absolute error = %.8e\n", e);
+        e = eabs(approximate, exact);
+        printf("absolute error = %.8e\n", e);
     
-    return 0;
+        return 0;
     }
 
 Output from the lines above:
@@ -56,8 +56,8 @@ between x and y is 1.000e-03.
 **Implementation/Code:** The following is the code for eabs()
 
     double eabs(double v, double u) {
-    double e = fabs(u - v);
-    return e;
+        double e = fabs(u - v);
+        return e;
     }
     
 # Math 4610 Fundamentals of Computational Mathematics
@@ -91,19 +91,19 @@ value u. The function returns a double precision value, the relative error betwe
     
     int main() {
     
-    double  approximate = 0.0;
-    double exact = 0.0;
-    double e = 0.0;
+        double  approximate = 0.0;
+        double exact = 0.0;
+        double e = 0.0;
     
-    approximate = 3.001;
-    exact = 3.0;
+        approximate = 3.001;
+        exact = 3.0;
     
-    printf("x = %.8e, y = %.8e\n\n", approximate, exact);
+        printf("x = %.8e, y = %.8e\n\n", approximate, exact);
     
-    e = erel(approximate, exact);
-    printf("relative error = %.8e\n", e);
+        e = erel(approximate, exact);
+        printf("relative error = %.8e\n", e);
     
-    return 0;
+        return 0;
     }
 
 Output from the lines above:
@@ -118,8 +118,8 @@ between x and y is 3.333e-04.
 **Implementation/Code:** The following is the code for erel()
 
     double erel(double v, double u) {
-    double e = (fabs(u- v)) / (fabs(u));
-    return e;
+        double e = (fabs(u- v)) / (fabs(u));
+        return e;
     }
 
 **Last Modified:** September/2018
