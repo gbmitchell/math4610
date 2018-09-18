@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 1a.
+Homework 2, problem 1a.
 
 **Routine Name:**           eabs
 
@@ -62,7 +62,7 @@ between x and y is 1.000e-03.
     }
     
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 1b.
+Homework 2, problem 1b.
 
 **Routine Name:**           erel
 
