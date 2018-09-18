@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 3a.
+Homework 2, problem 3a.
 
 **Routine Name:**           expderivative
 
@@ -318,7 +318,7 @@ dirrect use of the derivative.
     }
 
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 3b.
+Homework 2, problem 3b.
 
 **Routine Name:**           expderivative
 
