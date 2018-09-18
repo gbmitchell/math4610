@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 2 problem 3a.
 
-**Routine Name:**           derivative
+**Routine Name:**           expderivative
 
 **Author:** Gary Mitchell
 
@@ -16,11 +16,13 @@ will produce an executable **approximation.exe** that can be executed.
 **Description/Purpose:** This function will compute an approximation for the derivative of a defined
 function f(x) at a given value of x.
 
-**Input:** There are three inputs needed in this case. A defined function f(x), an initial guess x,
-and h (a distance from x) are arguments passed to the function as inputs.
+**Input:** There are six inputs needed in this case. A defined function f(x). A value for x. A value for
+h, a distance from x. A tolerance eps for convergance to the expected derivative. A value for the maximum
+number of itterations incase the result does not converge. A value for expder, the expected derivate used
+to calculate the error between the approximate and expected derivative.
 
-**Output:** The function returns a double precision value that represents an approximation for a defined
-function f(x) given an initial guess for x and a value h (distance from x).
+**Output:** The function returns a double precision value that represents an approximation of the derivative
+for a defined function f(x) at a value of x.
 
 **Usage/Example:**
 
@@ -37,120 +39,109 @@ correct value. Below is code written to demonstrate this.
     #include <stdio.h>
     #include <math.h>
     #include <mylib.h>
-    
+
+
     int main() {
-        double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
-        int i = 0, j = 0, maxIteration = 0;
+
+        int i = 0;
         int ipow = 0;
+        int  maxIteration = 0;
+
         double eps = 0.0;
-        double x = 0.0;
-        double h = 0.0;
-        double fxx = 0.0;
-        double expder = 0.0;
         double eabsolute = 0.0;
         double erelative = 0.0;
-    
+
+        double x = 0.0;
+        double h = 0.0;
+        double expder = 0.0;
+        double fxx = 0.0;
+
         //***************************************************************************************
         //*******************  approximation for d/dx( sqrt(x) ) at x = 2.0  ********************
         //***************************************************************************************
-    
-        expder = 0.353553390593;
-        eabsolute = 1.0;
-        erelative = 1.0;
         x = 2.0;
         h = 1.0;
-        i = 0;
         maxIteration = 50;
-    
+        expder = 0.353553390593;
         dmaceps(&eps, &ipow);
-    
-        printf("dmaceps =  %.8e\n", eps);
-        printf("x = %lf\n", x);
-        printf("d/dx( sqrt(x) ) = %.12lf\n\n", expder);
-    
-        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
-        printf("--------------------------------------------------------------------------------------------\n");
-    
-        while ( (eabsolute > eps) && maxIteration > 0 ) {
-    
-            maxIteration--;
-            i++;
-    
-            fxx = derivative(sqrt, x, h);
-    
-            eabsolute = eabs(fxx, expder);
-            erelative = erel(fxx, expder);
-    
-            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
-            h = h / 2.0;
-    
-        }
-        printf("\n\n\n");
-    
+
+        printf("approximation for d/dx( sqrt(x) )\n");
+
+        fxx = expderivative(sqrt, x, h, eps, maxIteration, expder);
+
+
         //***************************************************************************************
         //************* alternative approximation for d/dx( sqrt(x) ) at x = 2.0  ***************
         //***************************************************************************************
-    
-        expder = 0.353553390593;
-        eabsolute = 1.0;
         x = 2.0;
         h = 1.0;
-        i = 0;
         maxIteration = 55;
-    
+        expder = 0.353553390593;
         dmaceps(&eps, &ipow);
-    
+
+        i = 0;
+        eabsolute = 0.0;
+        erelative = 0.0;
+
+        printf("alternate approximation for d/dx( sqrt(x) )\n");
         printf("dmaceps =  %.8e\n", eps);
         printf("x = %lf\n", x);
-        printf("d/dx( sqrt(x) ) = %.12lf\n\n", expder);
-    
-        printf("i\t| alt appoximate derivative\t| h\t\t| e absolute\t| e relative\n");
+        printf("expected derivative = %.12lf\n\n", expder);
+
+        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
         printf("--------------------------------------------------------------------------------------------\n");
-    
-        while ( (eabsolute > eps) && maxIteration > 0 ) {
-    
+
+        eabsolute = 10.0 * eps;
+
+        while ((eabsolute > eps) && maxIteration > 0) {
+
             maxIteration--;
             i++;
-    
-            fxx = ( (x+h) - x )/( h*( sqrt(x+h) + sqrt(x) ) );
-    
+
+            fxx = ((x + h) - x) / (h*(sqrt(x + h) + sqrt(x)));
+
             eabsolute = eabs(fxx, expder);
             erelative = erel(fxx, expder);
-    
+
             printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
             h = h / 2.0;
-    
+
         }
         printf("\n\n\n");
-    
-    
+
+
         //***************************************************************************************
         //************* direct use of d/dx( sqrt(x) ) =  1 / (2 * sqrt(x)), at x = 2.0  *********
         //***************************************************************************************
-    
+
         expder = 0.353553390593;
         x = 2.0;
         dmaceps(&eps, &ipow);
-    
+
+        printf("direct use of d/dx( sqrt(x) ) = 1 / (2 * sqrt(x))\n");
         printf("dmaceps =  %.8e\n", eps);
         printf("x = %lf\n", x);
-        printf("d/dx( sqrt(x) ) = %.12lf\n\n", expder);
-    
+        printf("expected derivative = %.12lf\n\n", expder);
+
         printf("direct derivative\t\t| e absolute\t| e relative\n");
         printf("--------------------------------------------------------------------------------------------\n");
-    
+
         fxx = 1 / (2 * sqrt(x));
-    
+
         eabsolute = eabs(fxx, expder);
         erelative = erel(fxx, expder);
-    
+
         printf("%.8e\t\t\t| %.3e\t| %.3e\n", fxx, eabsolute, erelative);
+
+        printf("\n\n\n");
+    }
     
 Output from the lines above:
 
+    approximation for d/dx( sqrt(x) )
     dmaceps =  1.11022302e-16
     x = 2.000000
-    d/dx( sqrt(x) ) = 0.353553390593
+    expected derivative = 0.353553390593
 
     i       | appoximate derivative         | h             | e absolute    | e relative
     --------------------------------------------------------------------------------------------
@@ -207,11 +198,12 @@ Output from the lines above:
 
 
 
+    alternate approximation for d/dx( sqrt(x) )
     dmaceps =  1.11022302e-16
     x = 2.000000
-    d/dx( sqrt(x) ) = 0.353553390593
+    expected derivative = 0.353553390593
 
-    i       | alt appoximate derivative     | h             | e absolute    | e relative
+    i       | appoximate derivative         | h             | e absolute    | e relative
     --------------------------------------------------------------------------------------------
     1       | 3.17837245e-01                | 1.000e+00     | 3.572e-02     | 1.010e-01
     2       | 3.33850535e-01                | 5.000e-01     | 1.970e-02     | 5.573e-02
@@ -271,9 +263,10 @@ Output from the lines above:
 
 
 
+    direct use of d/dx( sqrt(x) ) = 1 / (2 * sqrt(x))
     dmaceps =  1.11022302e-16
     x = 2.000000
-    d/dx( sqrt(x) ) = 0.353553390593
+    expected derivative = 0.353553390593
 
     direct derivative               | e absolute    | e relative
     --------------------------------------------------------------------------------------------
@@ -288,18 +281,46 @@ was used and produced a value of 3.53553391e-01 and absolute error of 2.737e-13.
 derivative provided a better function for approximation as can be seen by comparing the result with the
 dirrect use of the derivative.
 
-**Implementation/Code:** The following is the code for derivative()
+**Implementation/Code:** The following is the code for expderivative()
 
-    double derivative(double(*f)(double), double x, double h) {
-        double fxx = 0.0;
-        fxx = (f(x + h) - f(x)) / (h);
-        return fxx;
+    double expderivative(double(*f)(double), double x, double h, double tol, int maxItr, double expder) {
+        int i = 0;
+        double fp = 0.0;
+        double eabsolute = 0.0;
+        double erelative = 0.0;
+
+        printf("dmaceps =  %.8e\n", tol);
+        printf("x = %lf\n", x);
+        printf("expected derivative = %.12lf\n\n", expder);
+
+        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
+        printf("--------------------------------------------------------------------------------------------\n");
+
+        eabsolute = 10.0 * tol;
+
+        while ((eabsolute > tol) && maxItr > 0) {
+
+            maxItr--;
+            i++;
+
+            fp = (f(x + h) - f(x)) / (h);
+
+            eabsolute = eabs(fp, expder);
+            erelative = erel(fp, expder);
+
+            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fp, h, eabsolute, erelative);
+            h = h / 2.0;
+
+        }
+        printf("\n\n\n");
+
+        return fp;
     }
 
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 2 problem 3b.
 
-**Routine Name:**           derivative
+**Routine Name:**           expderivative
 
 **Author:** Gary Mitchell
 
@@ -314,11 +335,13 @@ will produce an executable **approximation.exe** that can be executed.
 **Description/Purpose:** This function will compute an approximation for the derivative of a defined
 function f(x) at a given value of x.
 
-**Input:** There are three inputs needed in this case. A defined function f(x), an initial guess x,
-and h (a distance from x) are arguments passed to the function as inputs.
+**Input:** There are six inputs needed in this case. A defined function f(x). A value for x. A value for
+h, a distance from x. A tolerance eps for convergance to the expected derivative. A value for the maximum
+number of itterations incase the result does not converge. A value for expder, the expected derivate used
+to calculate the error between the approximate and expected derivative.
 
-**Output:** The function returns a double precision value that represents an approximation for a defined
-function f(x) given an initial guess for x and a value h (distance from x).
+**Output:** The function returns a double precision value that represents an approximation of the derivative
+for a defined function f(x) at a value of x.
 
 **Usage/Example:**
 
@@ -329,133 +352,95 @@ we will use a taylor series expansion of sin(x) and approximate its derivative.
     #include <math.h>
     #include <mylib.h>
     
+    
     int main() {
-        double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
-        int i = 0, j = 0, maxIteration = 0;
+    
+        int i = 0;
         int ipow = 0;
+        int  maxIteration = 0;
+    
         double eps = 0.0;
-        double x = 0.0;
-        double h = 0.0;
-        double fxx = 0.0;
-        double expder = 0.0;
         double eabsolute = 0.0;
         double erelative = 0.0;
-        
+    
+        double x = 0.0;
+        double h = 0.0;
+        double expder = 0.0;
+        double fxx = 0.0;
+     
         //***************************************************************************************
         //************* approximation for d/dx( sin(x) ) at x = 0.0  ***************
         //***************************************************************************************
-    
         x = 0.0;
-        expder = 1.0;
-        eabsolute = 1.0;
-        erelative = 1.0;
         h = 1.0;
-        i = 0;
         maxIteration = 50;
-    
+        expder = 1.0;
         dmaceps(&eps, &ipow);
     
-        printf("dmaceps =  %.8e\n", eps);
-        printf("x = %lf\n", x);
-        printf("d/dx( sin(x) ) = %.12lf\n\n", expder);
+        printf("approximation for d/dx( sin(x) )\n");
     
-        printf("i\t| appoximate derivative\t\t| h\t\t\t| e absolute\t| e relative\n");
-        printf("--------------------------------------------------------------------------------------------\n");
+        fxx = expderivative(sin, x, h, eps, maxIteration, expder);
     
-        while ( (eabsolute > eps) && maxIteration > 0 ) {
-    
-            maxIteration--;
-            i++;
-    
-            fxx = derivative(sin, x, h);
-    
-            eabsolute = eabs(fxx, expder);
-            erelative = erel(fxx, expder);
-    
-            printf("%d\t| %.8e\t\t| %.3e\t\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
-            h = h / 2.0;
-    
-        }
-        printf("\n\n\n");
     
         //***************************************************************************************
         //************* taylor series approximation for d/dx( sin(x) ) at x = 0.0  **************
         //************************** f(x) = x - (x^3/6) *****************************************
         //***************************************************************************************
-    
         x = 0.0;
-        expder = 1.0;
-        eabsolute = 1.0;
-        erelative = 1.0;
         h = 1.0;
-        i = 0;
         maxIteration = 50;
-    
+        expder = 1.0;
         dmaceps(&eps, &ipow);
     
-        printf("dmaceps =  %.8e\n", eps);
-        printf("x = %lf\n", x);
-        printf("d/dx( sin(x) ) = %.12lf\n\n", expder);
+        printf("taylor series approximation for d/dx( sin(x) ) = d/dx( x - ( x^3/6 ) )\n");
     
-        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
-        printf("--------------------------------------------------------------------------------------------\n");
-        
-        while ((eabsolute > eps) && maxIteration > 0) {
-            maxIteration--;
-            i++;
+        fxx = expderivative(fnct2, x, h, eps, maxIteration, expder);
     
-            fxx = derivative(fnct2, x, h);
-    
-            eabsolute = eabs(fxx, expder);
-            erelative = erel(fxx, expder);
-    
-            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
-            h = h / 2.0;
-        }
     }
-        
-    
+
 Output from the lines above:
 
+    approximation for d/dx( sin(x) )
     dmaceps =  1.11022302e-16
     x = 0.000000
-    d/dx( sin(x) ) = 1.000000000000
-
-    i       | appoximate derivative         | h                     | e absolute    | e relative
+    expected derivative = 1.000000000000
+    
+    i       | appoximate derivative         | h             | e absolute    | e relative
     --------------------------------------------------------------------------------------------
-    1       | 8.41470985e-01                | 1.000e+00             | 1.585e-01     | 1.585e-01
-    2       | 9.58851077e-01                | 5.000e-01             | 4.115e-02     | 4.115e-02
-    3       | 9.89615837e-01                | 2.500e-01             | 1.038e-02     | 1.038e-02
-    4       | 9.97397867e-01                | 1.250e-01             | 2.602e-03     | 2.602e-03
-    5       | 9.99349085e-01                | 6.250e-02             | 6.509e-04     | 6.509e-04
-    6       | 9.99837248e-01                | 3.125e-02             | 1.628e-04     | 1.628e-04
-    7       | 9.99959310e-01                | 1.563e-02             | 4.069e-05     | 4.069e-05
-    8       | 9.99989828e-01                | 7.813e-03             | 1.017e-05     | 1.017e-05
-    9       | 9.99997457e-01                | 3.906e-03             | 2.543e-06     | 2.543e-06
-    10      | 9.99999364e-01                | 1.953e-03             | 6.358e-07     | 6.358e-07
-    11      | 9.99999841e-01                | 9.766e-04             | 1.589e-07     | 1.589e-07
-    12      | 9.99999960e-01                | 4.883e-04             | 3.974e-08     | 3.974e-08
-    13      | 9.99999990e-01                | 2.441e-04             | 9.934e-09     | 9.934e-09
-    14      | 9.99999998e-01                | 1.221e-04             | 2.484e-09     | 2.484e-09
-    15      | 9.99999999e-01                | 6.104e-05             | 6.209e-10     | 6.209e-10
-    16      | 1.00000000e+00                | 3.052e-05             | 1.552e-10     | 1.552e-10
-    17      | 1.00000000e+00                | 1.526e-05             | 3.881e-11     | 3.881e-11
-    18      | 1.00000000e+00                | 7.629e-06             | 9.701e-12     | 9.701e-12
-    19      | 1.00000000e+00                | 3.815e-06             | 2.425e-12     | 2.425e-12
-    20      | 1.00000000e+00                | 1.907e-06             | 6.063e-13     | 6.063e-13
-    21      | 1.00000000e+00                | 9.537e-07             | 1.515e-13     | 1.515e-13
-    22      | 1.00000000e+00                | 4.768e-07             | 3.786e-14     | 3.786e-14
-    23      | 1.00000000e+00                | 2.384e-07             | 9.437e-15     | 9.437e-15
-    24      | 1.00000000e+00                | 1.192e-07             | 2.331e-15     | 2.331e-15
-    25      | 1.00000000e+00                | 5.960e-08             | 5.551e-16     | 5.551e-16
-    26      | 1.00000000e+00                | 2.980e-08             | 1.110e-16     | 1.110e-16
-
-
-
+    1       | 8.41470985e-01                | 1.000e+00     | 1.585e-01     | 1.585e-01
+    2       | 9.58851077e-01                | 5.000e-01     | 4.115e-02     | 4.115e-02
+    3       | 9.89615837e-01                | 2.500e-01     | 1.038e-02     | 1.038e-02
+    4       | 9.97397867e-01                | 1.250e-01     | 2.602e-03     | 2.602e-03
+    5       | 9.99349085e-01                | 6.250e-02     | 6.509e-04     | 6.509e-04
+    6       | 9.99837248e-01                | 3.125e-02     | 1.628e-04     | 1.628e-04
+    7       | 9.99959310e-01                | 1.563e-02     | 4.069e-05     | 4.069e-05
+    8       | 9.99989828e-01                | 7.813e-03     | 1.017e-05     | 1.017e-05
+    9       | 9.99997457e-01                | 3.906e-03     | 2.543e-06     | 2.543e-06
+    10      | 9.99999364e-01                | 1.953e-03     | 6.358e-07     | 6.358e-07
+    11      | 9.99999841e-01                | 9.766e-04     | 1.589e-07     | 1.589e-07
+    12      | 9.99999960e-01                | 4.883e-04     | 3.974e-08     | 3.974e-08
+    13      | 9.99999990e-01                | 2.441e-04     | 9.934e-09     | 9.934e-09
+    14      | 9.99999998e-01                | 1.221e-04     | 2.484e-09     | 2.484e-09
+    15      | 9.99999999e-01                | 6.104e-05     | 6.209e-10     | 6.209e-10
+    16      | 1.00000000e+00                | 3.052e-05     | 1.552e-10     | 1.552e-10
+    17      | 1.00000000e+00                | 1.526e-05     | 3.881e-11     | 3.881e-11
+    18      | 1.00000000e+00                | 7.629e-06     | 9.701e-12     | 9.701e-12
+    19      | 1.00000000e+00                | 3.815e-06     | 2.425e-12     | 2.425e-12
+    20      | 1.00000000e+00                | 1.907e-06     | 6.063e-13     | 6.063e-13
+    21      | 1.00000000e+00                | 9.537e-07     | 1.515e-13     | 1.515e-13
+    22      | 1.00000000e+00                | 4.768e-07     | 3.786e-14     | 3.786e-14
+    23      | 1.00000000e+00                | 2.384e-07     | 9.437e-15     | 9.437e-15
+    24      | 1.00000000e+00                | 1.192e-07     | 2.331e-15     | 2.331e-15
+    25      | 1.00000000e+00                | 5.960e-08     | 5.551e-16     | 5.551e-16
+    26      | 1.00000000e+00                | 2.980e-08     | 1.110e-16     | 1.110e-16
+    
+    
+    
+    taylor series approximation for d/dx( sin(x) ) = d/dx( x - ( x^3/6 ) )
     dmaceps =  1.11022302e-16
     x = 0.000000
-    d/dx( sin(x) ) = 1.000000000000
-
+    expected derivative = 1.000000000000
+    
     i       | appoximate derivative         | h             | e absolute    | e relative
     --------------------------------------------------------------------------------------------
     1       | 8.33333333e-01                | 1.000e+00     | 1.667e-01     | 1.667e-01
@@ -483,7 +468,7 @@ Output from the lines above:
     23      | 1.00000000e+00                | 2.384e-07     | 9.437e-15     | 9.437e-15
     24      | 1.00000000e+00                | 1.192e-07     | 2.331e-15     | 2.331e-15
     25      | 1.00000000e+00                | 5.960e-08     | 5.551e-16     | 5.551e-16
-    26      | 1.00000000e+00                | 2.980e-08     | 1.110e-16     | 1.110e-16    
+    26      | 1.00000000e+00                | 2.980e-08     | 1.110e-16     | 1.110e-16
 
 First the derivative function was used to approximate the derivative of sin(x) at x = 0 and the
 approximation converged to an approximate value of 1.00000000e+00 with absolute error of 1.110e-16.
@@ -493,10 +478,38 @@ using the sin(x) function and taylor series expansion resulted in convergance.
 
 **Implementation/Code:** The following is the code for derivative()
 
-    double derivative(double(*f)(double), double x, double h) {
-        double fxx = 0.0;
-        fxx = (f(x + h) - f(x)) / (h);
-        return fxx;
+    double expderivative(double(*f)(double), double x, double h, double tol, int maxItr, double expder) {
+        int i = 0;
+        double fp = 0.0;
+        double eabsolute = 0.0;
+        double erelative = 0.0;
+
+        printf("dmaceps =  %.8e\n", tol);
+        printf("x = %lf\n", x);
+        printf("expected derivative = %.12lf\n\n", expder);
+
+        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
+        printf("--------------------------------------------------------------------------------------------\n");
+
+        eabsolute = 10.0 * tol;
+
+        while ((eabsolute > tol) && maxItr > 0) {
+
+            maxItr--;
+            i++;
+
+            fp = (f(x + h) - f(x)) / (h);
+
+            eabsolute = eabs(fp, expder);
+            erelative = erel(fp, expder);
+
+            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fp, h, eabsolute, erelative);
+            h = h / 2.0;
+
+        }
+        printf("\n\n\n");
+
+        return fp;
     }
 
 **Last Modified:** September/2018
