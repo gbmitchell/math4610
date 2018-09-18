@@ -5,10 +5,6 @@
 
 int main() {
 	
-	double Xn1 = 0.0;
-
-	
-
 	int i = 0;
 	int ipow = 0;
 	int  maxIteration = 0;
@@ -27,8 +23,6 @@ int main() {
 
 	double initialGuess = 0.0;
 	double initialGuess1 = 0.0;
-
-	double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
 	
 
 	//***************************************************************************************
@@ -177,18 +171,18 @@ int main() {
 	exproot = 1.73205080757;
 	dmaceps(&eps, &ipow);
 
-	Xn1 = fixed2(fnct8, initialGuess, eps, maxIteration, exproot);
+	root = fixed2(fnct8, initialGuess, eps, maxIteration, exproot);
 
 
 	//*****************************************************************************************
-	//* root finding fixed point iteration method 1 for sin(Pi*x), roots at n = 0, 1, 2, ...  *
+	//**************** root finding fixed point iteration for sin(Pi*x)  **********************
 	//*****************************************************************************************
 	dmaceps(&eps, &ipow);
 	initialGuess = 0.5;
 	maxIteration = 100;
 	exproot = 1.0;
 
-	Xn1 = fixed1(fnct9, initialGuess, eps, maxIteration, exproot);
+	root = fixed1(fnct9, initialGuess, eps, maxIteration, exproot);
 
 
 
