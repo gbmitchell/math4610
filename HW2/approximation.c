@@ -172,73 +172,23 @@ int main() {
 	//***************************************************************************************
 	//************ root finding fixed point iteration for x^2 - 3 ***************************
 	//***************************************************************************************
-
 	initialGuess = 2;
-	i = 0;
 	maxIteration = 85;
 	exproot = 1.73205080757;
 	dmaceps(&eps, &ipow);
-	eabsolute = 1.0;
 
-	printf("fixed point approximation for f(x) = ( x^2 - 3 ), where g(x) = x - ( f(x)/10 )\n");
-	printf("dmaceps =  %.8e\n", eps);
-	printf("Initial value = %lf\n", initialGuess);
-	printf("expected root = %.8lf\n\n", exproot);
-	printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
-	printf("--------------------------------------------------------------------------------------------\n");
-
-	while ((eabsolute > eps) && (maxIteration > 0) ) {
-
-		maxIteration--;
-		i++;
-
-		Xn1 = fixed2(fnct8, initialGuess, eps, maxIteration);
-
-		eabsolute = eabs(Xn1, exproot);
-		erelative = erel(Xn1, exproot);
-
-		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, initialGuess, Xn1, eabsolute, erelative);
-
-		initialGuess = Xn1;
-	}
-	printf("\n\n\n");
+	Xn1 = fixed2(fnct8, initialGuess, eps, maxIteration, exproot);
 
 
 	//*****************************************************************************************
 	//* root finding fixed point iteration method 1 for sin(Pi*x), roots at n = 0, 1, 2, ...  *
 	//*****************************************************************************************
-
 	dmaceps(&eps, &ipow);
 	initialGuess = 0.5;
-	i = 0;
 	maxIteration = 100;
 	exproot = 1.0;
-	eabsolute = 1.0;
 
-	printf("fixed point approximation for f(x) = sin(Pi*x), where g(x) = x + ( f(x)/10 )\n");
-	printf("dmaceps =  %.8e\n", eps);
-	printf("Initial value = %.1lf\n", initialGuess);
-	printf("expected root = %.8lf\n\n", exproot);
-	printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
-	printf("--------------------------------------------------------------------------------------------\n");
-
-	while ( (eabsolute > eps) && (maxIteration > 0) ) {
-		
-		maxIteration--;
-		i++;
-
-		Xn1 = fixed1(fnct9, initialGuess, eps, maxIteration);
-
-		eabsolute = eabs(Xn1, exproot);
-		erelative = erel(Xn1, exproot);
-
-		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, initialGuess, Xn1, eabsolute, erelative);
-
-		initialGuess = Xn1;
-
-	}
-
-	printf("\n\n\n");
+	Xn1 = fixed1(fnct9, initialGuess, eps, maxIteration, exproot);
 
 
 

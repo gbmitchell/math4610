@@ -21,5 +21,5 @@ double newton(double(*f)(double), double(*fp)(double), double x, double tol, int
 double expnewton(double(*f)(double), double(*fp)(double), double x, double tol, int maxItr, double exproot);
 double bisection(double(*f)(double), double a, double b, double tol, int maxItr);
 double expbisection(double(*f)(double), double a, double b, int tol, int maxItr, double exproot);
-double fixed1(double(*f)(double), double xn);
-double fixed2(double(*f)(double), double xn);
+double fixed1(double(*f)(double), double xn, double tol, int maxItr, double exproot);
+double fixed2(double(*f)(double), double xn, double tol, int maxItr, double exproot);

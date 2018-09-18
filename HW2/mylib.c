@@ -148,18 +148,75 @@ int bisMaxItr(double a, double b, double tol) {
 }
 
 
-double fixed1(double(*f)(double), double xn) {
+double fixed1(double(*f)(double), double xn, double tol, int maxItr, double exproot) {
 
+	int i = 0;
 	double fxn1 = 0.0;
-	fxn1 = xn + f(xn);
+	double eabsolute = 0.0;
+	double erelative = 0.0;
+
+	printf("fixed point approximation for f(x) = sin(Pi*x), where g(x) = x + ( f(x)/10 )\n");
+	printf("dmaceps =  %.8e\n", tol);
+	printf("Initial value = %.1lf\n", xn);
+	printf("expected root = %.8lf\n\n", exproot);
+	printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
+	printf("--------------------------------------------------------------------------------------------\n");
+
+	eabsolute = 10.0 * tol;
+
+	while ((eabsolute > tol) && (maxItr > 0)) {
+
+		maxItr--;
+		i++;
+
+		fxn1 = xn + f(xn);
+		eabsolute = eabs(fxn1, exproot);
+		erelative = erel(fxn1, exproot);
+
+		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, xn, fxn1, eabsolute, erelative);
+
+		xn = fxn1;
+	}
+
+	printf("\n\n\n");
+
 	return fxn1;
 }
 
 
-double fixed2(double(*f)(double), double xn) {
+double fixed2(double(*f)(double), double xn, double tol, int maxItr, double exproot) {
 
+	int i = 0;
 	double fxn1 = 0.0;
-	fxn1 = xn - f(xn);
+	double eabsolute = 0.0;
+	double erelative = 0.0;
+
+	printf("fixed point approximation for f(x) = ( x^2 - 3 ), where g(x) = x - ( f(x)/10 )\n");
+	printf("dmaceps =  %.8e\n", tol);
+	printf("Initial value = %lf\n", xn);
+	printf("expected root = %.8lf\n\n", exproot);
+	printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
+	printf("--------------------------------------------------------------------------------------------\n");
+
+	eabsolute = 10.0 * tol;
+
+	while ((eabsolute > tol) && (maxItr > 0)) {
+
+		maxItr--;
+		i++;
+
+		fxn1 = xn - f(xn);
+
+		eabsolute = eabs(fxn1, exproot);
+		erelative = erel(fxn1, exproot);
+
+		printf("%d\t| %.8e\t| %.8e\t| %.3e\t| %.3e\n", i, xn, fxn1, eabsolute, erelative);
+
+		xn = fxn1;
+	}
+
+	printf("\n\n\n");
+
 	return fxn1;
 }
 
