@@ -45,8 +45,8 @@ To meet the requirement of g'(xr) less than 1, the initial functions for f(x) we
 	int main() {
 
 		int ipow = 0;
-		int  maxIteration = 0;	
-		double eps = 0.0;	
+		int  maxIteration = 0;
+		double eps = 0.0;
 		double root = 0.0;
 		double exproot = 0.0;
 		double initialGuess = 0.0;
