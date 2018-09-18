@@ -17,7 +17,8 @@ will produce an executable **approximation.exe** that can be executed.
 function f(x) given an initial guess for the value of x. The function fixed1 takes the form of
 g(x) = x + f(x) and the function fixed2 takes the form g(x) = x - f(x). These can then be used
 for itteratoin g(Xn+1) = Xn + f(Xn) or g(Xn+1) = Xn - f(Xn) to approximate the root of a defined
-function f(x). g'(x) must be less than 1 in order for convergance to the root. 
+function f(x). Where xr is the root, g'(xr) must be less than 1 in order for the itteration to
+converge. 
 
 **Input:** There are five inputs needed in these cases. A defined function f(x), an initial guess
 for the root (initialGuess), a tolerance (eps), a maximum amount of times to itterate (maxIteration),
@@ -35,7 +36,7 @@ root is found within an acceptable tolerance. The code below uses two defined fu
 f(x) = sin(Pi * x) as functions to find the roots of. To find the funcion g(x) = x, the function f(x) is set
 equal to zero and either add or subtract x to both sides of the equation. The result is an equation in the
 form of g(Xn+1) = Xn + f(Xn) that can be itterated until g(Xn+1) is approximatly equal to the expected root.
-To meet the requirement of g'(x) less than 1, the initial functions for f(x) were divided by 10.
+To meet the requirement of g'(xr) less than 1, the initial functions for f(x) were divided by 10.
 
 	#include <stdio.h>
 	#include <math.h>
