@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 2 problem 5.
 
-**Routine Name:**           fixed1, fixed2
+**Routine Name:**           fixed1
 
 **Author:** Gary Mitchell
 
@@ -74,3 +74,13 @@ To meet the requirement of g'(xr) less than 1, the initial functions for f(x) we
 	}
 
 Output from the lines above:
+
+
+
+The result in both cases is convergence to an approximation of a root for the defined functions f(x).
+
+**Implementation/Code:** The following is the code for ()
+
+
+
+**Last Modified:** September/2018
