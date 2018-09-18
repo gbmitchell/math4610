@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 2 problem 2.
 
-**Routine Name:**           derivative
+**Routine Name:**           expderivative
 
 **Author:** Gary Mitchell
 
@@ -16,20 +16,24 @@ will produce an executable **approximation.exe** that can be executed.
 **Description/Purpose:** This function will compute an approximation for the derivative of a defined
 function f(x) at a given value of x.
 
-**Input:** There are three inputs needed in this case. A defined function f(x), an initial guess x,
-and h (a distance from x) are arguments passed to the function as inputs.
+**Input:** There are six inputs needed in this case. A defined function f(x). A value for x. A value for
+h, a distance from x. A tolerance eps for convergance to the expected derivative. A value for the maximum
+number of itterations incase the result does not converge. A value for expder, the expected derivate used
+to calculate the error between the approximate and expected derivative.
 
-**Output:** The function returns a double precision value that represents an approximation for a defined
-function f(x) given an initial guess for x and a value h (distance from x).
+**Output:** The function returns a double precision value that represents an approximation of the derivative
+for a defined function f(x) at a value of x.
 
 **Usage/Example:**
 
 The function returns an approximation for the derivative of a defined function f(x) at a given value of x.
 As the value h moves toward zero, the approximation will increase in accuracy. The code below computes the
-derivative with h starting at 1.0 and then halfing the value of h until a specified accuracy is reached or
+derivative with h starting at 1.0 and then dividing the value of h by 2 until a specified accuracy is reached or
 a specified itteration count is reached. The function does have limitations as shown in the data output.
 Some funcions will converge as expected toward the derivative and other functions start converging toward
-the derivative and then diverge giving unexpected results.
+the derivative and then diverge giving unexpected results. The purpose of the expderivative function is to
+approximate the derivative of a defined function f(x) at a value of x. In this example I am also including
+parameters for tolerance and the expected derivative in order to analize the results of the approximation.
 
     #include <stdio.h>
     #include <math.h>
@@ -187,12 +191,37 @@ was used to approximate the derivative of e^x at x = 2.0 and the approximation c
 approximate value of 7.38905609893 with an absolute error of 1.239e-08. After this the approximation
 produced unexpected results with an increase in the absolute error.
 
-**Implementation/Code:** The following is the code for derivative()
+**Implementation/Code:** The following is the code for expderivative()
 
-    double derivative(double(*f)(double), double x, double h) {
-        double fxx = 0.0;
-        fxx = (f(x + h) - f(x)) / (h);
-        return fxx;
+    double expderivative(double(*f)(double), double x, double h, double tol, int maxItr, double expder) {
+        int i = 0;
+        double fp = 0.0;
+        double eabsolute = 0.0;
+        double erelative = 0.0;
+
+        printf("dmaceps =  %.8e\n", tol);
+        printf("x = %lf\n", x);
+        printf("expected derivative = %.12lf\n\n", expder);
+        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
+        printf("--------------------------------------------------------------------------------------------\n");
+
+        eabsolute = 10.0 * tol;
+
+        while ((eabsolute > tol) && maxItr > 0) {
+            maxItr--;
+            i++;
+
+            fp = (f(x + h) - f(x)) / (h);
+
+            eabsolute = eabs(fp, expder);
+            erelative = erel(fp, expder);
+
+            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fp, h, eabsolute, erelative);
+            h = h / 2.0;
+        }
+        printf("\n\n\n");
+
+        return fp;
     }
 
 **Last Modified:** September/2018
