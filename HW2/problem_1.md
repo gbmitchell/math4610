@@ -39,6 +39,7 @@ value u. The function returns a double precision value, the absolute error betwe
         printf("x = %.8e, y = %.8e\n\n", approximate, exact);
     
         e = eabs(approximate, exact);
+        
         printf("absolute error = %.8e\n", e);
     
         return 0;
@@ -101,6 +102,7 @@ value u. The function returns a double precision value, the relative error betwe
         printf("x = %.8e, y = %.8e\n\n", approximate, exact);
     
         e = erel(approximate, exact);
+        
         printf("relative error = %.8e\n", e);
     
         return 0;
