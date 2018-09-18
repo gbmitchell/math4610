@@ -13,7 +13,7 @@ int main() {
 
 	printf("x = %.8e, y = %.8e\n\n", approximate, exact);
 
-    e = eabs(approximate, exact);
+    	e = eabs(approximate, exact);
 	printf("absolute error = %.8e\n", e);
 
 	e = erel(approximate, exact);
