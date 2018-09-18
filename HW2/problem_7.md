@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 2, problem 7.
 
-**Routine Name:**           fixed1
+**Routine Name:**           expbisection
 
 **Author:** Gary Mitchell
 
@@ -13,30 +13,28 @@ For example,
 
 will produce an executable **approximation.exe** that can be executed.
 
-**Description/Purpose:** These functions will compute an approximation for a root of a defined
-function f(x) given an initial guess for the value of x. The function fixed1 takes the form of
-g(x) = x + f(x) and the function fixed2 takes the form g(x) = x - f(x). These can then be used
-for itteratoin g(Xn+1) = Xn + f(Xn) or g(Xn+1) = Xn - f(Xn) to approximate the root of a defined
-function f(x). Where xr is the root, g'(xr) must be less than 1 in order for the itteration to
-converge. 
+**Description/Purpose:** This function will compute an approximation for a root of a defined
+function f(x) given two initial guesses with a root between them. The bisection root finding
+method is based off of the intermediade value therom. Bisection tests the endpoints of an interval
+using the function f(x), checks to make sure there is a difference in the sine to make sure a root
+exists, divides the interval in half and repeats the check for each half. Itterations are done to
+reduce the interval within a specified tolerance.
 
-**Input:** There are five inputs needed in these cases. A defined function f(x), an initial guess
-for the root (initialGuess), a tolerance (eps), a maximum amount of times to itterate (maxIteration),
-and the expected value of the root (exproot) to calculate the error for analizing the fixed itteration
-functions.
+**Input:** There are six inputs needed in this cases. A defined function f(x), two initial guesses
+bracketing the root (initialGuess and initialGuess1), a tolerance (eps), a maximum amount of times
+to itterate (maxIteration), and the expected value of the root (exproot) to calculate the error for
+analizing the bisection method.
 
-**Output:** The functions return a double precision value that represents an approximation for the
-root of a defined function f(x) given an initial guess for the root.
+**Output:** The function returns a double precision value that represents an approximation for the
+root of a defined function f(x) given two initial guesses bracketing the root.
 
 **Usage/Example:**
 
-The functions return an approximation for the root of a defined function f(x) given an initial guess for
-the root. The goal is to find a function g(x) = x and recursivly itterate the function until an approximate
-root is found within an acceptable tolerance. The code below uses two defined functions, f(x) = x^2 - 3 and
-f(x) = sin(Pi * x) as functions to find the roots of. To find the funcion g(x) = x, the function f(x) is set
-equal to zero and either add or subtract x to both sides of the equation. The result is an equation in the
-form of g(Xn+1) = Xn + f(Xn) that can be itterated until g(Xn+1) is approximatly equal to the expected root.
-To meet the requirement of g'(xr) less than 1, the initial functions for f(x) were divided by 10.
+The code below uses two defined functions, f(x) = x^2 - 3 and f(x) = sin(Pi * x) as functions to find
+the roots of. We know that x^3 -3 has a root at sqrt(3) and sin(Pi * x) has a root at 2.0. In the
+following code, initial guesses were given that bracketed the known roots and error was calculated based
+on the known roots to analize the behavior of the bisection method.
+
 
 	#include <stdio.h>
 	#include <math.h>
