@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 2 problem 5.
+Homework 2, problem 5.
 
 **Routine Name:**           fixed1
 
