@@ -34,19 +34,22 @@ the derivative and then diverge giving unexpected results.
     #include <stdio.h>
     #include <math.h>
     #include <mylib.h>
-    
+
+
     int main() {
-        double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
-        int i = 0, j = 0, maxIteration = 0;
+
         int ipow = 0;
+        int  maxIteration = 0;
+
         double eps = 0.0;
-        double x = 0.0;
-        double h = 0.0;
-        double fxx = 0.0;
-        double expder = 0.0;
         double eabsolute = 0.0;
         double erelative = 0.0;
-    
+
+        double x = 0.0;
+        double h = 0.0;
+        double expder = 0.0;
+        double fxx = 0.0;
+
         //***************************************************************************************
         //*******************  approximation d/dx(x^2 + 3) at x = 2.0  **************************
         //***************************************************************************************
@@ -55,72 +58,34 @@ the derivative and then diverge giving unexpected results.
         maxIteration = 55;
         expder = 4.0;
         dmaceps(&eps, &ipow);
-        eabsolute = 1.0;
-    
-        printf("dmaceps =  %.8e\n", eps);
-        printf("x = %lf\n", x);
-        printf("d/dx(x^2 + 3) = %.12lf\n\n", expder);
-    
-        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
-        printf("--------------------------------------------------------------------------------------------\n");
-    
-        while ( (eabsolute > eps) && maxIteration > 0 ) {
-    
-            maxIteration--;
-            i++;
-    
-            fxx = derivative(fnct1, x, h);
-    
-            eabsolute = eabs(fxx, expder);
-            erelative = erel(fxx, expder);
-    
-            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
-            h = h / 2.0;
-    
-        }
-        printf("\n\n\n");
-    
+
+        printf("approximation for d/dx(x^2 + 3)\n");
+
+        fxx = expderivative(fnct1, x, h, eps, maxIteration, expder);
+
+
+
         //***************************************************************************************
         //*******************  approximation for d/dx(e^x) at x = 2.0  **************************
         //***************************************************************************************
-    
-        expder = 7.38905609893;
-        eabsolute = 1.0;
         x = 2.0;
         h = 1.0;
-        i = 0;
         maxIteration = 55;
-    
+        expder = 7.38905609893;
         dmaceps(&eps, &ipow);
-    
-        printf("dmaceps =  %.8e\n", eps);
-        printf("x = %lf\n", x);
-        printf("d/dx(e^x) = %.12lf\n\n", expder);
-    
-        printf("i\t| appoximate derivative\t\t| h\t\t| e absolute\t| e relative\n");
-        printf("--------------------------------------------------------------------------------------------\n");
-    
-        while ( (eabsolute > eps) && maxIteration > 0 ) {
-    
-            maxIteration--;
-            i++;
-    
-            fxx = derivative(exp, x, h);
-    
-            eabsolute = eabs(fxx, expder);
-            erelative = erel(fxx, expder);
-    
-            printf("%d\t| %.8e\t\t| %.3e\t| %.3e\t| %.3e\n", i, fxx, h, eabsolute, erelative);
-            h = h / 2.0;
-    
-        }
+
+        printf("approximation for d/dx(e^x)\n");
+
+        fxx = expderivative(exp, x, h, eps, maxIteration, expder);
+    }
     
 Output from the lines above:
 
+    approximation for d/dx(x^2 + 3)
     dmaceps =  1.11022302e-16
     x = 2.000000
-    d/dx(x^2 + 3) = 4.000000000000
-
+    expected derivative = 4.000000000000
+    
     i       | appoximate derivative         | h             | e absolute    | e relative
     --------------------------------------------------------------------------------------------
     1       | 5.00000000e+00                | 1.000e+00     | 1.000e+00     | 2.500e-01
@@ -150,13 +115,14 @@ Output from the lines above:
     25      | 4.00000006e+00                | 5.960e-08     | 5.960e-08     | 1.490e-08
     26      | 4.00000003e+00                | 2.980e-08     | 2.980e-08     | 7.451e-09
     27      | 4.00000000e+00                | 1.490e-08     | 0.000e+00     | 0.000e+00
-
-
-
+    
+    
+    
+    approximation for d/dx(e^x)
     dmaceps =  1.11022302e-16
     x = 2.000000
-    d/dx(e^x) = 7.389056098930
-
+    expected derivative = 7.389056098930
+    
     i       | appoximate derivative         | h             | e absolute    | e relative
     --------------------------------------------------------------------------------------------
     1       | 1.26964808e+01                | 1.000e+00     | 5.307e+00     | 7.183e-01
