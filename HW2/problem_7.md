@@ -14,26 +14,25 @@ For example,
 will produce an executable **approximation.exe** that can be executed.
 
 **Description/Purpose:** This function will compute an approximation for a root of a defined
-function f(x) given two initial guesses with a root between them. The bisection root finding
-method is based off of the intermediade value therom. Bisection tests the endpoints of an interval
-using the function f(x), checks to make sure there is a difference in the sine to make sure a root
-exists, divides the interval in half and repeats the check for each half. Itterations are done to
-reduce the interval within a specified tolerance.
+function f(x) given two initial guesses for the root (guesses do not have to brakcet the root).
+The secant root finding method uses the secant line of f(x) at the initial guesses. Where the
+secannt line crosses the x axis is the approximation for the root. Recusivly applying the new
+approximation as one of the guesses will converge to a root.
 
 **Input:** There are six inputs needed in this cases. A defined function f(x), two initial guesses
-bracketing the root (initialGuess and initialGuess1), a tolerance (eps), a maximum amount of times
-to itterate (maxIteration), and the expected value of the root (exproot) to calculate the error for
-analizing the bisection method.
+for the root (initialGuess and initialGuess1), a tolerance (eps), a maximum amount of times to
+itterate (maxIteration), and the expected value of the root (exproot) to calculate the error for
+analizing the secant method.
 
 **Output:** The function returns a double precision value that represents an approximation for the
-root of a defined function f(x) given two initial guesses bracketing the root.
+root of a defined function f(x) given two initial guesses for the root.
 
 **Usage/Example:**
 
 The code below uses two defined functions, f(x) = x^2 - 3 and f(x) = sin(Pi * x) as functions to find
-the roots of. We know that x^3 -3 has a root at sqrt(3) and sin(Pi * x) has a root at 2.0. In the
-following code, initial guesses were given that bracketed the known roots and error was calculated based
-on the known roots to analize the behavior of the bisection method.
+the roots of. We know that x^2 - 3 has a root at sqrt(3) and sin(Pi * x) has a root at 3.0. In the
+following code, two initial guesses were given relativly close to these known roots and error was
+calculated based on the known roots to analize the behavior of the secant method.
 
 
 	#include <stdio.h>
@@ -48,6 +47,7 @@ on the known roots to analize the behavior of the bisection method.
 		double root = 0.0;
 		double exproot = 0.0;
 		double initialGuess = 0.0;
+		double initialGuess1 = 0.0;
 	
 		//***************************************************************************************
 		//*******************  root finding secant method for x^2 - 3   *************************
