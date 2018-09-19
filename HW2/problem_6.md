@@ -14,10 +14,10 @@ For example,
 will produce an executable **approximation.exe** that can be executed.
 
 **Description/Purpose:** This function will compute an approximation for a root of a defined
-function f(x) given an initial guess for the root. The newton root finding method uses the
-derivative of f(x) at the initial guess for x to obtain a tangent line. Where the tangent line
-crosses the x axis is the approximation for the root. Recusivly applying the new approximation
-as a guess will converge to a root.
+function f(x) given f'(x) and an initial guess for the root. The newton root finding method
+uses the derivative of f(x) at the initial guess for x to obtain a tangent line. Where the
+tangent line crosses the x axis is the approximation for the root. Recusivly applying the new
+approximation as a guess will converge to a root.
 
 **Input:** There are six inputs needed in this cases. A defined function f(x), a defined function
 f'(x), an initial guess for the root (initialGuess), a tolerance (eps), a maximum amount of times
