@@ -9,6 +9,9 @@
   
 2. Root Finding
     * [quadratic](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/quadratic)
+    * [bisection](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/bisection)
+    * [newton](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/newton)
+    * [secant](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/secant)
     
 3. Derivative Approximation
     * [derivative](https://gbmitchell.github.io/math4610/softwareManual/derivativeApproximation/derivative)
