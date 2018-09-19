@@ -31,7 +31,7 @@ root of a defined function f(x) given two initial guesses bracketing the root.
 **Usage/Example:**
 
 The code below uses two defined functions, f(x) = x^2 - 3 and f(x) = sin(Pi * x) as functions to find
-the roots of. We know that x^3 -3 has a root at sqrt(3) and sin(Pi * x) has a root at 2.0. In the
+the roots of. We know that x^2 -3 has a root at sqrt(3) and sin(Pi * x) has a root at 2.0. In the
 following code, initial guesses were given that bracketed the known roots and error was calculated based
 on the known roots to analize the behavior of the bisection method.
 
