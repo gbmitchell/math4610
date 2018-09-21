@@ -16,9 +16,9 @@ will produce an executable **approximation.exe** that can be executed.
 **Description/Purpose:** This function will compute an approximation for a root of a defined
 function f(x) given f'(x) and two initial values for an interval on which a root exists. The
 hybrid newton root finding method starts with one iteration of the newton method. If the value
-from the first iteration of the newton method does not fall within the interval specified then
-bisection is implimented to narrowthe interval by an error of about 10^(-1). Another iteration
-of newtons method is done and if the result falls within the narrowed interval then newtons
+from the first iteration of the newton method does not fall within the interval specified, then
+bisection is implimented to narrow the interval by an error of about 10^(-1). Another iteration
+of newtons method is done and if the result falls within the narrowed interval, then newtons
 method is used to finish the approximation to an error of 10^(-10). The idea is to bring the
 interval close enough with bisection and then finish with newtons method to find the root faster
 than just using bisection.
@@ -206,9 +206,9 @@ Output from the lines above:
 
 The result in both cases is convergence to an approximation of a bracketed root for the defined functions f(x).
 In each case the hybrid routine starts with one iteration of the newton method. If the value from the first
-iteration of the newton method does not fall within the interval specified then bisection is implimented to narrow
+iteration of the newton method does not fall within the interval specified, then bisection is implimented to narrow
 the interval by an error of about 10^(-1). Another iteration of newtons method is done and if the result falls
-within the narrowed interval then newtons method is used to finish the approximation to an error of 10^(-10). Each
+within the narrowed interval, then newtons method is used to finish the approximation to an error of 10^(-10). Each
 stage of the hybrid newton method is displayed in the data above, this includes the different iterations for newtons
 and bisection methods.
 
