@@ -8,3 +8,4 @@
 * [HW1 Problem 7](https://gbmitchell.github.io/math4610/HW1/problem_7)
 * [HW1 Problem 8](https://gbmitchell.github.io/math4610/HW1/problem_8)
 * [HW1 Problem 9](https://gbmitchell.github.io/math4610/HW1/problem_9)
+* [HW1 Problem 10](https://gbmitchell.github.io/math4610/HW1/problem_10)
