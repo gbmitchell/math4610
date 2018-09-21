@@ -12,6 +12,8 @@
     * [bisection](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/bisection)
     * [newton](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/newton)
     * [secant](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/secant)
+    * [hybrid newton](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/hybridNewton)
+    * [hybrid secant](https://gbmitchell.github.io/math4610/softwareManual/rootFinding/hybridSecant)
     
 3. Derivative Approximation
     * [derivative](https://gbmitchell.github.io/math4610/softwareManual/derivativeApproximation/derivative)
