@@ -17,7 +17,7 @@ will produce an executable **approximation.exe** that can be executed.
 function f(x) given two initial values for an interval on which a root exists. The hybrid
 secant root finding method starts with two iterations of the secant method. If the value
 from the first two iterations of the secant method do not fall within the interval specified,
-then bisection is implimented to narrowthe interval by an error of about 10^(-1). Another two
+then bisection is implimented to narrow the interval by an error of about 10^(-1). Another two
 iterations of the secant method are done and if the result falls within the narrowed interval
 then the secant method is used to finish the approximation to an error of 10^(-10). The idea is
 to bring the interval close enough to the root with bisection and then finish with the secant
