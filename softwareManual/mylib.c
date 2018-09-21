@@ -143,7 +143,8 @@ double fnct9(double x) {
 
 int bisMaxItr(double a, double b, double tol) {
 
-	int x = ((log(tol / fabs(b - a)) / log(2)) / (log(0.5) / log(2))) + 1;
+	int x = ((log(tol / fabs(b - a)) / log(2)) / (log(0.5) / log(2)));
+	if (x < 1) x = 1;
 	return x;
 }
 
@@ -156,7 +157,7 @@ double fixed1(double(*f)(double), double xn, double tol, int maxItr, double expr
 	double erelative = 0.0;
 
 	printf("fixed point approximation for f(x) = sin(Pi*x), where g(x) = x + ( f(x)/10 )\n");
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("Initial value = %.1lf\n", xn);
 	printf("expected root = %.8lf\n\n", exproot);
 	printf("i\t| Xn\t\t\t| Xn+1\t\t\t|  e absolute\t| e relative\n");
@@ -192,7 +193,7 @@ double fixed2(double(*f)(double), double xn, double tol, int maxItr, double expr
 	double erelative = 0.0;
 
 	printf("fixed point approximation for f(x) = ( x^2 - 3 ), where g(x) = x - ( f(x)/10 )\n");
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("Initial value = %lf\n", xn);
 	printf("expected root = %.8lf\n\n", exproot);
 	printf("i\t| Xn\t\t\t| Xn+1\t\t\t| e absolute\t| e relative\n");
@@ -228,7 +229,7 @@ double expderivative(double(*f)(double), double x, double h, double tol, int max
 	double eabsolute = 0.0;
 	double erelative = 0.0;
 
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("x = %lf\n", x);
 	printf("expected derivative = %.12lf\n\n", expder);
 
@@ -257,7 +258,7 @@ double expderivative(double(*f)(double), double x, double h, double tol, int max
 }
 
 
-double expbisection(double(*f)(double), double a, double b, int tol, int maxItr, double exproot) {
+double expbisection(double(*f)(double), double a, double b, double tol, int maxItr, double exproot) {
 	int i = 0;
 	double c = 0.0;
 	double Fxc = 1.0;
@@ -267,10 +268,10 @@ double expbisection(double(*f)(double), double a, double b, int tol, int maxItr,
 	double eabsolute = 0.0;
 	double erelative = 0.0;
 
-	printf("max itterations = %d, for tollerence = %.8e\n", maxItr, tol);
-	printf("Lower initial value = %.1lf, Upper initial value = %.1lf\n\n", a, b);
+	printf("max itterations = %d, for tollerence = %.3e\n", maxItr, tol);
+	printf("Lower initial value = %.1lf, Upper initial value = %.1lf\n", a, b);
 	printf("expected root = %.12lf\n\n", exproot);
-	printf("i\t| root\t\t\t| e absolute\t| e relative\n");
+	printf("i\t| root bisection\t\t| e absolute\t| e relative\n");
 	printf("--------------------------------------------------------------------------------------------\n");
 
 	if ((Fxa * Fxb) < 0.0) {
@@ -341,10 +342,10 @@ double expnewton(double(*f)(double), double(*fp)(double), double x, double tol, 
 	double eabsolute = 0.0;
 	double erelative = 0.0;
 
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("Initial value = %lf\n", x);
 	printf("expected root = %.12lf\n\n", exproot);
-	printf("i\t| root\t\t\t| e absolute\t| e relative\n");
+	printf("i\t| root newton\t\t| e absolute\t| e relative\n");
 	printf("--------------------------------------------------------------------------------------------\n");
 
 	eabsolute = 10.0 * tol;
@@ -378,11 +379,11 @@ double expsecant(double(*f)(double), double xa, double xb, double tol, int maxIt
 	double eabsolute = 0.0;
 	double erelative = 0.0;
 
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("Initial values = %lf and %lf\n", xa, xb);
 	printf("expected root = %.12lf\n\n", exproot);
 
-	printf("i\t| root\t\t\t| e absolute\t| e relative\n");
+	printf("i\t| root secant\t\t| e absolute\t| e relative\n");
 	printf("--------------------------------------------------------------------------------------------\n");
 
 	eabsolute = 10.0 * tol;
@@ -411,7 +412,255 @@ double expsecant(double(*f)(double), double xa, double xb, double tol, int maxIt
 }
 
 
-double derivative(double(*f)(double), double x, double h, int maxItr) {
+
+double expNewtonHybrid(double(*f)(double), double(*fp)(double), double a, double b, double tol, int maxItr, double exproot) {
+	int i = 0, j = 0;
+	double c = 0.0;
+	double Fxc = 1.0;
+	double Fxa = f(a);
+	double Fxb = f(b);
+	double root = 0.0;
+	double eabsolute = 0.0;
+	double erelative = 0.0;
+	double initialGuess = 0.0;
+	double prec1 = 0.1;
+	int maxIteration = 0;
+
+	eabsolute = 10.0 * tol;
+
+	while ((eabsolute > tol) && maxItr > 0) {
+
+		maxItr--;
+		j++;
+
+		initialGuess = (a + b) / 2;
+		maxIteration = 1;
+
+		root = expnewton(f, fp, initialGuess, tol, maxIteration, exproot);
+		
+		if (root >= a && root <= b) {
+			maxIteration = 10;
+			initialGuess = root;
+			root = expnewton(f, fp, initialGuess, tol, maxIteration, exproot);
+
+			printf("expected root = %.12lf\n\n", exproot);
+			printf("j\t| root hybrid newton\t| e absolute\t| e relative\n");
+			printf("--------------------------------------------------------------------------------------------\n");
+			eabsolute = eabs(root, exproot);
+			erelative = erel(root, exproot);
+			printf("%d\t| %.8e\t| %.3e\t| %.3e\n", j, root, eabsolute, erelative);
+			printf("\n\n\n\n");
+			break;
+		}
+		else {
+			maxIteration = bisMaxItr(a, b, prec1);
+
+			printf("max itterations = %d, for tollerence = %.3e\n", maxIteration, prec1);
+			printf("Lower initial value = %.3lf, Upper initial value = %.3lf\n", a, b);
+			printf("expected root = %.12lf\n\n", exproot);
+			printf("i\t| root bisection\t| e absolute\t| e relative\n");
+			printf("--------------------------------------------------------------------------------------------\n");
+
+			if ((Fxa * Fxb) < 0.0) {
+				i = 0;
+				while (maxIteration > 0) {
+
+					maxIteration--;
+					i++;
+
+					c = (a + b) / 2.0;
+
+					Fxc = f(c);
+
+					if ((Fxa * Fxc) < 0.0) {
+						b = c;
+						Fxb = f(b);
+					}
+					else if ((Fxa * Fxc) > 0.0) {
+						a = c;
+						Fxa = f(a);
+					}
+					else {
+						eabsolute = eabs(c, exproot);
+						erelative = erel(c, exproot);
+						printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, c, eabsolute, erelative);
+						break;
+					}
+					eabsolute = eabs(c, exproot);
+					erelative = erel(c, exproot);
+					printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, c, eabsolute, erelative);
+				}
+
+				root = c;
+
+			}
+			else if ((Fxa * Fxb) == 0.0) {
+
+				if (Fxa == 0) {
+					root = a;
+					eabsolute = eabs(a, exproot);
+					erelative = erel(a, exproot);
+					printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, a, eabsolute, erelative);
+				}
+				if (Fxb == 0) {
+					root = b;
+					eabsolute = eabs(b, exproot);
+					erelative = erel(b, exproot);
+					printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, b, eabsolute, erelative);
+				}
+
+			}
+			else {
+
+				printf("\n\nThere is no root or an even number of roots between the upper and lower initial values.");
+				root = 0.0;
+			}
+
+			printf("\n\n\n");
+
+		}
+
+
+		printf("expected root = %.12lf\n\n", exproot);
+		printf("j\t| root hybrid newton\t| e absolute\t| e relative\n");
+		printf("--------------------------------------------------------------------------------------------\n");
+		eabsolute = eabs(root, exproot);
+		erelative = erel(root, exproot);
+		printf("%d\t| %.8e\t| %.3e\t| %.3e\n", j, root, eabsolute, erelative);
+		printf("\n\n\n\n");
+	}
+
+
+	return root;
+}
+
+
+
+double expSecantHybrid(double(*f)(double), double a, double b, double tol, int maxItr, double exproot) {
+	int i = 0, j = 0;
+	double c = 0.0;
+	double Fxc = 1.0;
+	double Fxa = f(a);
+	double Fxb = f(b);
+	double root = 0.0;
+	double eabsolute = 0.0;
+	double erelative = 0.0;
+	double initialGuess = 0.0;
+	double prec1 = 0.1;
+	int maxIteration = 0;
+	//double temp = 0.0;
+
+	eabsolute = 10.0 * tol;
+
+	while ((eabsolute > tol) && maxItr > 0) {
+
+		maxItr--;
+		j++;
+
+		maxIteration = 2;
+
+		root = expsecant(f, a, b, tol, maxIteration, exproot);
+
+		if (root >= a && root <= b) {
+			maxIteration = 10;
+
+			root = expsecant(f, a, b, tol, maxIteration, exproot);
+
+			printf("expected root = %.12lf\n\n", exproot);
+			printf("j\t| root hybrid secant\t| e absolute\t| e relative\n");
+			printf("--------------------------------------------------------------------------------------------\n");
+			eabsolute = eabs(root, exproot);
+			erelative = erel(root, exproot);
+			printf("%d\t| %.8e\t| %.3e\t| %.3e\n", j, root, eabsolute, erelative);
+			printf("\n\n\n\n");
+			break;
+		}
+		else {
+
+			maxIteration = bisMaxItr(a, b, prec1);
+
+			printf("max itterations = %d, for tollerence = %.3e\n", maxIteration, prec1);
+			printf("Lower initial value = %.3lf, Upper initial value = %.3lf\n", a, b);
+			printf("expected root = %.12lf\n\n", exproot);
+			printf("i\t| root bisection\t| e absolute\t| e relative\n");
+			printf("--------------------------------------------------------------------------------------------\n");
+
+			if ((Fxa * Fxb) < 0.0) {
+				i = 0;
+				while (maxIteration > 0) {
+
+					maxIteration--;
+					i++;
+
+					c = (a + b) / 2.0;
+
+					Fxc = f(c);
+
+					if ((Fxa * Fxc) < 0.0) {
+						b = c;
+						Fxb = f(b);
+					}
+					else if ((Fxa * Fxc) > 0.0) {
+						a = c;
+						Fxa = f(a);
+					}
+					else {
+						eabsolute = eabs(c, exproot);
+						erelative = erel(c, exproot);
+						printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, c, eabsolute, erelative);
+						break;
+					}
+					eabsolute = eabs(c, exproot);
+					erelative = erel(c, exproot);
+					printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, c, eabsolute, erelative);
+				}
+
+				root = c;
+
+			}
+			else if ((Fxa * Fxb) == 0.0) {
+
+				if (Fxa == 0) {
+					root = a;
+					eabsolute = eabs(a, exproot);
+					erelative = erel(a, exproot);
+					printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, a, eabsolute, erelative);
+				}
+				if (Fxb == 0) {
+					root = b;
+					eabsolute = eabs(b, exproot);
+					erelative = erel(b, exproot);
+					printf("%d\t| %.8e\t| %.3e\t| %.3e\n", i, b, eabsolute, erelative);
+				}
+
+			}
+			else {
+
+				printf("\n\nThere is no root or an even number of roots between the upper and lower initial values.");
+				root = 0.0;
+			}
+
+			printf("\n\n\n");
+
+		}
+
+
+		printf("expected root = %.12lf\n\n", exproot);
+		printf("j\t| root hybrid secant\t| e absolute\t| e relative\n");
+		printf("--------------------------------------------------------------------------------------------\n");
+		eabsolute = eabs(root, exproot);
+		erelative = erel(root, exproot);
+		printf("%d\t| %.8e\t| %.3e\t| %.3e\n", j, root, eabsolute, erelative);
+		printf("\n\n\n\n");
+	}
+
+
+	return root;
+}
+
+
+
+double derivative(double(*f)(double), double x, double h, double tol, int maxItr) {
 
 	int i = 0;
 	double fp = 0.0;
@@ -447,7 +696,7 @@ double bisection(double(*f)(double), double a, double b, double tol, int maxItr)
 	double Fxb = f(b);
 	double root = 0.0;
 
-	printf("max itterations = %d, for tollerence = %.8e\n", maxItr, tol);
+	printf("max itterations = %d, for tollerence = %.3e\n", maxItr, tol);
 	printf("Lower initial value = %.1lf, Upper initial value = %.1lf\n\n", a, b);
 	printf("i\t| root\n");
 	printf("--------------------------------------------------------------------------------------------\n");
@@ -510,7 +759,7 @@ double newton(double(*f)(double), double(*fp)(double), double x, double tol, int
 	int i = 0;
 	double fxn1 = 0.0;
 
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("Initial value = %lf\n", x);
 	printf("i\t| root\n");
 	printf("--------------------------------------------------------------------------------------------\n");
@@ -538,7 +787,7 @@ double secant(double(*f)(double), double xa, double xb, double tol, int maxItr) 
 	int i = 0;
 	double fxn1 = 0.0;
 
-	printf("dmaceps =  %.8e\n", tol);
+	printf("tolerance =  %.3e\n", tol);
 	printf("Initial values = %lf and %lf\n", xa, xb);
 
 	printf("i\t| root\n");

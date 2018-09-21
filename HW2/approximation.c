@@ -23,6 +23,10 @@ int main() {
 
 	double initialGuess = 0.0;
 	double initialGuess1 = 0.0;
+
+	double prec1 = 0.1; // 1 * 10^(-1)
+	double prec10 = 0.0000000001; // 1 * 10^(-10)
+
 	
 
 	//***************************************************************************************
@@ -194,6 +198,7 @@ int main() {
 	exproot = sqrt(3);
 	dmaceps(&eps, &ipow);
 	maxIteration = bisMaxItr(initialGuess, initialGuess1, eps);
+	dmaceps(&eps, &ipow);
 
 	printf("bisection method approximation for f(x) = ( x^2 - 3 )\n");
 
@@ -209,6 +214,7 @@ int main() {
 	exproot = 2.0;
 	dmaceps(&eps, &ipow);
 	maxIteration = bisMaxItr(initialGuess, initialGuess1, eps);
+	dmaceps(&eps, &ipow);
 
 	printf("bisection method approximation for f(x) = sin(Pi * x)\n");
 
@@ -271,6 +277,67 @@ int main() {
 	printf("secant method approximation for f(x) = sin(Pi * x)\n");
 
 	root = expsecant(fnct6, initialGuess, initialGuess1, eps, maxIteration, exproot);
+
+
+
+	//***************************************************************************************
+	//***************  root finding hybrid newton method for x^2 - 3   **********************
+	//***************************************************************************************
+	initialGuess = -1.54;
+	initialGuess1 = 1.74;
+	exproot = sqrt(3);
+	maxIteration = 10;
+	dmaceps(&eps, &ipow);
+
+	printf("hybrid newton method approximation for f(x) = ( x^2 - 3 )\n\n");
+
+	root = expNewtonHybrid(fnct4, fnct5, initialGuess, initialGuess1, prec10, maxIteration, exproot);
+
+
+
+	//***************************************************************************************
+	//***************  root finding hybrid newton method for sin(Pi * x) ********************
+	//***************************************************************************************
+	initialGuess = 2.99;
+	initialGuess1 = 3.99;
+	exproot = 3.0;
+	maxIteration = 50;
+	dmaceps(&eps, &ipow);
+
+	printf("hybrid newton method approximation for f(x) = sin(Pi * x)\n\n");
+
+	root = expNewtonHybrid(fnct6, fnct7, initialGuess, initialGuess1, prec10, maxIteration, exproot);
+
+
+
+
+	//***************************************************************************************
+	//***************  root finding hybrid secant method for x^2 - 3   **********************
+	//***************************************************************************************
+	initialGuess = -1.54;
+	initialGuess1 = 1.74;
+	exproot = sqrt(3);
+	maxIteration = 10;
+	dmaceps(&eps, &ipow);
+
+	printf("hybrid secant method approximation for f(x) = ( x^2 - 3 )\n\n");
+
+	root = expSecantHybrid(fnct4, initialGuess, initialGuess1, prec10, maxIteration, exproot);
+
+
+
+	//***************************************************************************************
+	//***************  root finding hybrid secant method for sin(Pi * x) ********************
+	//***************************************************************************************
+	initialGuess = 2.99;
+	initialGuess1 = 3.99;
+	exproot = 3.0;
+	maxIteration = 10;
+	dmaceps(&eps, &ipow);
+
+	printf("hybrid secant method approximation for f(x) = sin(Pi * x)\n\n");
+
+	root = expSecantHybrid(fnct6, initialGuess, initialGuess1, prec10, maxIteration, exproot);
 
 	return 0;
 }
