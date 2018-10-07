@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 4.
+Homework 3 problem 4a.
 
-**Routine Name:**           smaceps
+**Routine Name:**           L1-norm
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,198 @@ Homework 3 problem 4.
 
 For example,
 
-    smaceps.c
+    norms.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This function will compute a double precision value for the L1-norm given a vector. The function was developed to compute the L1-norm of a vector with three elements or vector length of three. The L1-norm is used to give some sence of a magnitude for the given vector. The L1-norm for a vector is computed by summing the absolute value of each element of the vector.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are two inputs needed in this case. The vector (u) of length three is passed to the function by reference. An argument for the length (len) of the vector is also passed to the function.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This function returns a double precision value (ia) which represents the L1-norm of the input vector.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+The function has two arguments needed to compute and return the value for L1-norm of the vector. The vector u of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the L1-norm for the vector u. 
 
-    #include <stdio.h>
-    #include <math.h>
+    #include "mylib.h"
     
     int main() {
+        int i = 0;
+        int len = 0;
+        double ia = 0.0;
+        double u[3] = { 1.0, 2.0, 3.0 };
     
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
-        return 0;
+        len = sizeof(u) / 8;
+    
+        printf("\n\nVector u =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", u[i]);
+        }
+    
+        ia = vectorNormL1(u, len);
+        printf("\n\nL1 norm of u = %.3lf", ia);
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
-
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
-
-**Implementation/Code:** The following is the code for smaceps()
-
-    void smaceps(float *seps, int *ipow) {
+    Vector u =
+    1.000
+    2.000
+    3.000
     
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
+    L1 norm of u = 6.000
+
+The sum of the absolute values in the vector u are 1 + 2 + 3 = 6.
+
+**Implementation/Code:** The following is the code for vectorNormL1()
+
+    double vectorNormL1(double up[3], int len) {
         int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
-
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
+        double ia = 0.0;
+        for (i = 0; i < len; i++) {
+            ia = ia + fabs(up[i]);
         }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
+        return ia;
     }
 
-**Last Modified:** September/2018
+# Math 4610 Fundamentals of Computational Mathematics
+Homework 3 problem 4b.
+
+**Routine Name:**           L2-norm
+
+**Author:** Gary Mitchell
+
+**Language:** C. The code can be compiled using the Microsoft Visual C compiler.
+
+For example,
+
+    norms.c
+
+will produce an executable **norms.exe** that can be executed.
+
+**Description/Purpose:** This function will compute a double precision value for the L2-norm given a vector. The function was developed to compute the L2-norm of a vector with three elements or vector length of three. The L2-norm is used to give some sence of a magnitude for the given vector. The L2-norm for a vector is computed by summing the squre of each element of the vector and then take the square root of the sum.
+
+**Input:** There are two inputs needed in this case. The vector (u) of length three is passed to the function by reference. An argument for the length (len) of the vector is also passed to the function.
+
+**Output:** This function returns a double precision value (ia) which represents the L2-norm of the input vector.
+
+**Usage/Example:**
+
+The function has two arguments needed to compute and return the value for L2-norm of the vector. The vector u of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the L2-norm for the vector u. 
+
+    #include "mylib.h"
+    
+    int main() {
+        int i = 0;
+        int len = 0;
+        double ia = 0.0;
+        double u[3] = { 1.0, 2.0, 3.0 };
+    
+        len = sizeof(u) / 8;
+    
+        printf("\n\nVector u =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", u[i]);
+        }
+    
+        ia = vectorNormL2(u, len);
+        printf("\n\nL2 norm of u = %.3lf", ia);
+    }
+
+Output from the lines above:
+
+    Vector u =
+    1.000
+    2.000
+    3.000
+    
+    L2 norm of u = 3.742
+
+The sum of the squared values in the vector u are (1 * 1) + (2 * 2) + (3 * 3) = 14, then the L2-norm = sqrt(14) = 3.742.
+
+**Implementation/Code:** The following is the code for vectorNormL2()
+
+    double vectorNormL2(double up[3], int len) {
+        int i = 0;
+        double ia = 0.0;
+        for (i = 0; i < len; i++) {
+            ia = ia + (up[i] * up[i]);
+        }
+        ia = sqrt(ia);
+        return ia;
+    }
+
+# Math 4610 Fundamentals of Computational Mathematics
+Homework 3 problem 4c.
+
+**Routine Name:**           Infinity-norm
+
+**Author:** Gary Mitchell
+
+**Language:** C. The code can be compiled using the Microsoft Visual C compiler.
+
+For example,
+
+    norms.c
+
+will produce an executable **norms.exe** that can be executed.
+
+**Description/Purpose:** This function will compute a double precision value for the Infinity-norm given a vector. The function was developed to compute the Infinity-norm of a vector with three elements or vector length of three. The Infinity-norm is used to give some sence of a magnitude for the given vector. The Infinity-norm for a vector is computed by identifying which element of the vector is the  maximum.
+
+**Input:** There are two inputs needed in this case. The vector (u) of length three is passed to the function by reference. An argument for the length (len) of the vector is also passed to the function.
+
+**Output:** This function returns a double precision value (ia) which represents the Infinity-norm of the input vector.
+
+**Usage/Example:**
+
+The function has two arguments needed to compute and return the value for Infinity-norm of the vector. The vector u of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the Infinity-norm for the vector u. 
+
+    #include "mylib.h"
+    
+    int main() {
+        int i = 0;
+        int len = 0;
+        double ia = 0.0;
+        double u[3] = { 1.0, 2.0, 3.0 };
+    
+        len = sizeof(u) / 8;
+    
+        printf("\n\nVector u =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", u[i]);
+        }
+    
+        ia = vectorNormInfinity(u, len);
+        printf("\n\nInfinity norm of u = %.3lf", ia);
+    }
+
+Output from the lines above:
+
+    Vector u =
+    1.000
+    2.000
+    3.000
+    
+    Infinity norm of u = 3.000
+
+The maximum value out of the vector elements 1.0, 2.0, and 3.0 is 3.0, therefore the Infinity-norm of the vector u is 3.0.
+
+**Implementation/Code:** The following is the code for vectorNormInfinity()
+
+    double vectorNormInfinity(double up[3], int len) {
+        int i = 0;
+        double ia = 0.0;
+        ia = fabs(up[0]);
+        for (i = 0; i < len; i++) {
+            if (fabs(up[i]) > ia) {
+                ia = fabs(up[i]);
+            }
+        }
+        return ia;
+    }
+
+**Last Modified:** October/2018
