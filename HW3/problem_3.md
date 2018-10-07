@@ -408,4 +408,4 @@ The output shows the value for the vectors u and v as well as the resulting cros
         ap[2] = (up[0] * vp[1]) - (up[1] * vp[0]);
     }
 
-**Last Modified:** September/2018
+**Last Modified:** October/2018
