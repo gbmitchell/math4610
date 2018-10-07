@@ -94,11 +94,11 @@ will produce an executable **matrixMath.exe** that can be executed.
 
 **Input:** There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
 
-**Output:** The function returns a double precision value ia which represents the L1-norm of the input matrix.
+**Output:** The function returns a double precision value max which represents the L1-norm of the input matrix.
 
 **Usage/Example:**
 
-There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value ia which represents the L1-norm of the input matrix A. 
+There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value max which represents the L1-norm of the input matrix A. 
 
     #include "mylib.h"
     
@@ -175,11 +175,11 @@ will produce an executable **matrixMath.exe** that can be executed.
 
 **Input:** There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
 
-**Output:** The function returns a double precision value ia which represents the Infinity-norm of the input matrix.
+**Output:** The function returns a double precision value max which represents the Infinity-norm of the input matrix.
 
 **Usage/Example:**
 
-There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value ia which represents the Infinity-norm of the input matrix A.
+There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value max which represents the Infinity-norm of the input matrix A.
 
     #include "mylib.h"
     
