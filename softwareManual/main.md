@@ -18,8 +18,8 @@
 3. Derivative Approximation
     * [derivative](https://gbmitchell.github.io/math4610/softwareManual/derivativeApproximation/derivative)
  
-4. Matrix Operations
-    * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/matrixOperations/smaceps)
+4. Matrix and Vector Operations
+    * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/smaceps)
  
 5. Linear Solvers
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/smaceps)
