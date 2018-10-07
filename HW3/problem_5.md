@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 5.
+Homework 3 problem 3a.
 
-**Routine Name:**           smaceps
+**Routine Name:**           vectorAdd
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,78 @@ Homework 3 problem 5.
 
 For example,
 
-    smaceps.c
+    vectorMath.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **vectorMath.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This function will add two vectors of the same size and the computation is done in double precision. 
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are four inputs needed in this case. Vectors u, v, and a are arguments passed by reference and len is an argument passed to the function to indicate the length of the vectors. The real purpose is to produce values in the vector a that represent the result of u + v.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This function doesnt return a value. Because the vector a was passed by reference, the function can modify the vector a to produce the result of adding the vectors u and v. The resulting vector a can then be used in the main program as needed.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+There are four inputs needed in this case. Vectors u, v, and a are arguments passed by reference and len is an argument passed to the function to indicate the length of the vectors. This function doesnt return a value. Because the vector a was passed by reference, the function can modify the vector a to produce the result of adding the vectors u and v. The resulting vector a can then be used in the main program as needed.
 
-    #include <stdio.h>
-    #include <math.h>
+    #include "mylib.h"
     
     int main() {
+        int i = 0;
+        int len = 0;
+        double u[3] = { 1, 2, 3 };
+        double v[3] = { 8, -7, 6 };
+        double a[3] = { 0 };
     
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
-        return 0;
+        len = sizeof(u) / 8;
+    
+        printf("\n\nVector u =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", u[i]);
+        }
+    
+        printf("\n\nVector v =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", v[i]);
+        }
+    
+        printf("\n\nu + v =\n");
+    
+        vectorAdd(u, v, a, len);
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", a[i]);
+        }
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
-
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
-
-**Implementation/Code:** The following is the code for smaceps()
-
-    void smaceps(float *seps, int *ipow) {
+    Vector u =
+    1.000
+    2.000
+    3.000
     
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
+    Vector v =
+    8.000
+    -7.000
+    6.000
+    
+    u + v =
+    9.000
+    -5.000
+    9.000
+
+The output shows the value for the vectors u and v as well as the result of adding the two vectors.
+
+**Implementation/Code:** The following is the code for vectorAdd()
+
+    void vectorAdd(double up[3], double vp[3], double ap[3], int len) {
         int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
-
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
+        for (i = 0; i < len; i++) {
+            ap[i] = up[i] + vp[i];
         }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
     }
 
-**Last Modified:** September/2018
+**Last Modified:** October/2018
