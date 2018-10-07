@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 3a.
+Homework 3 problem 5a.
 
-**Routine Name:**           vectorAdd
+**Routine Name:**           matrixAdd
 
 **Author:** Gary Mitchell
 
@@ -9,9 +9,9 @@ Homework 3 problem 3a.
 
 For example,
 
-    vectorMath.c
+    matrixMath.c
 
-will produce an executable **vectorMath.exe** that can be executed.
+will produce an executable **matrixMath.exe** that can be executed.
 
 **Description/Purpose:** This function will add two vectors of the same size and the computation is done in double precision. 
 
