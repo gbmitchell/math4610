@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 1a.
 
-**Routine Name:**           L1-norm
+**Routine Name:**           vectorNormL1
 
 **Author:** Gary Mitchell
 
@@ -68,7 +68,7 @@ The sum of the absolute values in the vector u are 1 + 2 + 3 = 6.
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 1b.
 
-**Routine Name:**           L2-norm
+**Routine Name:**           vectorNormL2
 
 **Author:** Gary Mitchell
 
@@ -136,7 +136,7 @@ The sum of the squared values in the vector u are (1 * 1) + (2 * 2) + (3 * 3) = 
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 1c.
 
-**Routine Name:**           Infinity-norm
+**Routine Name:**           vectorNormInfinity
 
 **Author:** Gary Mitchell
 
