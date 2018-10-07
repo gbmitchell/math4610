@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 2.
+Homework 3 problem 2a.
 
-**Routine Name:**           smaceps
+**Routine Name:**           vectorErrorAbsoluteL1
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,170 @@ Homework 3 problem 2.
 
 For example,
 
-    smaceps.c
+    norms.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+The function has three input arguments needed to produce the absolute error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
 
-    #include <stdio.h>
-    #include <math.h>
-    
+    #include "mylib.h"
+
     int main() {
+        int i = 0;
+        int len = 0;
+        double eabs = 0.0;
+        double erel = 0.0;
+        double x[3] = { -1.25, 2.125, 3.0625 };
+        double y[3] = { -1.0, 2.0, 3.0 };
+        double a[3] = { 0.0 };
     
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
-        return 0;
+        len = sizeof(x) / 8;
+    
+        int main() {
+    
+        printf("\n\nExact Vector x =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", x[i]);
+        }
+    
+        printf("\n\nApproximate Vector y =\n");
+    
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", y[i]);
+        }
+    
+        eabs = vectorErrorAbsoluteL1(x, y, len);
+        printf("\n\ne = x - y");
+        printf("\nL1 norm of e = L1 eabs = %.3lf", eabs);
+    
+        erel = vectorErrorRelativeL1(x, y, len);
+        printf("\n\neabs/L1 norm of x = L1 erel = %.3lf", erel);
+    
+        eabs = vectorErrorAbsoluteL2(x, y, len);
+        printf("\n\ne = x - y");
+        printf("\nL2 norm of e = L2 eabs = %.3lf", eabs);
+    
+        erel = vectorErrorRelativeL2(x, y, len);
+        printf("\n\neabs/L2 norm of x = L2 erel = %.3lf", erel);
+    
+        eabs = vectorErrorAbsoluteInfinity(x, y, len);
+        printf("\n\ne = x - y");
+        printf("\nInfinity norm of e = Infinity eabs = %.3lf", eabs);
+    
+        erel = vectorErrorRelativeInfinity(x, y, len);
+        printf("\n\neabs/Infinity norm of x = Infinity erel = %.3lf", erel);
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
-
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
-
-**Implementation/Code:** The following is the code for smaceps()
-
-    void smaceps(float *seps, int *ipow) {
+    Exact Vector x =
+    -1.250
+    2.125
+    3.063
     
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+    Approximate Vector y =
+    -1.000
+    2.000
+    3.000
+    
+    e = x - y
+    L1 norm of e = L1 eabs = 0.438
+    
+    eabs/L1 norm of x = L1 erel = 0.068
+    
+    e = x - y
+    L2 norm of e = L2 eabs = 0.286
+    
+    eabs/L2 norm of x = L2 erel = 0.073
+    
+    e = x - y
+    Infinity norm of e = Infinity eabs = 0.250
+    
+    eabs/Infinity norm of x = Infinity erel = 0.082
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
-        }
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, in this case L1-eabs = 0.438.
 
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
+**Implementation/Code:** The following is the code for vectorErrorAbsoluteL1()
 
-        return;
+    double vectorErrorAbsoluteL1(double xp[3], double yp[3], int len) {
+    
+        double eabs = 0.0;
+        double e[3] = { 0 };
+    
+        vectorSub(xp, yp, e, len);
+    
+        eabs = vectorNormL1(e, len);
+    
+        return eabs;
+    }
+    
+    double vectorErrorRelativeL1(double xp[3], double yp[3], int len) {
+    
+        double erel = 0.0;
+        double a = 0.0;
+    
+        a = vectorNormL1(xp, len);
+    
+        erel = ( vectorErrorAbsoluteL1(xp, yp, len) ) / a;
+    
+        return erel;
+    }
+    
+    double vectorErrorAbsoluteL2(double xp[3], double yp[3], int len) {
+    
+        double eabs = 0.0;
+        double e[3] = { 0 };
+    
+        vectorSub(xp, yp, e, len);
+    
+        eabs = vectorNormL2(e, len);
+    
+        return eabs;
+    }
+    
+    double vectorErrorRelativeL2(double xp[3], double yp[3], int len) {
+    
+        double erel = 0.0;
+        double a = 0.0;
+    
+        a = vectorNormL2(xp, len);
+    
+        erel = (vectorErrorAbsoluteL2(xp, yp, len)) / a;
+    
+        return erel;
+    }
+    
+    double vectorErrorAbsoluteInfinity(double xp[3], double yp[3], int len) {
+    
+        double eabs = 0.0;
+        double e[3] = { 0 };
+    
+        vectorSub(xp, yp, e, len);
+    
+        eabs = vectorNormInfinity(e, len);
+    
+        return eabs;
+    }
+    
+    double vectorErrorRelativeInfinity(double xp[3], double yp[3], int len) {
+    
+        double erel = 0.0;
+        double a = 0.0;
+    
+        a = vectorNormInfinity(xp, len);
+    
+        erel = (vectorErrorAbsoluteInfinity(xp, yp, len)) / a;
+    
+        return erel;
     }
 
-**Last Modified:** September/2018
+**Last Modified:** October/2018
