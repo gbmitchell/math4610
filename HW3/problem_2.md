@@ -13,7 +13,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -97,15 +97,15 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The L1-norm of the difference divided by the L1-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
-**Output:** This function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
+**Output:** This function returns a double precision value erel which represents the relative error between the two input vectors x and y.
 
 **Usage/Example:**
 
-The function has three input arguments needed to produce the absolute error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
+The function has three input arguments needed to produce the relative error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value erel which represents the relative error between the two input vectors x and y.
 
     #include "mylib.h"
 
@@ -149,7 +149,7 @@ Output from the lines above:
     
     eabs/L1 norm of x = L1 erel = 0.068
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, in this case L1-eabs = 0.438.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, the absolute error divided by the L1-norm of x is the relative error and in this case L1-erel = 0.068.
 
 **Implementation/Code:** The following is the code for vectorErrorRelativeL1()
     
@@ -180,7 +180,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -265,15 +265,15 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The L1-norm of the difference divided by the L1-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
-**Output:** This function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
+**Output:** This function returns a double precision value erel which represents the relative error between the two input vectors x and y.
 
 **Usage/Example:**
 
-The function has three input arguments needed to produce the absolute error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
+The function has three input arguments needed to produce the relative error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value erel which represents the relative error between the two input vectors x and y.
 
     #include "mylib.h"
 
@@ -316,7 +316,7 @@ Output from the lines above:
     
     eabs/L2 norm of x = L2 erel = 0.073
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, in this case L1-eabs = 0.438.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, the absolute error divided by the L1-norm of x is the relative error and in this case L1-erel = 0.068.
 
 **Implementation/Code:** The following is the code for vectorErrorRelativeL2()
     
@@ -347,7 +347,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -432,15 +432,15 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The L1-norm of the difference divided by the L1-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
-**Output:** This function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
+**Output:** This function returns a double precision value erel which represents the relative error between the two input vectors x and y.
 
 **Usage/Example:**
 
-The function has three input arguments needed to produce the absolute error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
+The function has three input arguments needed to produce the relative error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value erel which represents the relative error between the two input vectors x and y.
 
     #include "mylib.h"
 
@@ -483,7 +483,7 @@ Output from the lines above:
     
     eabs/Infinity norm of x = Infinity erel = 0.082
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, in this case L1-eabs = 0.438.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, the absolute error divided by the L1-norm of x is the relative error and in this case L1-erel = 0.068.
 
 **Implementation/Code:** The following is the code for vectorErrorRelativeInfinity()
     
