@@ -344,7 +344,7 @@ The output shows the values for matrix A and the computed determinant for the ma
 **Implementation/Code:** The following is the code for determinantMatrix()
 
     double determinantMatrix(double A[3][3], int m) {
-        double determinant = (A[0][0]*((A[1][1]*A[2][2])-(A[1][2] * A[2][1])))-(A[0][1] * ((A[1][0] * A[2][2]) - (A[1][2] * A[2][0])))+                              (A[0][2] * ((A[1][0] * A[2][1]) - (A[1][1] * A[2][0])));
+        double determinant = (A[0][0]*((A[1][1]*A[2][2])-(A[1][2] * A[2][1])))-(A[0][1] * ((A[1][0] * A[2][2]) - (A[1][2] * A[2][0])))+(A[0][2] * ((A[1][0] * A[2][1]) - (A[1][1] * A[2][0])));
         return determinant;
     }
 
