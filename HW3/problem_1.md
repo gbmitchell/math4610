@@ -119,7 +119,7 @@ Output from the lines above:
     
     L2 norm of u = 3.742
 
-The sum of the squared values in the vector u are (1*1) + (2*2) + (3*3) = 14, the the L2-norm = sqrt(14) = 3.742.
+The sum of the squared values in the vector u are (1 * 1) + (2 * 2) + (3 * 3) = 14, then the L2-norm = sqrt(14) = 3.742.
 
 **Implementation/Code:** The following is the code for vectorNormL2()
 
