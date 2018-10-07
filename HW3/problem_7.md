@@ -23,40 +23,40 @@ will produce an executable **matrixMath.exe** that can be executed.
 
 There are five inputs needed in this case. Matrix A, vector u, and vector v are arguments passed by reference. Arguments also passed to the function are m and n to indicate the size of the matrix and vectors. The real purpose is to produce values in the vector u that represent the result of multiplying the matrix A by the vector v. This function doesnt return a value. Because the vector u was passed by reference, the function can modify the vector u to produce the result of multiplying the matrix A by the vector v. The resulting vector u can then be used in the main program as needed.
 
-    #include "mylib.h"
-    
-    int main() {
-        int i = 0;
-        int j = 0;
-        int m = 3; // rows
-        int n = 3; // col
-        double v[3] = { 1, 2, 3 };
-	double u[3] = { 0 };
-        double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
-    
-        printf("\n\nMatrix A =\n");
-    
-        for (i = 0; i < m; i++) {
-            for (j = 0; j < n; j++) {
-                printf("%.3lf\t", A[i][j]);
-            }
-            printf("\n");
-        }
-        
-        printf("\n\nVector v =\n");
-
-        for (i = 0; i < m; i++) {
-            printf("%.3lf\n", v[i]);
-        }
+	#include "mylib.h"
 	
-	parallelVectorXmatrix(A, v, u, m, n);
-
-	printf("\n\nVector u = A * v\n");
-
-	for (i = 0; i < m; i++) {
-		printf("%.3lf\n", u[i]);
-	}
-    }    
+	int main() {
+		int i = 0;
+		int j = 0;
+		int m = 3; // rows
+		int n = 3; // col
+		double v[3] = { 1, 2, 3 };
+		double u[3] = { 0 };
+		double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
+		
+		printf("\n\nMatrix A =\n");
+		
+		for (i = 0; i < m; i++) {
+			for (j = 0; j < n; j++) {
+				printf("%.3lf\t", A[i][j]);
+			}
+			printf("\n");
+		} 
+		
+		printf("\n\nVector v =\n");
+		
+		for (i = 0; i < m; i++) {
+			printf("%.3lf\n", v[i]);
+		}
+		
+		parallelVectorXmatrix(A, v, u, m, n);
+		
+		printf("\n\nVector u = A * v\n");
+		
+		for (i = 0; i < m; i++) {
+			printf("%.3lf\n", u[i]);
+		}
+	}    
 
 Output from the lines above:
 
@@ -150,46 +150,43 @@ will produce an executable **matrixMath.exe** that can be executed.
 
 There are five inputs needed in this case. Matrix A, B, and C are arguments passed by reference. Arguments also passed to the function are m and n to indicate the size of the matrices. The real purpose is to produce values in the matrix C that represent the result of multiplying matrix A by matrix B. This function doesnt return a value. Because the matrix C was passed by reference, the function can modify the matrix C to produce the result of multiplying matrix A by matrix B. The resulting matrix C can then be used in the main program as needed.
 
-    #include "mylib.h"
-    
-    int main() {
-        int i = 0;
-        int j = 0;
-        int m = 3; // rows
-        int n = 3; // col
-        double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
-        double B[3][3] = { { 1, 3, 5 },{ 7, 9, 11 },{ 13, 15, 17 } };
-        double C[3][3] = { 0 };
-    
-        printf("\n\nMatrix A =\n");
-    
-        for (i = 0; i < m; i++) {
-            for (j = 0; j < n; j++) {
-                printf("%.3lf\t", A[i][j]);
-            }
-            printf("\n");
-        }
-    
-        printf("\n\nMatrix B =\n");
-    
-        for (i = 0; i < m; i++) {
-            for (j = 0; j < n; j++) {
-                printf("%.3lf\t", B[i][j]);
-            }
-            printf("\n");
-        }
-        
-	parallelMatrixXmatrix(A, B, C, m, n);
-
-	printf("\n\nMatrix C = A * B\n");
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			printf("%.3lf\t", C[i][j]);
+	#include "mylib.h"
+	
+	int main() {
+		int i = 0;
+		int j = 0;
+		int m = 3; // rows
+		int n = 3; // col
+		double v[3] = { 1, 2, 3 };
+		double u[3] = { 0 };
+		double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
+		
+		printf("\n\nMatrix A =\n");
+		
+		for (i = 0; i < m; i++) {
+			for (j = 0; j < n; j++) {
+				printf("%.3lf\t", A[i][j]);
+			}
+			printf("\n");
+		} 
+		
+		printf("\n\nVector v =\n");
+		
+		for (i = 0; i < m; i++) {
+			printf("%.3lf\n", v[i]);
 		}
-		printf("\n");
+		
+		parallelMatrixXmatrix(A, B, C, m, n);
+
+		printf("\n\nMatrix C = A * B\n");
+
+		for (i = 0; i < m; i++) {
+			for (j = 0; j < n; j++) {
+				printf("%.3lf\t", C[i][j]);
+			}
+			printf("\n");
+		}
 	}    
-    }    
 
 Output from the lines above:
 
