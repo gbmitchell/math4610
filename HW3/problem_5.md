@@ -13,73 +13,84 @@ For example,
 
 will produce an executable **matrixMath.exe** that can be executed.
 
-**Description/Purpose:** This function will add two vectors of the same size and the computation is done in double precision. 
+**Description/Purpose:** This function will add two square matrices of the same size, in this case 3x3. The computation is done in double precision. 
 
-**Input:** There are four inputs needed in this case. Vectors u, v, and a are arguments passed by reference and len is an argument passed to the function to indicate the length of the vectors. The real purpose is to produce values in the vector a that represent the result of u + v.
+**Input:** There are five inputs needed in this case. Matrix A, B, and C are arguments passed by reference. Arguments also passed to the function are m and n to indicate the size of the matices. The real purpose is to produce values in the matrix C that represent the result of adding the matrices A + B.
 
-**Output:** This function doesnt return a value. Because the vector a was passed by reference, the function can modify the vector a to produce the result of adding the vectors u and v. The resulting vector a can then be used in the main program as needed.
+**Output:** This function doesnt return a value. Because the matrix C was passed by reference, the function can modify the matirx C to produce the result of adding the matrices A + B. The resulting matrix C can then be used in the main program as needed.
 
 **Usage/Example:**
 
-There are four inputs needed in this case. Vectors u, v, and a are arguments passed by reference and len is an argument passed to the function to indicate the length of the vectors. This function doesnt return a value. Because the vector a was passed by reference, the function can modify the vector a to produce the result of adding the vectors u and v. The resulting vector a can then be used in the main program as needed.
+There are five inputs needed in this case. Matrix A, B, and C are arguments passed by reference. Arguments also passed to the function are m and n to indicate the size of the matices. The real purpose is to produce values in the matrix C that represent the result of adding the matrices A + B. This function doesnt return a value. Because the matrix C was passed by reference, the function can modify the matirx C to produce the result of adding the matrices A + B. The resulting matrix C can then be used in the main program as needed.
 
     #include "mylib.h"
     
     int main() {
         int i = 0;
-        int len = 0;
-        double u[3] = { 1, 2, 3 };
-        double v[3] = { 8, -7, 6 };
-        double a[3] = { 0 };
+        int j = 0;
+        int m = 3; // rows
+        int n = 3; // col
+        double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
+        double B[3][3] = { { 1, 3, 5 },{ 7, 9, 11 },{ 13, 15, 17 } };
+        double C[3][3] = { 0 };
     
-        len = sizeof(u) / 8;
+        printf("\n\nMatrix A =\n");
     
-        printf("\n\nVector u =\n");
-    
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", u[i]);
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", A[i][j]);
+            }
+            printf("\n");
         }
     
-        printf("\n\nVector v =\n");
+        printf("\n\nMatrix B =\n");
     
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", v[i]);
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", B[i][j]);
+            }
+            printf("\n");
         }
     
-        printf("\n\nu + v =\n");
+        matrixAdd(A, B, C, m, n);
     
-        vectorAdd(u, v, a, len);
+        printf("\n\nMatrix C = A + B\n");
     
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", a[i]);
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", C[i][j]);
+            }
+            printf("\n");
         }
-    }
+    }    
 
 Output from the lines above:
 
-    Vector u =
-    1.000
-    2.000
-    3.000
+    Matrix A =
+    2.000   4.000   6.000
+    8.000   10.000  12.000
+    14.000  16.000  18.000
     
-    Vector v =
-    8.000
-    -7.000
-    6.000
+    Matrix B =
+    1.000   3.000   5.000
+    7.000   9.000   11.000
+    13.000  15.000  17.000
     
-    u + v =
-    9.000
-    -5.000
-    9.000
+    Matrix C = A + B
+    3.000   7.000   11.000
+    15.000  19.000  23.000
+    27.000  31.000  35.000
 
-The output shows the value for the vectors u and v as well as the result of adding the two vectors.
+The output shows the matix C as a result of adding matrix A and B.
 
-**Implementation/Code:** The following is the code for vectorAdd()
+**Implementation/Code:** The following is the code for matrixAdd()
 
-    void vectorAdd(double up[3], double vp[3], double ap[3], int len) {
-        int i = 0;
-        for (i = 0; i < len; i++) {
-            ap[i] = up[i] + vp[i];
+    void matrixAdd(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
+        int i, j = 0;
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                C[i][j] = A[i][j] + B[i][j];
+            }
         }
     }
 
