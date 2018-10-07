@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 4a.
 
-**Routine Name:**           L1-norm
+**Routine Name:**           matrixNormFrobenious
 
 **Author:** Gary Mitchell
 
@@ -27,48 +27,56 @@ The function has two arguments needed to compute and return the value for L1-nor
     
     int main() {
         int i = 0;
-        int len = 0;
-        double ia = 0.0;
-        double u[3] = { 1.0, 2.0, 3.0 };
+        int j = 0;
+        int m = 3; // rows
+        int n = 3; // col
+        double norm = 0.0;
+        double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
     
-        len = sizeof(u) / 8;
+        printf("\n\nMatrix A =\n");
     
-        printf("\n\nVector u =\n");
-    
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", u[i]);
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", A[i][j]);
+            }
+            printf("\n");
         }
     
-        ia = vectorNormL1(u, len);
-        printf("\n\nL1 norm of u = %.3lf", ia);
+        norm = matrixNormFrobenious(A, n);
+        printf("\n\nFrobenious norm of A = \n");
+        printf("%.3lf\n", norm);
     }
 
 Output from the lines above:
 
-    Vector u =
-    1.000
-    2.000
-    3.000
+    Matrix A =
+    2.000   4.000   6.000
+    8.000   10.000  12.000
+    14.000  16.000  18.000
     
-    L1 norm of u = 6.000
+    Frobenious norm of A =
+    33.764
 
 The sum of the absolute values in the vector u are 1 + 2 + 3 = 6.
 
-**Implementation/Code:** The following is the code for vectorNormL1()
+**Implementation/Code:** The following is the code for matrixNormFrobenious()
 
-    double vectorNormL1(double up[3], int len) {
-        int i = 0;
+    double matrixNormFrobenious(double a[3][3], int len) {
+        int i, j = 0;
         double ia = 0.0;
         for (i = 0; i < len; i++) {
-            ia = ia + fabs(up[i]);
+            for (j = 0; j < len; j++) {
+                ia = ia + (a[i][j] * a[i][j]);
+            }
         }
+        ia = sqrt(ia);
         return ia;
     }
 
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 4b.
 
-**Routine Name:**           L2-norm
+**Routine Name:**           matrixNormL1
 
 **Author:** Gary Mitchell
 
@@ -94,49 +102,61 @@ The function has two arguments needed to compute and return the value for L2-nor
     
     int main() {
         int i = 0;
-        int len = 0;
-        double ia = 0.0;
-        double u[3] = { 1.0, 2.0, 3.0 };
+        int j = 0;
+        int m = 3; // rows
+        int n = 3; // col
+        double norm = 0.0;
+        double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
     
-        len = sizeof(u) / 8;
+        printf("\n\nMatrix A =\n");
     
-        printf("\n\nVector u =\n");
-    
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", u[i]);
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", A[i][j]);
+            }
+            printf("\n");
         }
     
-        ia = vectorNormL2(u, len);
-        printf("\n\nL2 norm of u = %.3lf", ia);
+        norm = matrixNormL1(A, n);
+        printf("\n\nL1 norm of A = \n");
+        printf("%.3lf\n", norm);
     }
 
 Output from the lines above:
 
-    Vector u =
-    1.000
-    2.000
-    3.000
+    Matrix A =
+    2.000   4.000   6.000
+    8.000   10.000  12.000
+    14.000  16.000  18.000
     
-    L2 norm of u = 3.742
+    L1 norm of A =
+    36.000
 
 The sum of the squared values in the vector u are (1 * 1) + (2 * 2) + (3 * 3) = 14, then the L2-norm = sqrt(14) = 3.742.
 
-**Implementation/Code:** The following is the code for vectorNormL2()
+**Implementation/Code:** The following is the code for matrixNormL1()
 
-    double vectorNormL2(double up[3], int len) {
-        int i = 0;
+    double matrixNormL1(double a[3][3], int len) {
+        int i, j = 0;
         double ia = 0.0;
-        for (i = 0; i < len; i++) {
-            ia = ia + (up[i] * up[i]);
+        double max = 0.0;
+        for (j = 0; j < len; j++) {
+            ia = 0.0;
+            for (i = 0; i < len; i++) {
+                ia = ia + fabs(a[i][j]);
+            }
+            if (max < ia) {
+                max = ia;
+            }
         }
-        ia = sqrt(ia);
-        return ia;
+
+        return max;
     }
 
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 4c.
 
-**Routine Name:**           Infinity-norm
+**Routine Name:**           matrixNormInfinity
 
 **Author:** Gary Mitchell
 
@@ -162,45 +182,55 @@ The function has two arguments needed to compute and return the value for Infini
     
     int main() {
         int i = 0;
-        int len = 0;
-        double ia = 0.0;
-        double u[3] = { 1.0, 2.0, 3.0 };
+        int j = 0;
+        int m = 3; // rows
+        int n = 3; // col
+        double norm = 0.0;
+        double A[3][3] = { { 2, 4, 6 },{ 8, 10, 12 },{ 14, 16, 18 } };
     
-        len = sizeof(u) / 8;
+        printf("\n\nMatrix A =\n");
     
-        printf("\n\nVector u =\n");
-    
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", u[i]);
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", A[i][j]);
+            }
+            printf("\n");
         }
     
-        ia = vectorNormInfinity(u, len);
-        printf("\n\nInfinity norm of u = %.3lf", ia);
+        norm = matrixNormInfinity(A, n);
+        printf("\n\nInfinity norm of A = \n");
+        printf("%.3lf\n", norm);
     }
 
 Output from the lines above:
 
-    Vector u =
-    1.000
-    2.000
-    3.000
+    Matrix A =
+    2.000   4.000   6.000
+    8.000   10.000  12.000
+    14.000  16.000  18.000
     
-    Infinity norm of u = 3.000
+    Infinity norm of A =
+    48.000
 
 The maximum value out of the vector elements 1.0, 2.0, and 3.0 is 3.0, therefore the Infinity-norm of the vector u is 3.0.
 
-**Implementation/Code:** The following is the code for vectorNormInfinity()
+**Implementation/Code:** The following is the code for matrixNormInfinity()
 
-    double vectorNormInfinity(double up[3], int len) {
-        int i = 0;
+    double matrixNormInfinity(double a[3][3], int len) {
+        int i, j = 0;
         double ia = 0.0;
-        ia = fabs(up[0]);
+        double max = 0.0;
         for (i = 0; i < len; i++) {
-            if (fabs(up[i]) > ia) {
-                ia = fabs(up[i]);
+            ia = 0.0;
+            for (j = 0; j < len; j++) {
+                ia = ia + fabs(a[i][j]);
+            }
+            if (max < ia) {
+                max = ia;
             }
         }
-        return ia;
+
+        return max;
     }
 
 **Last Modified:** October/2018
