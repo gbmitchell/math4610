@@ -9,19 +9,19 @@ Homework 3 problem 4a.
 
 For example,
 
-    norms.c
+    matrixMath.c
 
-will produce an executable **norms.exe** that can be executed.
+will produce an executable **matrixMath.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the L1-norm given a vector. The function was developed to compute the L1-norm of a vector with three elements or vector length of three. The L1-norm is used to give some sence of a magnitude for the given vector. The L1-norm for a vector is computed by summing the absolute value of each element of the vector.
+**Description/Purpose:** This function will compute a double precision value for the Frobenious-norm given a matrix. The function was developed to compute the Frobenious-norm of a 3x3 matrix. The Frobenious-norm is used to give some sense of a magnitude for the given matrix. The Frobenious-norm for a matrix is computed by summing the square of each value in the matrix and then taking the square root of the sum.
 
-**Input:** There are two inputs needed in this case. The vector (u) of length three is passed to the function by reference. An argument for the length (len) of the vector is also passed to the function.
+**Input:** There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
 
-**Output:** This function returns a double precision value (ia) which represents the L1-norm of the input vector.
+**Output:** The function returns a double precision value ia which represents the Frobenious-norm of the input matrix.
 
 **Usage/Example:**
 
-The function has two arguments needed to compute and return the value for L1-norm of the vector. The vector u of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the L1-norm for the vector u. 
+There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value ia which represents the Frobenious-norm of the input matrix A.
 
     #include "mylib.h"
     
@@ -57,7 +57,9 @@ Output from the lines above:
     Frobenious norm of A =
     33.764
 
-The sum of the absolute values in the vector u are 1 + 2 + 3 = 6.
+The sum of the squared values in the matrix A are,
+(2 * 2) + (4 * 4) + (6 * 6) + (8 * 8) + (10 * 10) + (12 * 12) + (14 * 14) + (16 * 16) + (18 * 18) = 1140.
+Then the Frobenious-norm is the sqrt(1140) = 33.764.
 
 **Implementation/Code:** The following is the code for matrixNormFrobenious()
 
@@ -84,19 +86,19 @@ Homework 3 problem 4b.
 
 For example,
 
-    norms.c
+    matrixMath.c
 
-will produce an executable **norms.exe** that can be executed.
+will produce an executable **matrixMath.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the L2-norm given a vector. The function was developed to compute the L2-norm of a vector with three elements or vector length of three. The L2-norm is used to give some sence of a magnitude for the given vector. The L2-norm for a vector is computed by summing the squre of each element of the vector and then take the square root of the sum.
+**Description/Purpose:** This function will compute a double precision value for the L1-norm given a matrix. The function was developed to compute the L1-norm of a 3x3 matrix. The L1-norm is used to give some sense of a magnitude for the given matrix. The L1-norm for a matrix is computed by summing each column in the matrix and then indentifying which sum is maximum.
 
-**Input:** There are two inputs needed in this case. The vector (u) of length three is passed to the function by reference. An argument for the length (len) of the vector is also passed to the function.
+**Input:** There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
 
-**Output:** This function returns a double precision value (ia) which represents the L2-norm of the input vector.
+**Output:** The function returns a double precision value ia which represents the L1-norm of the input matrix.
 
 **Usage/Example:**
 
-The function has two arguments needed to compute and return the value for L2-norm of the vector. The vector u of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the L2-norm for the vector u. 
+There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value ia which represents the L1-norm of the input matrix A. 
 
     #include "mylib.h"
     
@@ -132,7 +134,8 @@ Output from the lines above:
     L1 norm of A =
     36.000
 
-The sum of the squared values in the vector u are (1 * 1) + (2 * 2) + (3 * 3) = 14, then the L2-norm = sqrt(14) = 3.742.
+The sum of column 1 is 2 + 8 + 14 = 24, the sum of column 2 is 4 + 10 + 16 = 30, and the sum of column 3 is 6 + 12 + 18 = 36.
+The max of these sums is 36, therefore the L1-norm is 36.
 
 **Implementation/Code:** The following is the code for matrixNormL1()
 
@@ -164,19 +167,19 @@ Homework 3 problem 4c.
 
 For example,
 
-    norms.c
+    matrixMath.c
 
-will produce an executable **norms.exe** that can be executed.
+will produce an executable **matrixMath.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the Infinity-norm given a vector. The function was developed to compute the Infinity-norm of a vector with three elements or vector length of three. The Infinity-norm is used to give some sence of a magnitude for the given vector. The Infinity-norm for a vector is computed by identifying which element of the vector is the  maximum.
+**Description/Purpose:** This function will compute a double precision value for the Infinity-norm given a matrix. The function was developed to compute the Infinity-norm of a 3x3 matrix. The Infinity-norm is used to give some sense of a magnitude for the given matrix. The Infinity-norm for a matrix is computed by summing each row in the matrix and then indentifying which sum is maximum.
 
-**Input:** There are two inputs needed in this case. The vector (u) of length three is passed to the function by reference. An argument for the length (len) of the vector is also passed to the function.
+**Input:** There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
 
-**Output:** This function returns a double precision value (ia) which represents the Infinity-norm of the input vector.
+**Output:** The function returns a double precision value ia which represents the Infinity-norm of the input matrix.
 
 **Usage/Example:**
 
-The function has two arguments needed to compute and return the value for Infinity-norm of the vector. The vector u of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the Infinity-norm for the vector u. 
+There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value ia which represents the Infinity-norm of the input matrix A.
 
     #include "mylib.h"
     
@@ -212,7 +215,8 @@ Output from the lines above:
     Infinity norm of A =
     48.000
 
-The maximum value out of the vector elements 1.0, 2.0, and 3.0 is 3.0, therefore the Infinity-norm of the vector u is 3.0.
+The sum of row 1 is 2 + 4 + 6 = 12, the sum of row 2 is 8 + 10 + 12 = 30, and the sum of row 3 is 14 + 16 + 18 = 48.
+The max of these sums is 48, therefore the Infinity-norm is 48.
 
 **Implementation/Code:** The following is the code for matrixNormInfinity()
 
