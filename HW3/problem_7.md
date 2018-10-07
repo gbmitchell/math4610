@@ -1,5 +1,5 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 5f.
+Homework 3 problem 7a.
 
 **Routine Name:**           vectorXmatrix
 
@@ -91,7 +91,7 @@ The output shows the values for matrix A, the values for vector v, and the value
     }
 
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 5g.
+Homework 3 problem 7b.
 
 **Routine Name:**           matrixXmatrix
 
