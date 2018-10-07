@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 3 problem 8.
+Homework 3 problem 6a.
 
-**Routine Name:**           smaceps
+**Routine Name:**           outerProductMatrix
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,84 @@ Homework 3 problem 8.
 
 For example,
 
-    smaceps.c
+    matrixMath.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **matrixMath.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This function will take a 3x1 matrix and multiply it by a 1x3 matrix in double precision. The result is a 3x3 matrix and this is known as the outer product.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are five inputs needed in this case. Matrix x, y, and C are arguments passed by reference. Arguments also passed to the function are m and n to indicate the size of the matrices. The real purpose is to produce values in the matrix C that represent the result of multiplying matrix x by matrix y transpose.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This function doesnt return a value. Because the matrix C was passed by reference, the function can modify the matrix C to produce the result of multiplying matrix x by matrix y transpose. The resulting matrix C can then be used in the main program as needed.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+There are five inputs needed in this case. Matrix x, y, and C are arguments passed by reference. Arguments also passed to the function are m and n to indicate the size of the matrices. The real purpose is to produce values in the matrix C that represent the result of multiplying matrix x by matrix y transpose. This function doesnt return a value. Because the matrix C was passed by reference, the function can modify the matrix C to produce the result of multiplying matrix x by matrix y transpose. The resulting matrix C can then be used in the main program as needed.
 
-    #include <stdio.h>
-    #include <math.h>
+    #include "mylib.h"
     
     int main() {
+        int i = 0;
+        int j = 0;
+        int m = 3; // rows
+        int n = 3; // col
+        double C[3][3] = { 0 };
+        double x[3] = { 4, 5, 6 };
+        double y[3] = { 7, 8, 9 };
+        
+        printf("\n\nVector x =\n");
     
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
-
-        return 0;
-    }
+        for (i = 0; i < m; i++) {
+            printf("%.3lf\n", x[i]);
+        }
+    
+        printf("\n\nVector y =\n");
+    
+        for (i = 0; i < m; i++) {
+            printf("%.3lf\n", y[i]);
+        }
+    
+        outerProductMatrix(x, y, C, m, n);
+    
+        printf("\n\nMatrix C = outer product of x and y\n");
+    
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3lf\t", C[i][j]);
+            }
+            printf("\n");
+        }    
+    }    
 
 Output from the lines above:
 
-      24    5.96046448e-08
-
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
-
-**Implementation/Code:** The following is the code for smaceps()
-
-    void smaceps(float *seps, int *ipow) {
+    Vector x =
+    4.000
+    5.000
+    6.000
     
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+    Vector y =
+    7.000
+    8.000
+    9.000
+    
+    Matrix C = outer product of x and y
+    28.000  32.000  36.000
+    35.000  40.000  45.000
+    42.000  48.000  54.000
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
+The output shows the values for matrix x and y. Additionally, the output shows the matrix C which is the result of multiplying matrix x by matrix y transpose. The result is called the outer product.
+
+**Implementation/Code:** The following is the code for outerProductMatrix()
+
+    void outerProductMatrix(double x[3], double y[3], double C[3][3], int m, int n) {
+        int i, j = 0;
+
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                C[i][j] = x[i] * y[j];
+            }
         }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
     }
 
-**Last Modified:** September/2018
+**Last Modified:** October/2018
