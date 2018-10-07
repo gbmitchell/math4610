@@ -180,7 +180,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L2-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -234,7 +234,7 @@ Output from the lines above:
     e = x - y
     L2 norm of e = L2 eabs = 0.286
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, in this case L1-eabs = 0.438.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L2-norm of the vector e represents the absolute error, in this case L2-eabs = 0.286.
 
 **Implementation/Code:** The following is the code for vectorErrorAbsoluteL2()
     
@@ -265,7 +265,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The L1-norm of the difference divided by the L1-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the L2-norm of the difference. The L2-norm of the difference divided by the L2-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -316,7 +316,7 @@ Output from the lines above:
     
     eabs/L2 norm of x = L2 erel = 0.073
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, the absolute error divided by the L1-norm of x is the relative error and in this case L1-erel = 0.068.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L2-norm of the vector e represents the absolute error, the absolute error divided by the L2-norm of x is the relative error and in this case L2-erel = 0.073.
 
 **Implementation/Code:** The following is the code for vectorErrorRelativeL2()
     
@@ -347,7 +347,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the Infinity-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -401,7 +401,7 @@ Output from the lines above:
     e = x - y
     Infinity norm of e = Infinity eabs = 0.250
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, in this case L1-eabs = 0.438.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the Infinity-norm of the vector e represents the absolute error, in this case Infinity-eabs = 0.250.
 
 **Implementation/Code:** The following is the code for vectorErrorAbsoluteInfinity()
     
@@ -432,7 +432,7 @@ For example,
 
 will produce an executable **norms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the L1-norm of the difference. The L1-norm of the difference divided by the L1-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
+**Description/Purpose:** This function will compute a double precision value for relative error between an exact vector x and a vector y which is the approximation to the vector x. Computing the relative error between an exact and approximate vector involves taking the difference between the two and computing the Infinity-norm of the difference. The Infinity-norm of the difference divided by the Infinity-norm of x results in a single value to give some idea of the relative error in an approximation to the exact vector.
 
 **Input:** There are two inputs needed in this case. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function.
 
@@ -483,7 +483,7 @@ Output from the lines above:
     
     eabs/Infinity norm of x = Infinity erel = 0.082
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L1-norm of the vector e represents the absolute error, the absolute error divided by the L1-norm of x is the relative error and in this case L1-erel = 0.068.
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the Infinity-norm of the vector e represents the absolute error, the absolute error divided by the Infinity-norm of x is the relative error and in this case Infinity-erel = 0.082.
 
 **Implementation/Code:** The following is the code for vectorErrorRelativeInfinity()
     
