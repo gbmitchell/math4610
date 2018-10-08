@@ -19,7 +19,18 @@
     * [derivative](https://gbmitchell.github.io/math4610/softwareManual/derivativeApproximation/derivative)
  
 4. Matrix and Vector Operations
-    * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/smaceps)
+    * [Frobenius_norm_matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Frobenius_norm_matrix)
+    * [Infinity_norm_matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_matrix)
+    * [Infinity_norm_vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector)
+    * [Infinity_norm_vector_error_absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector_error_absolute)
+    * [Infinity_norm_vector_error_relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector_error_relative)
+    * [L1_norm_matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_matrix)
+    * [L1_norm_vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_vector)
+    * [L1_norm_vector_error_absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_vector_error_absolute)
+    * [L1_norm_vector_error_relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_vector_error_relative)
+    * [L2_norm_vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector)
+    * [L2_norm_vector_error_absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector_error_absolute)
+    * [L2_norm_vector_error_relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector_error_relative)
  
 5. Linear Solvers
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/smaceps)
