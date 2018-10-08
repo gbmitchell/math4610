@@ -36,6 +36,18 @@
     * [scalar multiplied by vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/scalarXvector)
     * [inner product of two vectors](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/inner_product_vector)
     * [cross product of two vectors](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/cross_product_vector)
+    * [matrix addition](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_addition)
+    * [matrix subtraction](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_subtraction)
+    * [matrix transpose](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_transpose)
+    * [matrix trace](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_trace)
+    * [scalar multiplied by matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/scalarXmatrix)
+    * [matrix multiplied by vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrixXvector)
+    * [parallel matrix multiplied by vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/parallel_matrixXvector)
+    * [matrix multiplied by matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrixXmatrix)
+    * [parallel matrix multiplied by matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/parallel_matrixXmatrix)
+    * [outer product of two matrices](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/outer_product_matrix)
+    * [kronecker product of two matrices](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/kronecker_product_matrix)
+    * [matrix determinant](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_determinant)
  
 5. Linear Solvers
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/smaceps)
