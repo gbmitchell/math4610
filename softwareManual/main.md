@@ -31,6 +31,11 @@
     * [L2 norm for a vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector)
     * [L2 norm vector error absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector_error_absolute)
     * [L2 norm vector error relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector_error_relative)
+    * [vector addition](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/vector_addition)
+    * [vector subtraction](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/vector_subtraction)
+    * [scalar multiplied by vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/scalarXvector)
+    * [inner product of two vectors](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/inner_product_vector)
+    * [cross product of two vectors](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/cross_product_vector)
  
 5. Linear Solvers
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/smaceps)
