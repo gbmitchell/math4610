@@ -13,21 +13,15 @@ For example,
 
 will produce an executable **vectorMath.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This function will compute a pair of unit vectors u1 and u2 which are orthoginal to the original vectors v1 and v2. This is accomplished by taking the cross product of v1 and v2 to get an orthoginal vector. Then the L2-norm or the cross product is computed. Next, (v1 cross v2)/(L2-norm of v1 cross v2) gives a unit vector u1 orthoginal to v1 and v2. Last, negating u1 will give another unit vector u2 orthoginal to v1 and v2.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are five inputs needed in this case. The arguments v1, v2, u1, and u2 are passed by reference and the function will change the values in u1 and u2 to be used in the main program as needed. The variable len is also passed to the function to indicate the length of the vectors.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This function does not return any values, rather it changes the values in u1 and u2 which were passed in by reference. After changing the values in u1 and u2, they can be used in the main program as needed.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+There are five inputs needed in this case. The arguments v1, v2, u1, and u2 are passed by reference and the function will change the values in u1 and u2 to be used in the main program as needed. The variable len is also passed to the function to indicate the length of the vectors. This function does not return any values, rather it changes the values in u1 and u2 which were passed in by reference. After changing the values in u1 and u2, they can be used in the main program as needed.
 
     #include "mylib.h"
 
@@ -86,9 +80,7 @@ Output from the lines above:
     0.173
     -0.863
 
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
+The output shows what the original vectors v1 and v2 are. After the unitOrthog routine is called the resulting unit orthoginal vectors u1 and u2 are displayed.
 
 **Implementation/Code:** The following is the code for unitOrthog()
 
@@ -109,4 +101,4 @@ end of the second value).
         vectorScale(u1, u2, -1.0, len);
     }
 
-**Last Modified:** September/2018
+**Last Modified:** October/2018
