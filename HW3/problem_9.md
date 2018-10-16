@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 3 problem 9.
 
-**Routine Name:**           smaceps
+**Routine Name:**           unitOrthog
 
 **Author:** Gary Mitchell
 
@@ -9,9 +9,9 @@ Homework 3 problem 9.
 
 For example,
 
-    smaceps.c
+    vectorMath.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **vectorMath.exe** that can be executed.
 
 **Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
 in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
@@ -29,62 +29,84 @@ The function has two arguments needed to produce the values of the precision in 
 represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
 precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
 
-    #include <stdio.h>
-    #include <math.h>
-    
-    int main() {
-    
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
+    #include "mylib.h"
 
-        return 0;
+    int main() {
+        int i = 0;
+        int len = 0;
+        double v1[3] = { 4, -1, 2 };
+        double v2[3] = { 0, 5, 1 };
+        double u1[3] = { 0 };
+        double u2[3] = { 0 };
+
+        printf("\n\nVector v1 =\n");
+
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", v1[i]);
+        }
+
+        printf("\n\nVector v2 =\n");
+
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", v2[i]);
+        }
+
+        unitOrthog(v1, v2, u1, u2, len);
+
+        printf("\n\n\nUnit orthoginal vector u1 =\n");
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", u1[i]);
+        }
+
+        printf("\n\n\nUnit orthoginal vector u2 =\n");
+        for (i = 0; i < len; i++) {
+            printf("%.3lf\n", u2[i]);
+        }
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
+    Vector v1 =
+    4.000
+    -1.000
+    2.000
+    
+    Vector v2 =
+    0.000
+    5.000
+    1.000
+    
+    Unit orthoginal vector u1 =
+    -0.475
+    -0.173
+    0.863
+    
+    Unit orthoginal vector u2 =
+    0.475
+    0.173
+    -0.863
 
 The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
 decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
 end of the second value).
 
-**Implementation/Code:** The following is the code for smaceps()
+**Implementation/Code:** The following is the code for unitOrthog()
 
-    void smaceps(float *seps, int *ipow) {
-    
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
+    void unitOrthog(double v1[3], double v2[3], double u1[3], double u2[3], int len) {
+
         int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+        double ia = 0;
+        double a[3] = { 0 };
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
-        }
+        vectorCross(v1, v2, a, len);
 
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
+        ia = vectorNormL2(a, len);
 
-        return;
+        ia = 1 / ia;
+
+        vectorScale(a, u1, ia, len);
+
+        vectorScale(u1, u2, -1.0, len);
     }
 
 **Last Modified:** September/2018
