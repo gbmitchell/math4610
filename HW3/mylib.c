@@ -1263,3 +1263,20 @@ void outerProductMatrix(double x[3], double y[3], double C[3][3], int m, int n) 
 		}
 	}
 }
+
+void unitOrthog(double v1[3], double v2[3], double u1[3], double u2[3], int len) {
+
+	int i = 0;
+	double ia = 0;
+	double a[3] = { 0 };
+
+	vectorCross(v1, v2, a, len);
+
+	ia = vectorNormL2(a, len);
+
+	ia = 1 / ia;
+
+	vectorScale(a, u1, ia, len);
+
+	vectorScale(u1, u2, -1.0, len);
+}

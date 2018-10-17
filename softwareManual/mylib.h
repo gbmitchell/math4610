@@ -54,3 +54,4 @@ double matrixNormL1(double a[3][3], int len);
 double matrixNormFrobenious(double a[3][3], int len);
 double matrixNormInfinity(double a[3][3], int len);
 void outerProductMatrix(double x[3], double y[3], double C[3][3], int m, int n);
+void unitOrthog(double v1[3], double v2[3], double u1[3], double u2[3], int len);
