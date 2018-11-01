@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 4 problem 2.
 
-**Routine Name:**           smaceps
+**Routine Name:**           generalGauss
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,92 @@ Homework 4 problem 2.
 
 For example,
 
-    smaceps.c
+    squareGauss.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **squareGauss.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This routine will compute the necassary factors and carry out row operations for Gauss Elimination of a general matrix mxn up to size 50x50. No pivoting methods are used in this routine.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are four inputs needed in this case. A general matrix of size mxn and a vector of size n are arguments passed by reference and the routine will change their values according to the process for Gauss Elimination. The variables m and n are also passed to the routine to indicate the size of the matrix and vector. The vector and matrix are treated as though they are combined to form an augmented matrix even though they remain separate.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This routine does not return anything, instead it changes the original matrix and vector values as though they were an augmented matrix going through the Gauss Elimination process.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+There are four inputs needed in this case. A general matrix (C) of size mxn (4x6) and a vector (bb) of size n (3) are arguments passed by reference and the routine will change their values according to the process for Gauss Elimination. The variable n (3) is also passed to the routine to indicate the size of the matrix and vector. The vector and matrix are treated as though they are combined to form an augmented matrix even though they remain separate. This routine does not return anything, instead it changes the original matrix and vector values as though they were an augmented matrix going through the Gauss Elimination process. 
 
+    #include "mylib.h"
     #include <stdio.h>
-    #include <math.h>
-    
+
     int main() {
-    
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
+        int i, j = 0;
+        int n = 0;
+        int m = 0;
+
+        // 3x3
+        double B[50][50] = { {1.0, -2.0, -6.0}, {2.0, 4.0, 12.0}, {1.0, -3.0, -12.0} };
+        double bb[50] = { 5.0, 0.0, -2.0 };
+        double xb[50] = { 0 };
+
+        m = 3;
+        n = 3;
+
+        printf("Augmented matrix B =\n");
+
+        for (i = 0; i < m; i++ ) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", B[i][j]);
+            }
+            printf("|%.3e\n", bb[i]);
+        }
+
+        squareGauss(B, bb, n);
+
+        printf("\n\n\n");
+
+        printf("Gaussian elimination on augmented matrix B =\n");
+
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", B[i][j]);
+            }
+            printf("|%.3e\n", bb[i]);
+        }
 
         return 0;
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
+    Augmented matrix B =
+    1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
+    2.000e+00       4.000e+00       1.200e+01       |0.000e+00
+    1.000e+00       -3.000e+00      -1.200e+01      |-2.000e+00
 
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
 
-**Implementation/Code:** The following is the code for smaceps()
 
-    void smaceps(float *seps, int *ipow) {
-    
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+    Gaussian elimination on augmented matrix B =
+    1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
+    0.000e+00       8.000e+00       2.400e+01       |-1.000e+01
+    0.000e+00       0.000e+00       -3.000e+00      |-8.250e+00
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
+The output from the example code prints the matix B and vector bb as though they are augmented even though they remain separate. The output shows the original values of B and bb. The Gauss Elimination process is then executed and the output prints the modified values of B and bb. Gauss Elimination results in an upper triangular matrix that can be used to solve for a solution to x in the problem of Bx=bb.
+
+**Implementation/Code:** The following is the code for generalGauss()
+
+    void generalGauss(double A[50][50], double b[50], int m, int n) {
+        int i, j, k = 0;
+        double factor = 0.0;
+        for (k = 0; k < (n - 1); k++) {
+            for (i = (k + 1); i < m; i++) {
+                factor = A[i][k] / A[k][k];
+                A[i][k] = 0.0;
+                for (j = (k + 1); j < n; j++) {
+                    A[i][j] = A[i][j] - (factor * A[k][j]);
+                }
+                b[i] = b[i] - (factor * b[k]);
+            }
         }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
     }
 
 **Last Modified:** November/2018
