@@ -51,7 +51,11 @@
     * [Unit orthoginal vector pair](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/unitOrthog)
  
 5. Linear Solvers
-    * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/smaceps)
-  
+    * [Guass Elimination (square matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSquare)
+    * [Guass Elimination (general matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussGeneral)
+    * [Forward Substitution](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/forwardSub)
+    * [Back Substitution](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/backSub)
+    * [LU Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/LU)
+
   
 #### [Home Page](https://gbmitchell.github.io/)
