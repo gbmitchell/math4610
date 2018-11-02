@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 4 problem 3.
 
-**Routine Name:**           smaceps
+**Routine Name:**           forwardSub
 
 **Author:** Gary Mitchell
 
@@ -9,9 +9,9 @@ Homework 4 problem 3.
 
 For example,
 
-    smaceps.c
+    squareGauss.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **squareGauss.exe** that can be executed.
 
 **Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
 in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
@@ -29,62 +29,30 @@ The function has two arguments needed to produce the values of the precision in 
 represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
 precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
 
-    #include <stdio.h>
-    #include <math.h>
-    
-    int main() {
-    
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
 
-        return 0;
-    }
 
 Output from the lines above:
 
-      24    5.96046448e-08
+
 
 The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
 decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
 end of the second value).
 
-**Implementation/Code:** The following is the code for smaceps()
+**Implementation/Code:** The following is the code for forwardSub()
 
-    void smaceps(float *seps, int *ipow) {
-    
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+    void forwardSub(double A[50][50], double x[50], double b[50], int n) {
+        int i, j = 0;
+        double sum = 0.0;
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
+        x[0] = b[0] / A[0][0];
+        for (i = 1; i < n; i++) {
+            sum = 0.0;
+            for (j = 0; j < i; j++) {
+                sum = sum + (A[i][j] * x[j]);
+            }
+            x[i] = (b[i] - sum) / A[i][i];
         }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
     }
 
 **Last Modified:** November/2018
