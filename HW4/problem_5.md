@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 4 problem 5.
 
-**Routine Name:**           smaceps
+**Routine Name:**           backSub
 
 **Author:** Gary Mitchell
 
@@ -9,82 +9,108 @@ Homework 4 problem 5.
 
 For example,
 
-    smaceps.c
+    squareGauss.c
 
-will produce an executable **smaceps.exe** that can be executed.
+will produce an executable **squareGauss.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This routine will carry out back substitution to solve for the unkown values of vector x in the problem Ax=b. A is an upper triangular matrix, x is a vector of unknowns, and b is a vector of known values. The problem Ax=b represents a linear system of n equations and n unknowns. Back substitution solves for the values of in order of xn, ....., x3, x2, x1.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are four inputs needed in this case to back solve the problem Ax=b. An upper triangular matrix, a vector of unkown values, a vector of given values, and a value to indicate the size of the matrix and vectors. The matrix and vectors are passed to the routine by reference.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+There are four inputs needed in this case to back solve the problem Ax=b. An upper triangular matrix (B), a vector of unkown values (xb), a vector of given values (bb), and a value to indicate the size of the matrix and vectors (n). The matrix and vectors are passed to the routine by reference. This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
 
+    #include "mylib.h"
     #include <stdio.h>
-    #include <math.h>
-    
+
     int main() {
-    
-        // create and initialize arguments
-        float seps = 1.0;
-        int ipow = 0;
-        
-        // call smaceps function passing arguments by reference
-        smaceps(&seps, &ipow);
-        
-        // print the resulting values to the console
-        printf("\n%d\t%.8e", ipow, seps);
-        
-        // keeps the console open until a key is pressed
-        getch();
+        int i, j = 0;
+        int n = 0;
+        int m = 0;
+
+        // 3x3
+        double B[50][50] = { {1.0, -2.0, -6.0}, {2.0, 4.0, 12.0}, {1.0, -3.0, -12.0} };
+        double bb[50] = { 5.0, 0.0, -2.0 };
+        double xb[50] = { 0 };
+
+        m = 3;
+        n = 3;
+
+        printf("Augmented matrix B =\n");
+
+        for (i = 0; i < m; i++ ) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", B[i][j]);
+            }
+            printf("|%.3e\n", bb[i]);
+        }
+
+        squareGauss(B, bb, n);
+
+        printf("\n\n\n");
+
+        printf("Gaussian elimination on augmented matrix B =\n");
+
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", B[i][j]);
+            }
+            printf("|%.3e\n", bb[i]);
+        }
+
+        backSub(B, xb, bb, n);
+
+        printf("\n\n\n");
+
+        printf("Solution using back substitution on augmented matrix B\n");
+
+        for (i = 0; i < n; i++) {
+            printf("x%d = %.3e\n", i + 1, xb[i]);
+        }
 
         return 0;
     }
 
 Output from the lines above:
 
-      24    5.96046448e-08
+    Augmented matrix B =
+    1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
+    2.000e+00       4.000e+00       1.200e+01       |0.000e+00
+    1.000e+00       -3.000e+00      -1.200e+01      |-2.000e+00
 
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
 
-**Implementation/Code:** The following is the code for smaceps()
 
-    void smaceps(float *seps, int *ipow) {
-    
-        // create an initialize function variables
-        // initialized to find machine value near 1.0
-        float one = 0.0, appone = 0.0;
-        int i = 0;
-        one = 1.0;
-        *seps = 1.0;
-        appone = one + *seps;
-        *ipow = 0;
+    Gaussian elimination on augmented matrix B =
+    1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
+    0.000e+00       8.000e+00       2.400e+01       |-1.000e+01
+    0.000e+00       0.000e+00       -3.000e+00      |-8.250e+00
 
-        // loop, dividing by 2 each time to determine when the difference
-        //  between one and the approximation is zero in single precision
-        for (i = 0; i < 1000; i++) {
-            *ipow = *ipow + 1;
-            *seps = *seps / 2.0;
-            appone = one + *seps;
-            if (fabs(appone - one) == 0.0) return;
+
+
+    Solution using back substitution on augmented matrix B
+    x1 = 2.500e+00
+    x2 = -9.500e+00
+    x3 = 2.750e+00
+
+The output from the example code prints the values for the upper triangular matrix B augmented with the known values of the vector bb. The routine then back solves for the values in the vector of unknowns and stores those values in the vector xb. The stored values are then printed as the solution to the problem Ax=b.
+
+**Implementation/Code:** The following is the code for backSub()
+
+    void backSub(double A[50][50], double x[50], double b[50], int n) {
+        int i, j = 0;
+        double sum = 0.0;
+
+        x[n] = b[n] / A[n][n];
+        for (i = n - 1; i > -1; i--) {
+            sum = 0.0;
+            for (j = (i + 1); j < n; j++) {
+                sum = sum + (A[i][j] * x[j]);
+            }
+            x[i] = (b[i] - sum) / A[i][i];
         }
-
-        // print error message to console if loops more than 1000 times
-        // code should never reach this point unless there is an error
-        printf("The loop limit has been exceeded");
-
-        return;
     }
 
 **Last Modified:** November/2018
