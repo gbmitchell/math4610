@@ -13,21 +13,15 @@ For example,
 
 will produce an executable **squareGauss.exe** that can be executed.
 
-**Description/Purpose:** This function will compute the single precision value for the machine epsilon or the number of digits
-in the representation of real numbers in single precision. This is a function for analyzing the behavior of any computer. This
-usually will need to be run one time for each computer.
+**Description/Purpose:** This routine will carry out forward substitution to solve for the unkown values of vector x in the problem Ax=b. A is a lower triangular matrix, x is a vector of unknowns, and b is a vector of known values. The problem Ax=b represents a linear system of n equations and n unknowns. Forward substitution solves for the values of in order of x1, x2, x3, ....., xn.
 
-**Input:** There are no inputs needed in this case. Arguments are passed by reference and the function will change their values.
-The real purpose is to produce values in those variables to be used as needed.
+**Input:** There are four inputs needed in this case to forward solve the problem Ax=b. A lower triangular matrix, a vector of unkown values, a vector of given values, and a value to indicate the size of the matrix and vectors. The matrix and vectors are passed to the routine by reference.
 
-**Output:** This function returns a single precision value for the number of decimal digits that can be represented on the
-computer being queried.
+**Output:** This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
 
 **Usage/Example:**
 
-The function has two arguments needed to produce the values of the precision in terms of the smallest number that can be
-represented. Since the code is written in terms of a C function, the value of the machine epsilon (seps) is a single
-precision value (float) and the power of two that gives the machine epsilon (ipow) is an integer. 
+There are four inputs needed in this case to forward solve the problem Ax=b. A lower triangular matrix (A), a vector of unkown values (xa), a vector of given values (ba), and a value to indicate the size of the matrix and vectors (n). The matrix and vectors are passed to the routine by reference. This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
 
     #include "mylib.h"
     #include <stdio.h>
@@ -81,9 +75,7 @@ Output from the lines above:
     x2 = 6.000e+00
     x3 = 1.000e+00
 
-The first value (24) is the number of binary digits that define the machine epsilon and the second is related to the
-decimal version of the same value. The number of decimal digits that can be represented is roughly eight (e-08 on the
-end of the second value).
+The output from the example code prints the values for the lower triangular matrix A augmented with the known values of the vector b. The routine then forward solves for the values in the vector of unknowns and stores those values in the vector x. The stored values are then printed as the solution to the problem Ax=b.
 
 **Implementation/Code:** The following is the code for forwardSub()
 
