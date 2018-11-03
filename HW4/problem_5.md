@@ -77,7 +77,7 @@ Output from the lines above:
 
 The output from the example code prints the values for the square matrix B augmented with the known values of the vector bb. The routine then executes Gauss Elimination and back substitution to solve for the values in the vector of unknowns and stores those values in the vector xb. The stored values are then printed as the solution to the problem Ax=b.
 
-**Implementation/Code:** The following is the code for backSub()
+**Implementation/Code:** The following is the code for GEsolve()
 
     void GEsolve(double A[50][50], double x[50], double b[50], int n){
         squareGauss(A, b, n);
