@@ -13,15 +13,15 @@ For example,
 
 will produce an executable **squareGauss.exe** that can be executed.
 
-**Description/Purpose:** This routine will carry out back substitution to solve for the unkown values of vector x in the problem Ax=b. A is an upper triangular matrix, x is a vector of unknowns, and b is a vector of known values. The problem Ax=b represents a linear system of n equations and n unknowns. Back substitution solves for the values of in order of xn, ....., x3, x2, x1.
+**Description/Purpose:** This routine will carry out LU decomposition of a square matrix. LU decomposition is the process of separating a matrix A into upper (U) and lower (L) triangular matrices such that A=LU.
 
-**Input:** There are four inputs needed in this case to back solve the problem Ax=b. An upper triangular matrix, a vector of unkown values, a vector of given values, and a value to indicate the size of the matrix and vectors. The matrix and vectors are passed to the routine by reference.
+**Input:** There are three inputs needed in the case of the LU decomposition routine. A square matrix A, a square matrix L, and a value to indicate the size of the matrices. The matrices are passed to the routine by reference and the values for matrix A are separated into a lower and upper triangular matrix. The upper triangular matrix values are computed and stored in matrix A by over writing the original values. The lower triangular matrix values are computed and stored in the matrix L. 
 
-**Output:** This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
+**Output:** This routine does not return anything, instead it changes the values for the matrix A to be the upper triangular matrix and changes the values in the matrix L to be the lower triangular matrix.
 
 **Usage/Example:**
 
-There are four inputs needed in this case to back solve the problem Ax=b. An upper triangular matrix (B), a vector of unkown values (xb), a vector of given values (bb), and a value to indicate the size of the matrix and vectors (n). The matrix and vectors are passed to the routine by reference. This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
+There are three inputs needed in this case of the LU decomposition routine. A square matrix (D), a square matrix (L), and a value to indicate the size of the matrices (n). The matrices are passed to the routine by reference and the values for matrix D are separated into a lower and upper triangular matrix. The upper triangular matrix values are computed and stored in matrix D by over writing the original values. The lower triangular matrix values are computed and stored in the matrix L.
 
     #include "mylib.h"
     #include <stdio.h>
@@ -94,7 +94,7 @@ Output from the lines above:
     2.000e+00       1.000e+00       0.000e+00
     1.000e+00       -1.250e-01      1.000e+00
 
-The output from the example code prints the values for the upper triangular matrix B augmented with the known values of the vector bb. The routine then back solves for the values in the vector of unknowns and stores those values in the vector xb. The stored values are then printed as the solution to the problem Ax=b.
+The output from the example code prints the values for the square matrix D to be sent through the LU decomposition process. After LU decompostion is executed, the values for the resulting upper and lower triangular matrices are printed.
 
 **Implementation/Code:** The following is the code for squareLU()
 
