@@ -78,7 +78,7 @@ Output from the lines above:
     0.000e+00       0.000e+00       1.300e+01       2.000e+00       6.000e+00       |2.200e+01
     0.000e+00       0.000e+00       0.000e+00       8.846e-01       6.538e-01       |8.481e+00
 
-The output from the example code prints the matix C and vector bc as though they are augmented even though they remain separate. The output shows the original values of C and bc. The Gauss Elimination process is then executed and the output prints the modified values of C and bC.
+The output from the example code prints the matrix C and vector bc as though they are augmented even though they remain separate. The output shows the original values of C and bc. The Gauss Elimination process is then executed and the output prints the modified values of C and bC.
 
 **Implementation/Code:** The following is the code for generalGauss()
 
