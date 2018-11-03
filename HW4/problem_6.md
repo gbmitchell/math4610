@@ -32,66 +32,181 @@ There are four inputs needed in this case to back solve the problem Ax=b. An upp
         int m = 0;
 
         // 3x3
+        double A[50][50] = { {1.0, 0.0, 0.0}, {3.0, 1.0, 0.0}, { -1.0, 1.0, -3.0} };
         double B[50][50] = { {1.0, -2.0, -6.0}, {2.0, 4.0, 12.0}, {1.0, -3.0, -12.0} };
+        double D[50][50] = { {1.0, -2.0, -6.0}, {2.0, 4.0, 12.0}, {1.0, -3.0, -12.0} };
+        double L[50][50] = { 0 };
+
+        // 4x5
+        double C[50][50] = { {1.0, -1.0, 3.0, 1.0, 1.0}, {3.0, 1.0, 7.0, 1.0, 5.0}, {-4.0, 4.0, 1.0, -2.0, 2.0}, {2.0, 1.0, 2.0, 1.0, 3.0} };
+
+        double ba[50] = { -2.0, 0.0, 5.0 };
         double bb[50] = { 5.0, 0.0, -2.0 };
+        double bc[50] = { 4.0, 5.0, 6.0, 7.0 };
+        double bd[50] = { 5.0, 0.0, -2.0 };
+
+        double xa[50] = { 0 };
         double xb[50] = { 0 };
+        double xc[50] = { 0 };
+        double xd[50] = { 0 };
+        double yd[50] = { 0 };
+
 
         m = 3;
         n = 3;
 
-        squareGauss(B, bb, n);
-
-        printf("Gaussian elimination on augmented matrix B =\n");
+        printf("Lower triagular augmented matrix A =\n");
 
         for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", A[i][j]);
+            }
+            printf("|%.3e\n", ba[i]);
+        }
+
+        forwardSub(A, xa, ba, n);
+
+        printf("\n\n\n");
+
+        printf("Solution using forward substitution on augmented matrix A\n");
+
+        for (i = 0; i < n; i++) {
+            printf("x%d = %.3e\n", i+1, xa[i]);
+        }
+
+        printf("\n\n\n");
+
+        printf("Augmented matrix B =\n");
+
+        for (i = 0; i < m; i++ ) {
             for (j = 0; j < n; j++) {
                 printf("%.3e\t", B[i][j]);
             }
             printf("|%.3e\n", bb[i]);
         }
 
-        backSub(B, xb, bb, n);
+        GEsolve(B, xb, bb, n);
 
         printf("\n\n\n");
 
-        printf("Solution using back substitution on augmented matrix B\n");
+        printf("Solution using Gauss Elimination method\n");
 
         for (i = 0; i < n; i++) {
             printf("x%d = %.3e\n", i + 1, xb[i]);
         }
+
+        printf("\n\n\n");
+
+        printf("Augmented matrix C =\n");
+        m = 4;
+        n = 5;
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", C[i][j]);
+            }
+            printf("|%.3e\n", bc[i]);
+        }
+
+        generalGauss(C, bc, m, n);
+
+        printf("\n\n\n");
+
+        printf("Gaussian elimination on augmented matrix C =\n");
+
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", C[i][j]);
+            }
+            printf("|%.3e\n", bc[i]);
+        }
+
+        printf("\n\n\n");
+
+        printf("Matrix D =\n");
+
+        m = 3;
+        n = 3;
+
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", D[i][j]);
+            }
+            printf("\n");
+        }
+
+        squareLU(D, L, bb, n);
+
+        printf("\n\n\n");
+
+        printf("LU decomposition on matrix D =\n");
+        printf("\nMatrix U =\n");
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", D[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("\n\n\n");
+
+        printf("Matrix L =\n");
+
+        for (i = 0; i < m; i++) {
+            for (j = 0; j < n; j++) {
+                printf("%.3e\t", L[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("\n\n\n");
+
+        printf("b =\n");
+
+        for (i = 0; i < n; i++) {
+            printf("x%d = %.3e\n", i + 1, bd[i]);
+        }
+
+        printf("\n\n\n");
+
+        forwardSub(L, yd, bd, n);
+        backSub(D, xd, yd, n);
+
+        printf("Solution Dx=b, using LU decomposition on matrix D\n");
+
+        for (i = 0; i < n; i++) {
+            printf("x%d = %.3e\n", i + 1, xd[i]);
+        }
+
+        printf("\n\n\n");
 
         return 0;
     }
 
 Output from the lines above:
 
-    Gaussian elimination on augmented matrix B =
-    1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
-    0.000e+00       8.000e+00       2.400e+01       |-1.000e+01
-    0.000e+00       0.000e+00       -3.000e+00      |-8.250e+00
 
-
-
-    Solution using back substitution on augmented matrix B
-    x1 = 2.500e+00
-    x2 = -9.500e+00
-    x3 = 2.750e+00
 
 The output from the example code prints the values for the upper triangular matrix B augmented with the known values of the vector bb. The routine then back solves for the values in the vector of unknowns and stores those values in the vector xb. The stored values are then printed as the solution to the problem Ax=b.
 
-**Implementation/Code:** The following is the code for backSub()
+**Implementation/Code:** The following is the code for squareLU()
 
-    void backSub(double A[50][50], double x[50], double b[50], int n) {
-        int i, j = 0;
-        double sum = 0.0;
-
-        x[n] = b[n] / A[n][n];
-        for (i = n - 1; i > -1; i--) {
-            sum = 0.0;
-            for (j = (i + 1); j < n; j++) {
-                sum = sum + (A[i][j] * x[j]);
+    void squareLU(double A[50][50], double B[50][50], double b[50], int n) {
+        int i, j, k = 0;
+        double factor = 0.0;
+        for (k = 0; k < (n - 1); k++) {
+            for (i = (k + 1); i < n; i++) {
+                factor = A[i][k] / A[k][k];
+                A[i][k] = 0.0;
+                for (j = (k + 1); j < n; j++) {
+                    A[i][j] = A[i][j] - (factor * A[k][j]);
+                    B[i][j] = 0.0;
+                }
+                B[i][k] = factor;
             }
-            x[i] = (b[i] - sum) / A[i][i];
+        }
+
+        for (k = 0; k < n; k++) {
+            B[k][k] = 1.0;
         }
     }
 
