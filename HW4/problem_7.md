@@ -13,15 +13,15 @@ For example,
 
 will produce an executable **squareGauss.exe** that can be executed.
 
-**Description/Purpose:** This routine will solve a linear system by use of LU decomposition, forward substitution, and back substitution. Gauss Elimination will compute factors and carry out row operations to end up with an upper triangular matrix. Back substitution is used to solve for the unkown values of vector x in the problem Ax=b. A is an upper triangular matrix found through Gauss Elimination, x is a vector of unknowns, and b is a vector of known values. The problem Ax=b represents a linear system of n equations and n unknowns.
+**Description/Purpose:** This routine will solve a linear system Ax=b by use of LU decomposition, forward substitution, and back substitution. LU decomposition will separate the matrix A into upper (U) and lower (L) triangular matrices such that A=LU. The problem can then be writen as LUx=b. Using Ux=y, the problem can be writen as Ly=b and then forward substitution is used to solve for the unknown values of the vector y. After solving for the values of the vector y, back substitution is used to solve for the unkown values of vector x in the problem Ux=y, thus solving the unknown values for the vector x in the original problem of Ax=b.
 
-**Input:** There are four inputs needed in this case to solve the problem Ax=b. A square matrix, a vector of unkown values, a vector of given values, and a value to indicate the size of the matrix and vectors. The matrix and vectors are passed to the routine by reference.
+**Input:** There are five inputs needed in this case to solve the problem Ax=b. A square matrix A, a square matrix L, a vector of unkown values x, a vector of given values b, and a value to indicate the size of the matrices and vectors. The matrix and vectors are passed to the routine by reference.
 
-**Output:** This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
+**Output:** This routine does not return anything, instead it uses LU decomposition to store the values for the upper triangulare matrix in the original matrix A and stores the lower triangular matrix values in the matrix L. After forward and back solving, the solution for the values of the vector x are updated and can be used as needed.
 
 **Usage/Example:**
 
-There are four inputs needed in this case to solve the problem Ax=b. A square matrix (B), a vector of unkown values (xb), a vector of given values (bb), and a value to indicate the size of the matrix and vectors (n). The matrix and vectors are passed to the routine by reference. This routine does not return anything, instead it changes the values for the vector of unknowns. The solved values for the vector of unknowns can then be used as needed.
+There are five inputs needed in this case to solve the problem Ax=b. A square matrix D, a square matrix L, a vector of unkown values xd, a vector of given values bd, and a value to indicate the size of the matrices and vectors (n). The matrix and vectors are passed to the routine by reference. This routine does not return anything, instead it uses LU decomposition to store the values for the upper triangulare matrix in the original matrix D and stores the lower triangular matrix values in the matrix L. After forward and back solving, the solution for the values of the vector x are updated and can be used as needed.
 
     #include "mylib.h"
     #include <stdio.h>
@@ -32,30 +32,31 @@ There are four inputs needed in this case to solve the problem Ax=b. A square ma
         int m = 0;
 
         // 3x3
-        double B[50][50] = { {1.0, -2.0, -6.0}, {2.0, 4.0, 12.0}, {1.0, -3.0, -12.0} };
-        double bb[50] = { 5.0, 0.0, -2.0 };
-        double xb[50] = { 0 };
+        double D[50][50] = { {1.0, -2.0, -6.0}, {2.0, 4.0, 12.0}, {1.0, -3.0, -12.0} };
+        double L[50][50] = { 0 };
+        double bd[50] = { 5.0, 0.0, -2.0 };
+        double xd[50] = { 0 };
 
         m = 3;
         n = 3;
 
-        printf("Augmented matrix B =\n");
+        printf("Augmented matrix D =\n");
 
-        for (i = 0; i < m; i++ ) {
+        for (i = 0; i < m; i++) {
             for (j = 0; j < n; j++) {
-                printf("%.3e\t", B[i][j]);
+                printf("%.3e\t", D[i][j]);
             }
-            printf("|%.3e\n", bb[i]);
+            printf("|%.3e\n", bd[i]);
         }
 
-        GEsolve(B, xb, bb, n);
+        LUsolve(D, L, xd, bd, n);
 
         printf("\n\n\n");
 
-        printf("Solution using Gauss Elimination method\n");
+        printf("Solution Dx=b, using LU decomposition on matrix D\n");
 
         for (i = 0; i < n; i++) {
-            printf("x%d = %.3e\n", i + 1, xb[i]);
+            printf("x%d = %.3e\n", i + 1, xd[i]);
         }
 
         return 0;
@@ -75,7 +76,7 @@ Output from the lines above:
     x2 = -9.500e+00
     x3 = 2.750e+00
 
-The output from the example code prints the values for the square matrix B augmented with the known values of the vector bb. The routine then executes Gauss Elimination and back substitution to solve for the values in the vector of unknowns and stores those values in the vector xb. The stored values are then printed as the solution to the problem Ax=b.
+The output from the example code prints the values for the square matrix D augmented with the known values of the vector bd. The routine then executes LU decomposition followed by forward and back substitution to solve for the values in the vector of unknowns and stores those values in the vector xd. The stored values are then printed as the solution to the problem Dx=b.
 
 **Implementation/Code:** The following is the code for LUsolve()
 
