@@ -39,18 +39,7 @@ There are four inputs needed in this case to back solve the problem Ax=b. An upp
         m = 3;
         n = 3;
 
-        printf("Augmented matrix B =\n");
-
-        for (i = 0; i < m; i++ ) {
-            for (j = 0; j < n; j++) {
-                printf("%.3e\t", B[i][j]);
-            }
-            printf("|%.3e\n", bb[i]);
-        }
-
         squareGauss(B, bb, n);
-
-        printf("\n\n\n");
 
         printf("Gaussian elimination on augmented matrix B =\n");
 
@@ -75,13 +64,6 @@ There are four inputs needed in this case to back solve the problem Ax=b. An upp
     }
 
 Output from the lines above:
-
-    Augmented matrix B =
-    1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
-    2.000e+00       4.000e+00       1.200e+01       |0.000e+00
-    1.000e+00       -3.000e+00      -1.200e+01      |-2.000e+00
-
-
 
     Gaussian elimination on augmented matrix B =
     1.000e+00       -2.000e+00      -6.000e+00      |5.000e+00
