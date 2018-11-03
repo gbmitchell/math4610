@@ -15,13 +15,13 @@ will produce an executable **squareGauss.exe** that can be executed.
 
 **Description/Purpose:** This routine will compute the necassary factors and carry out row operations for Gauss Elimination of a square matrix up to size 50x50. No pivoting methods are used in this routine.
 
-**Input:** There are three inputs needed in this case. A square matix of size nxn and a vector of size n are arguments passed by reference and the routine will change their values according to the process for Gauss Elimination. The variable n is also passed to the routine to indicate the size of the matrix and vector. The vector and matrix are treated as though they are combined to form an augmented matrix even though they remain separate.
+**Input:** There are three inputs needed in this case. A square matrix of size nxn and a vector of size n are arguments passed by reference and the routine will change their values according to the process for Gauss Elimination. The variable n is also passed to the routine to indicate the size of the matrix and vector. The vector and matrix are treated as though they are combined to form an augmented matrix even though they remain separate.
 
 **Output:** This routine does not return anything, instead it changes the original matrix and vector values as though they were an augmented matrix going through the Gauss Elimination process.
 
 **Usage/Example:**
 
-There are three inputs needed in this case. A square matix (B) of size nxn (3x3) and a vector (bb) of size n (3) are arguments passed by reference and the routine will change their values according to the process for Gauss Elimination. The variable n (3) is also passed to the routine to indicate the size of the matrix and vector. The vector and matrix are treated as though they are combined to form an augmented matrix even though they remain separate. This routine does not return anything, instead it changes the original matrix and vector values as though they were an augmented matrix going through the Gauss Elimination process. 
+There are three inputs needed in this case. A square matrix (B) of size nxn (3x3) and a vector (bb) of size n (3) are arguments passed by reference and the routine will change their values according to the process for Gauss Elimination. The variable n (3) is also passed to the routine to indicate the size of the matrix and vector. The vector and matrix are treated as though they are combined to form an augmented matrix even though they remain separate. This routine does not return anything, instead it changes the original matrix and vector values as though they were an augmented matrix going through the Gauss Elimination process. 
 
     #include "mylib.h"
     #include <stdio.h>
@@ -78,7 +78,7 @@ Output from the lines above:
     0.000e+00       8.000e+00       2.400e+01       |-1.000e+01
     0.000e+00       0.000e+00       -3.000e+00      |-8.250e+00
 
-The output from the example code prints the matix B and vector bb as though they are augmented even though they remain separate. The output shows the original values of B and bb. The Gauss Elimination process is then executed and the output prints the modified values of B and bb. Gauss Elimination results in an upper triangular matrix that can be used to solve for a solution to x in the problem of Bx=bb.
+The output from the example code prints the matrix B and vector bb as though they are augmented even though they remain separate. The output shows the original values of B and bb. The Gauss Elimination process is then executed and the output prints the modified values of B and bb. Gauss Elimination results in an upper triangular matrix that can be used to solve for a solution to x in the problem of Bx=bb.
 
 **Implementation/Code:** The following is the code for squareGauss()
 
