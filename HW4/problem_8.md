@@ -13,15 +13,15 @@ For example,
 
 will produce an executable **squareGauss.exe** that can be executed.
 
-**Description/Purpose:** This routine will carry out LU decomposition of a square matrix. LU decomposition is the process of separating a matrix A into upper (U) and lower (L) triangular matrices such that A=LU.
+**Description/Purpose:** This routine will carry out a form of LU decomposition called Cholesky decomposition on a square matrix. Cholesky decomposition is similar to LU decomposition in that the square matrix is separated into a lower and upper triangular matrix. In the case of Cholesky, the upper triangular matix is the transpose of the lower triangular matrix. A = LU = L(transpose(L)).
 
-**Input:** There are three inputs needed in the case of the LU decomposition routine. A square matrix A, a square matrix L, and a value to indicate the size of the matrices. The matrices are passed to the routine by reference and the values for matrix A are separated into a lower and upper triangular matrix. The upper triangular matrix values are computed and stored in matrix A by over writing the original values. The lower triangular matrix values are computed and stored in the matrix L. 
+**Input:** There are three inputs needed in the case of the Cholesky decomposition routine. A square matrix A, a square matrix U, and a value to indicate the size of the matrices. The matrices are passed to the routine by reference and the values for matrix A are separated into a lower and upper triangular matrix. The lower triangular matrix values are computed and stored in matrix A by over writing the original values. The upper triangular matrix values are computed by taking the transpose of the lower triangular matrix and storing the values in the matrix U. 
 
-**Output:** This routine does not return anything, instead it changes the values for the matrix A to be the upper triangular matrix and changes the values in the matrix L to be the lower triangular matrix.
+**Output:** This routine does not return anything, instead it changes the values for the matrix A to be the lower triangular matrix and changes the values in the matrix U to be the upper triangular matrix.
 
 **Usage/Example:**
 
-There are three inputs needed in this case of the LU decomposition routine. A square matrix (D), a square matrix (L), and a value to indicate the size of the matrices (n). The matrices are passed to the routine by reference and the values for matrix D are separated into a lower and upper triangular matrix. The upper triangular matrix values are computed and stored in matrix D by over writing the original values. The lower triangular matrix values are computed and stored in the matrix L.
+There are three inputs needed in the case of the Cholesky decomposition routine. A square matrix G, a square matrix GU, and a value to indicate the size of the matrices (n). The matrices are passed to the routine by reference and the values for matrix G are separated into a lower and upper triangular matrix. The lower triangular matrix values are computed and stored in matrix G by over writing the original values. The upper triangular matrix values are computed by taking the transpose of the lower triangular matrix and storing the values in the matrix GU. This routine does not return anything, instead it changes the values for the matrix G to be the lower triangular matrix and changes the values in the matrix GU to be the upper triangular matrix.
 
     #include "mylib.h"
     #include <stdio.h>
@@ -102,7 +102,7 @@ Output from the lines above:
     0.000e+00       0.000e+00       0.000e+00       8.000e+00       1.000e+00
     0.000e+00       0.000e+00       0.000e+00       0.000e+00       9.000e+00
 
-The output from the example code prints the values for the square matrix D to be sent through the LU decomposition process. After LU decompostion is executed, the values for the resulting upper and lower triangular matrices are printed.
+The output from the example code prints the values for the square matrix G to be sent through the Cholesky decomposition process. After Cholesky decompostion is executed, the values for the resulting lower and upper triangular matrices are printed.
 
 **Implementation/Code:** The following is the code for choleskyLU()
 
