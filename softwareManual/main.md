@@ -56,6 +56,8 @@
     * [Forward Substitution](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/forwardSub)
     * [Back Substitution](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/backSub)
     * [LU Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/LU)
+    * [Cholesky Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/cholesky)
+    * [Practical applications for linear solvers in Electrical Engineering](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/EEapplications)
 
   
 #### [Home Page](https://gbmitchell.github.io/)
