@@ -49,6 +49,9 @@
     * [Kronecker product of two matrices](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/kronecker_product_matrix)
     * [Matrix determinant](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_determinant)
     * [Unit orthoginal vector pair](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/unitOrthog)
+    * [Uniform Diagonally Dominant Matrix Generator](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/uniformDiagDomMatrix)
+    * [Induced L1 norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/induced_L1_norm_matrix)
+    * [Induced Infinity norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/induced_Infinity_norm_matrix)
  
 5. Linear Solvers
     * [Guass Elimination (square matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSquare)
@@ -58,6 +61,8 @@
     * [LU Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/LU)
     * [Cholesky Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/cholesky)
     * [Practical applications for linear solvers in Electrical Engineering](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/EEapplications)
-
+    * [Jacobi](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/jacobi)
+    * [Gauss-Seidel](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSeidel)
+    * [Conjugate Gradient](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/conjugateGradient)
   
 #### [Home Page](https://gbmitchell.github.io/)
