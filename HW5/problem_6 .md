@@ -1,4 +1,4 @@
 # Math 4610 Fundamentals of Computational Mathematics
-Homework 5 problem 5.
+Homework 5 problem 6.
 
 TODO
