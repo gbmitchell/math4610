@@ -13,7 +13,7 @@ For example,
 
 will produce an executable **jacobiParallel.exe** that can be executed.
 
-**Description/Purpose:** This routine will solve a linear system Ax=b by use of Jacobi iteration. Jacobi iteration provides an alternative way to solve a linear system. Iterative methods are an alternative to direct methods such as Gauss Elimination and LU Decomposition.
+**Description/Purpose:** This routine will solve a linear system Ax=b by use of Jacobi iteration. This version of Jacobi iteration uses opemMP to execute matrix vector operations in parallel in an effort to decrease the amount of time it takes to compute a solution.
 
 **Input:** There are six inputs needed in this case to solve the problem Ax=b. A square matrix A, a vector of unkown values x, a vector of given values b, a tol for error, a maxiter value to stop infinite loops, and a value to indicate the size of the matrix and vectors. The matrix and vectors are passed to the routine by reference.
 
