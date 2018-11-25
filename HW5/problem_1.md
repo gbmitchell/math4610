@@ -13,7 +13,9 @@ For example,
 
 will produce an executable **matrixInducedNorms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the induced L1-norm given a matrix A and a vector v. The induced L1-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced L1-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the L1-norm of the resulting vector. The resulting L1-norm is then divided by the L1-norm of the vector v. Writen another way, the induced L1-norm for a matrix A is ||Av||/||v||.
+**Description/Purpose:** This function will compute a double precision value for the induced L1-norm given a matrix A and a vector v. The induced L1-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced L1-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the L1-norm of the resulting vector. The resulting L1-norm is then divided by the L1-norm of the vector v. Writen another way, the induced L1-norm for a matrix A is.
+
+    ||Av||/||v||
 
 **Input:** There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector.
 
@@ -141,7 +143,9 @@ For example,
 
 will produce an executable **matrixInducedNorms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the induced Infinity-norm given a matrix A and a vector v. The induced Infinity-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced Infinity-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the Infinity-norm of the resulting vector. The resulting Infinity-norm is then divided by the Infinity-norm of the vector v. Writen another way, the induced Infinity-norm for a matrix A is ||Av||/||v||.
+**Description/Purpose:** This function will compute a double precision value for the induced Infinity-norm given a matrix A and a vector v. The induced Infinity-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced Infinity-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the Infinity-norm of the resulting vector. The resulting Infinity-norm is then divided by the Infinity-norm of the vector v. Writen another way, the induced Infinity-norm for a matrix A is.
+
+    ||Av||/||v||
 
 **Input:** There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector.
 
