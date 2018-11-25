@@ -29,7 +29,7 @@ Output from the lines above:
 
 
 
-The output shows the matrix A augmented with vector b. Gauss-Seidel completed after 7 iterations and produced the expected solution vector x containing all ones.
+The output shows the matrix A augmented with vector b. Gauss-Seidel completed after 7 iterations and produced the expected solution vector x containing all ones. The first solution vector x was computed with serial programing and took 0.0030 seconds. The second solution vector x was computed with parallel programing and took 0.025 seconds. The parallel version takes longer in the case of a 7x7 matrix because it takes some overhead to set up the parallel threads. Running the code again with a matrix size of 640x640 resulted in 314699 iterations. The serial program took 438.4 seconds while the parallel program took 129.5 seconds. It can be concluded that parallel programing is benificial in larger systems.
 
 **Implementation/Code:** The following is the code for gaussSeidelParallel()
 
