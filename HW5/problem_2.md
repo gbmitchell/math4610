@@ -1,7 +1,7 @@
 # Math 4610 Fundamentals of Computational Mathematics
 Homework 5 problem 2.
 
-**Routine Name:**           matrixInducedNormInfinity
+**Routine Name:**           uniformMatrix
 
 **Author:** Gary Mitchell
 
@@ -9,21 +9,65 @@ Homework 5 problem 2.
 
 For example,
 
-    matrixInducedNorms.c
+    uniformDiagDomMatrix.c
 
-will produce an executable **matrixInducedNorms.exe** that can be executed.
+will produce an executable **uniformDiagDomMatrix.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the induced Infinity-norm given a matrix A and a vector v. The induced Infinity-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced Infinity-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the Infinity-norm of the resulting vector. The resulting Infinity-norm is then divided by the Infinity-norm of the vector v. Writen another way, the induced Infinity-norm for a matrix A is ||Av||/||v||.
+**Description/Purpose:** This function will creat a symetric, uniform, and diagonally dominant matrix of size mxn. First, the matrix is filled with values in the upper triangular part. Next, the upper triangular part is transposed to the lower triangular part of the matrix to make it symetric. Finally, the main diaginal values are computed and assigned to make the matrix diagonally dominant. Additionally, the right hand side vector b is computed by multiplying the matrix A by a vector of ones. The purpose of this routine is to generate random matrices with a right hand side to be used as test problems for linear solving routines. When solved corectly, the solution vector x should be a vector of ones.
 
-**Input:** There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector.
+**Input:** There are three inputs needed in this case. The matrix A and vector b are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector.
 
-**Output:** The function returns a double precision value inducedNorm which represents the induced Infinity-norm of the input matrix A.
+**Output:** The function does not return anything, instead it changes the values in the matrix A and the vector b. The matrix A is a symetric, uniform, diagonally dominant matrix. The vector b is the right hand side for the linear system Ax=b.
 
 **Usage/Example:**
 
-There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector. The function returns a double precision value inducedNorm which represents the induced Infinity-norm of the input matrix A.
+There are three inputs needed in this case. The matrix A and vector b are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector. The function does not return anything, instead it changes the values in the matrix A and the vector b. The matrix A is a symetric, uniform, and a diagonally dominant matrix. The vector b is the right hand side for the linear system Ax=b.
 
+    #include "mylib.h"
+    #include <stdio.h>
+    #include <stdlib.h>
 
+    int main() {
+        int i, j = 0;
+        int n = 7;
+        int m = 7;
+
+        // allocate mxn matrix
+        double **A;
+        A = calloc(m, sizeof(double*));
+
+        for (i = 0; i < m; i++)
+        {
+            A[i] = calloc(n, sizeof(double));
+        }
+
+        // allocate vector for RHS
+        double *b;
+        b = calloc(n, sizeof(double));
+
+        printf("\n\n\n");
+
+        // create uniformly distributed and diagnally dominant matrix
+        // and create RHS vector by multiplying matrix by vector of ones
+        uniformMatrix(A, b, n);
+
+        printf("Uniform diagnaly dominent matrix A augmented with vector b =\n");
+
+        printAugMatrix(A, b, m, n);
+
+        printf("\n\n\n");
+
+        // free memory
+        for (i = 0; i < m; i++)
+        {
+            free(A[i]);
+        }
+
+        free(A);
+        free(b);
+
+        return 0;
+    }
 
 Output from the lines above:
 
@@ -36,9 +80,9 @@ Output from the lines above:
     7.380e-01       2.160e-01       9.040e-01       8.300e-01       9.700e-01       3.892e+00       2.240e-01       |7.774e+00
     8.700e-02       2.090e-01       6.230e-01       5.280e-01       6.650e-01       2.240e-01       2.346e+00       |4.682e+00
 
-The output show the computed induced Infinity-norm of matrix A is 33.33.
+The output shows a computed 7x7 matrix A augmented with the computed right hand side vector b.
 
-**Implementation/Code:** The following is the code for matrixInducedNormInfinity()
+**Implementation/Code:** The following is the code for uniformMatrix()
 
     void uniformMatrix(double **A, double *b, int n) {
         int i, j, k = 0;
