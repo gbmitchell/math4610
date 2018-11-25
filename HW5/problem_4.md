@@ -102,7 +102,7 @@ Output from the lines above:
     1.000e+00
     1.000e+00
 
-The output shows the matrix A augmented with vector b. Jacobi iteration completed after 7 iterations and produced the expected solution vector x containing all ones.
+The output shows the matrix A augmented with vector b. Gauss-Seidel completed after 7 iterations and produced the expected solution vector x containing all ones.
 
 **Implementation/Code:** The following is the code for gaussSeidel()
 
