@@ -9,19 +9,19 @@ Homework 5 problem 1a.
 
 For example,
 
-    matrixMath.c
+    matrixInducedNorms.c
 
-will produce an executable **matrixMath.exe** that can be executed.
+will produce an executable **matrixInducedNorms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the L1-norm given a matrix. The function was developed to compute the L1-norm of a 3x3 matrix. The L1-norm is used to give some sense of a magnitude for the given matrix. The L1-norm for a matrix is computed by summing each column in the matrix and then indentifying which sum is maximum.
+**Description/Purpose:** This function will compute a double precision value for the induced L1-norm given a matrix A and a vector v. The induced L1-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced L1-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the L1-norm of the resulting vector. The resulting L1-norm is then divided by the L1-norm of the vector v. Writen another way, the induced L1-norm for a matrix A is ||Av||/||v||.
 
-**Input:** There are two inputs needed in this case. The matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
+**Input:** There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector.
 
-**Output:** The function returns a double precision value max which represents the L1-norm of the input matrix.
+**Output:** The function returns a double precision value inducedNorm which represents the induced L1-norm of the input matrix A.
 
 **Usage/Example:**
 
-There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value max which represents the L1-norm of the input matrix A. 
+There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector. The function returns a double precision value inducedNorm which represents the induced L1-norm of the input matrix A.
 
     #include "mylib.h"
     #include <stdio.h>
@@ -102,8 +102,7 @@ Output from the lines above:
 
     Induced L1 norm of A = ||Av||/||v|| = 3.200e+01
 
-The sum of column 1 is 2 + 8 + 14 = 24, the sum of column 2 is 4 + 10 + 16 = 30, and the sum of column 3 is 6 + 12 + 18 = 36.
-The max of these sums is 36, therefore the L1-norm is 36.
+The output show the computed induced L1-norm of matrix A is 32.
 
 **Implementation/Code:** The following is the code for matrixInducedNormL1()
 
@@ -138,19 +137,19 @@ Homework 5 problem 1b.
 
 For example,
 
-    matrixMath.c
+    matrixInducedNorms.c
 
-will produce an executable **matrixMath.exe** that can be executed.
+will produce an executable **matrixInducedNorms.exe** that can be executed.
 
-**Description/Purpose:** This function will compute a double precision value for the Infinity-norm given a matrix. The function was developed to compute the Infinity-norm of a 3x3 matrix. The Infinity-norm is used to give some sense of a magnitude for the given matrix. The Infinity-norm for a matrix is computed by summing each row in the matrix and then indentifying which sum is maximum.
+**Description/Purpose:** This function will compute a double precision value for the induced Infinity-norm given a matrix A and a vector v. The induced Infinity-norm of a matrix is used to give some sense of a magnitude for the given matrix. The induced Infinity-norm for a matrix A is computed by multiplying the matrix A by the vector v and computing the Infinity-norm of the resulting vector. The resulting Infinity-norm is then divided by the Infinity-norm of the vector v. Writen another way, the induced Infinity-norm for a matrix A is ||Av||/||v||.
 
-**Input:** There are two inputs needed in this case. The matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function.
+**Input:** There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector.
 
-**Output:** The function returns a double precision value max which represents the Infinity-norm of the input matrix.
+**Output:** The function returns a double precision value inducedNorm which represents the induced Infinity-norm of the input matrix A.
 
 **Usage/Example:**
 
-There are two inputs needed in this case. The Matrix A is passed to the function by reference. An argument for the size of the matirx n is also passed to the function. The function returns a double precision value max which represents the Infinity-norm of the input matrix A.
+There are three inputs needed in this case. The matrix A and vector v are passed to the function by reference. An argument n is also passed to the function, n represents the size of the matrix and vector. The function returns a double precision value inducedNorm which represents the induced Infinity-norm of the input matrix A.
 
     #include "mylib.h"
     #include <stdio.h>
@@ -231,8 +230,7 @@ Output from the lines above:
 
     Induced Infinity norm of A = ||Av||/||v|| = 3.333e+01
 
-The sum of row 1 is 2 + 4 + 6 = 12, the sum of row 2 is 8 + 10 + 12 = 30, and the sum of row 3 is 14 + 16 + 18 = 48.
-The max of these sums is 48, therefore the Infinity-norm is 48.
+The output show the computed induced Infinity-norm of matrix A is 33.33.
 
 **Implementation/Code:** The following is the code for matrixInducedNormInfinity()
 
