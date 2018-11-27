@@ -1,6 +1,5 @@
 ## Software Manual Math 4610
 
-
 1. Error Caluclation
     * [smaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/smaceps)
     * [dmaceps](https://gbmitchell.github.io/math4610/softwareManual/errorCalculation/dmaceps)
@@ -18,24 +17,28 @@
 3. Derivative Approximation
     * [derivative](https://gbmitchell.github.io/math4610/softwareManual/derivativeApproximation/derivative)
  
-4. Matrix and Vector Operations
-    * [Frobenius norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Frobenius_norm_matrix)
-    * [Infinity norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_matrix)
-    * [Infinity norm for a vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector)
-    * [Infinity norm vector error absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector_error_absolute)
-    * [Infinity norm vector error relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector_error_relative)
-    * [L1 norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_matrix)
+4. Vector Operations
     * [L1 norm for a vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_vector)
+    * [L2 norm for a vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector)
+    * [Infinity norm for a vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector)
     * [L1 norm vector error absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_vector_error_absolute)
     * [L1 norm vector error relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_vector_error_relative)
-    * [L2 norm for a vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector)
     * [L2 norm vector error absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector_error_absolute)
     * [L2 norm vector error relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L2_norm_vector_error_relative)
+    * [Infinity norm vector error absolute](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector_error_absolute)
+    * [Infinity norm vector error relative](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_vector_error_relative)
     * [Vector addition](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/vector_addition)
     * [Vector subtraction](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/vector_subtraction)
     * [Scalar multiplied by vector](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/scalarXvector)
     * [Inner product of two vectors](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/inner_product_vector)
     * [Cross product of two vectors](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/cross_product_vector)
+
+5. Matrix Operations
+    * [L1 norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/L1_norm_matrix)
+    * [Frobenius norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Frobenius_norm_matrix)
+    * [Infinity norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/Infinity_norm_matrix)
+    * [Induced L1 norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/induced_L1_norm_matrix)
+    * [Induced Infinity norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/induced_Infinity_norm_matrix)
     * [Matrix addition](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_addition)
     * [Matrix subtraction](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_subtraction)
     * [Matrix transpose](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_transpose)
@@ -50,10 +53,8 @@
     * [Matrix determinant](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_determinant)
     * [Unit orthoginal vector pair](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/unitOrthog)
     * [Uniform Diagonally Dominant Matrix Generator](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/uniformDiagDomMatrix)
-    * [Induced L1 norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/induced_L1_norm_matrix)
-    * [Induced Infinity norm for a matrix](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/induced_Infinity_norm_matrix)
  
-5. Linear Solvers
+6. Linear Solvers (Direct Methods)
     * [Guass Elimination (square matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSquare)
     * [Guass Elimination (general matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussGeneral)
     * [Forward Substitution](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/forwardSub)
@@ -61,8 +62,11 @@
     * [LU Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/LU)
     * [Cholesky Decomposition](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/cholesky)
     * [Practical applications for linear solvers in Electrical Engineering](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/EEapplications)
+
+7. Linear Solvers (Iterative Methods)
     * [Jacobi](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/jacobi)
     * [Gauss-Seidel](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSeidel)
+    * [Gradient (steepest descent)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gradient)
     * [Conjugate Gradient](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/conjugateGradient)
   
 #### [Home Page](https://gbmitchell.github.io/)

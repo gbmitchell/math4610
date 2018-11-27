@@ -78,5 +78,6 @@ void jacobi(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void jacobiParallel(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void gaussSeidel(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void gaussSeidelParallel(double **A, double *b, double *x0, double tol, int maxiter, int n);
+void gradient(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void conjugateGradient(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void conjugateGradientParallel(double **A, double *b, double *x0, double tol, int maxiter, int n);

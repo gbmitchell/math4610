@@ -1774,6 +1774,85 @@ void gaussSeidelParallel(double **A, double *b, double *x0, double tol, int maxi
 	free(s2);
 }
 
+// steepest descent method
+void gradient(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+	double rnorm = 0.0;
+	double ynorm = 0.0;
+	double alpha = 0.0;
+	double diff = 0.0;
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *r0;
+	r0 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *y;
+	y = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *u;
+	u = calloc(n, sizeof(double));
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		// r0 = b - Ax0
+		// Ax0 = u;
+		vectorXmatrix(A, x0, u, n, n);
+
+		// r0 = b - u
+		for (i = 0; i < n; i++) {
+			r0[i] = b[i] - u[i];
+		}
+
+		rnorm = 0.0;
+		for (i = 0; i < n; i++) {
+			rnorm = rnorm + (r0[i] * r0[i]);
+		}
+
+		vectorXmatrix(A, r0, y, n, n);
+
+		ynorm = 0.0;
+		for (i = 0; i < n; i++) {
+			ynorm = ynorm + (r0[i] * y[i]);
+		}
+
+		alpha = rnorm / ynorm;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = x0[i] + (alpha * r0[i]);
+		}
+
+		// compute error
+		err = 0.0;
+		for (i = 0; i < n; i++) {
+			diff = x1[i] - x0[i];
+			err = err + (diff * diff);
+		}
+		err = sqrt(err);
+
+		// x0 = x1
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+	free(r0);
+	free(y);
+	free(u);
+}
+
 void conjugateGradient(double **A, double *b, double *x0, double tol, int maxiter, int n) {
 	int i, j = 0;
 	int iter = 0;

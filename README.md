@@ -12,6 +12,7 @@ manual and for submitting homework assignments to the course instructor.
 - [Homework 3](https://gbmitchell.github.io/math4610/HW3/problems)
 - [Homework 4](https://gbmitchell.github.io/math4610/HW4/problems)
 - [Homework 5](https://gbmitchell.github.io/math4610/HW5/problems)
+- [Homework 6](https://gbmitchell.github.io/math4610/HW6/problems)
   
   
   
