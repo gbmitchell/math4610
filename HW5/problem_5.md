@@ -30,8 +30,8 @@ There are six inputs needed in this case to solve the problem Ax=b. A square mat
 
     int main() {
         int i, j = 0;
-        int n = 5;
-        int m = 5;
+        int n = 7;
+        int m = 7;
         int maxiter = n * 6000;
         double tol = 0.0000000001;
 
