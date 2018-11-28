@@ -9,9 +9,9 @@ Software Manual
 
 For example,
 
-    norms.c
+    vectorError.c
 
-will produce an executable **norms.exe** that can be executed.
+will produce an executable **vectorError.exe** that can be executed.
 
 **Description/Purpose:** This function will compute a double precision value for absolute error between an exact vector x and a vector y which is the approximation to the vector x. Computing the absolute error between an exact and approximate vector involves taking the difference between the two and computing the L2-norm of the difference. The result is a single value to give some idea of the absolute error in an approximation to the exact vector.
 
@@ -24,63 +24,92 @@ will produce an executable **norms.exe** that can be executed.
 The function has three input arguments needed to produce the absolute error. An exact vector x and a vector y which represents an approximation to the vector x are passed by reference and a parameter len which represents the length of the vectors is passed to the function. The function returns a double precision value eabs which represents the absolute error between the two input vectors x and y.
 
     #include "mylib.h"
+    #include <stdio.h>
+    #include <stdlib.h>
 
     int main() {
         int i = 0;
-        int len = 0;
-        double eabs = 0.0;
-        double x[3] = { -1.25, 2.125, 3.0625 };
-        double y[3] = { -1.0, 2.0, 3.0 };
-    
-        len = sizeof(x) / 8;
-        
-        printf("\n\nExact Vector x =\n");
-    
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", x[i]);
+        double k = 0.0;
+        double eabsL2 = 0.0;
+
+        int n = 3;
+
+        // alloc memory for a vector
+        double *x;
+        x = calloc(n, sizeof(double));
+
+        // alloc memory for a vector
+        double *y;
+        y = calloc(n, sizeof(double));
+
+        // assign values to vector x
+        k = -1.125;
+        for (i = 0; i < n; i++) {
+            x[i] = k;
+            k = k + 1.25;
         }
-    
-        printf("\n\nApproximate Vector y =\n");
-    
-        for (i = 0; i < len; i++) {
-            printf("%.3lf\n", y[i]);
+
+        // assign values to vector y
+        k = -1.0;
+        for (i = 0; i < n; i++) {
+            y[i] = k;
+            k = k + 1.25;
         }
-    
-        eabs = vectorErrorAbsoluteL2(x, y, len);
-        printf("\n\ne = x - y");
-        printf("\nL2 norm of e = L2 eabs = %.3lf", eabs);
-    
+
+        printf("\n\nExact vector x =\n");
+
+        printVector(x, n);
+
+        printf("\n\nApproximate vector y =\n");
+
+        printVector(y, n);
+
+        eabsL2 = vectorErrorAbsoluteL2(x, y, n);
+
+        printf("\n\nAbsolut error using L2 norm = %.3e\n", eabsL2);
+
+        // free memory
+        free(x);
+        free(y);
+
+        return 0;
     }
 
 Output from the lines above:
 
-    Exact Vector x =
-    -1.250
-    2.125
-    3.063
-    
-    Approximate Vector y =
-    -1.000
-    2.000
-    3.000
-    
-    e = x - y
-    L2 norm of e = L2 eabs = 0.286
+    Exact vector x =
+    -1.125e+00
+    1.250e-01
+    1.375e+00
 
-The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L2-norm of the vector e represents the absolute error, in this case L2-eabs = 0.286.
+    Approximate vector y =
+    -1.000e+00
+    2.500e-01
+    1.500e+00
+
+    Absolut error using L2 norm = 2.165e-01
+
+The output displays the values of the exact vector x and its approximation vector y. The error vector e = x-y and the L2-norm of the vector e represents the absolute error, in this case L2-eabs = 0.2165.
 
 **Implementation/Code:** The following is the code for vectorErrorAbsoluteL2()
     
-    double vectorErrorAbsoluteL2(double xp[3], double yp[3], int len) {
-    
+    double vectorErrorAbsoluteL2(double *xp, double *yp, int len) {
+
         double eabs = 0.0;
-        double e[3] = { 0 };
-    
+        int i = 0;
+
+        // alloc memory for a vector
+        double *e;
+        e = calloc(len, sizeof(double));
+
         vectorSub(xp, yp, e, len);
-    
+
         eabs = vectorNormL2(e, len);
-    
+
+        // free memory
+        free(e);
+
         return eabs;
     }
 
-**Last Modified:** October/2018
+**Last Modified:** November/2018
