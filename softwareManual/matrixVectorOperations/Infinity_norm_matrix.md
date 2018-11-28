@@ -102,4 +102,4 @@ The max of these sums is 48, therefore the Infinity-norm is 48.
         return max;
     }
 
-**Last Modified:** October/2018
+**Last Modified:** November/2018
