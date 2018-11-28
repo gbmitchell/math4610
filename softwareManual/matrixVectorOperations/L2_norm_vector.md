@@ -23,40 +23,40 @@ will produce an executable **vectorNorms.exe** that can be executed.
 
 The function has two arguments needed to compute and return the value for L2-norm of the vector. The vector v1 of length three contains the double precision values 1.0, 2.0, and 3.0. A parameter len represents the lenght of the input vector. The function is then called with these input parameters and returns a double precision value which represents the L2-norm for the vector v1. 
 
-#include "mylib.h"
-#include <stdio.h>
-#include <stdlib.h>
+	#include "mylib.h"
+	#include <stdio.h>
+	#include <stdlib.h>
 
-int main() {
-	int i, k = 0;
-	double normL2 = 0.0;
+	int main() {
+		int i, k = 0;
+		double normL2 = 0.0;
 
-	int n = 3;
+		int n = 3;
 
-	// alloc memory for a vector
-	double *v1;
-	v1 = calloc(n, sizeof(double));
+		// alloc memory for a vector
+		double *v1;
+		v1 = calloc(n, sizeof(double));
 
-	// assign values to vector v1
-	k = 1;
-	for (i = 0; i < n; i++) {
-		v1[i] = k;
-		k++;
+		// assign values to vector v1
+		k = 1;
+		for (i = 0; i < n; i++) {
+			v1[i] = k;
+			k++;
+		}
+
+		printf("\n\nVector v1 =\n");
+
+		printVector(v1, n);
+
+		normL2 = vectorNormL2(v1, n);
+
+		printf("\n\nL2 norm of v1 = %.3e\n", normL2);
+
+		// free memory
+		free(v1);
+
+		return 0;
 	}
-
-	printf("\n\nVector v1 =\n");
-
-	printVector(v1, n);
-
-	normL2 = vectorNormL2(v1, n);
-
-	printf("\n\nL2 norm of v1 = %.3e\n", normL2);
-
-	// free memory
-	free(v1);
-
-	return 0;
-}
 
 Output from the lines above:
 
