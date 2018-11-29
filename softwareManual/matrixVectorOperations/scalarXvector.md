@@ -78,7 +78,7 @@ Output from the lines above:
     2.500e+01
     3.000e+01
 
-The output shows the value for the vector u and the result of scaling the vector u by a value of 5.0.
+The output shows the value for the vector v1 and the result of scaling the vector v1 by a value of 5.0.
 
 **Implementation/Code:** The following is the code for vectorScale()
 
