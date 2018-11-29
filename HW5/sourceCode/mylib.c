@@ -1177,132 +1177,76 @@ double determinantMatrix(double **A, int m) {
 	return determinant;
 }
 
-void KroneckerMatrix(double **A, double **B, double **K, int m, int n) {
-	/*
-	int i, j, k = 0;
+double determinantMatrixNxN(double **A, int n) {
+	int h, i, j, k, l = 0;
+	double det = 0;
 
-	//************************************************
-	// alloc memory for a matrix
-	double **A;
-	A = calloc(m, sizeof(double*));
-
-	for (i = 0; i < m; i++)
-	{
-		A[i] = calloc(n, sizeof(double));
+	if (n == 1) {
+		return A[0][0];
 	}
+	else if (n == 2) {
+		det = (A[0][0] * A[1][1] - A[0][1] * A[1][0]);
+		return det;
+	}
+	else {
+		for (l = 0; l < n; l++) {
+			// alloc memory for a matrix
+			double **T;
+			T = calloc(n, sizeof(double*));
 
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			A[i][j] = 0.0;
+			for (i = 0; i < n; i++)
+			{
+				T[i] = calloc(n, sizeof(double));
+			}
+
+			h = 0;
+			k = 0;
+			for (i = 1; i < n; i++) {
+				for (j = 0; j < n; j++) {
+					if (j == l) {
+						continue;
+					}
+					T[h][k] = A[i][j];
+					k++;
+					if (k == (n - 1)) {
+						h++;
+						k = 0;
+					}
+				}
+			}
+			det = det + A[0][l] * pow(-1, l) * determinantMatrixNxN(T, (n - 1));
+
+			// free memory
+			for (i = 0; i < n; i++)
+			{
+				free(T[i]);
+			}
+
+			free(T);
 		}
+
+		return det;
 	}
-	//************************************************
-
-	
-	double R[50][50] = { 0 };
-	double S[50][50] = { 0 };
-	double T[50][50] = { 0 };
-	double U[50][50] = { 0 };
-	double V[50][50] = { 0 };
-	double W[50][50] = { 0 };
-	double X[50][50] = { 0 };
-	double Y[50][50] = { 0 };
-	double Z[50][50] = { 0 };
-	double s = 0;
-
-	s = A[0][0];
-	scaleMatrix(B, R, s, m, n);
-
-	s = A[0][1];
-	scaleMatrix(B, S, s, m, n);
-
-	s = A[0][2];
-	scaleMatrix(B, T, s, m, n);
-
-	s = A[1][0];
-	scaleMatrix(B, U, s, m, n);
-
-	s = A[1][1];
-	scaleMatrix(B, V, s, m, n);
-
-	s = A[1][2];
-	scaleMatrix(B, W, s, m, n);
-
-	s = A[2][0];
-	scaleMatrix(B, X, s, m, n);
-
-	s = A[2][1];
-	scaleMatrix(B, Y, s, m, n);
-
-	s = A[2][2];
-	scaleMatrix(B, Z, s, m, n);
-
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i][j] = R[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i][j + 3] = S[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i][j + 6] = T[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 3][j] = U[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 3][j + 3] = V[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 3][j + 6] = W[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 6][j] = X[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 6][j + 3] = Y[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 6][j + 6] = Z[i][j];
-		}
-	}
-
-
-	// free memory
-	for (i = 0; i < m; i++)
-	{
-		free(A[i]);
-	}
-
-	free(A);
-
-	*/
 }
+
+void KroneckerMatrix(double **A, double **B, double **C, int ma, int na, int mb, int nb) {
+	int i, j, k, l = 0;
+	int Row = 0;
+	int Col = 0;
+
+	for (i = 0; i < ma; i++) {
+		for (j = 0; j < na; j++) {
+			Row = i * mb;
+			Col = j * nb;
+			for (k = 0; k < na; k++) {
+				for (l = 0; l < nb; l++) {
+					C[Row + k][Col + l] = A[i][j] * B[k][l];
+				}
+			}
+		}
+	}
+}
+
 
 double matrixNormL1(double **a, int len) {
 	int i, j = 0;
@@ -1402,8 +1346,8 @@ void backSub(double **A, double *x, double *b, int n) {
 	int i, j = 0;
 	double sum = 0.0;
 
-	x[n] = b[n] / A[n][n];
-	for (i = n - 1; i > -1; i--) {
+	x[n-1] = b[n-1] / A[n-1][n-1];
+	for (i = (n - 1); i > -1; i--) {
 		sum = 0.0;
 		for (j = (i + 1); j < n; j++) {
 			sum = sum + (A[i][j] * x[j]);

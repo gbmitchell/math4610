@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #include "mylib.h"
+#include <time.h>
 
 double Pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
 
@@ -814,28 +816,55 @@ double secant(double(*f)(double), double xa, double xb, double tol, int maxItr) 
 
 //*******************************************************************************************************************************
 
-void vectorAdd(double up[3], double vp[3], double ap[3], int len) {
+void printAugMatrix(double **A, double *b, int m, int n) {
+	int i, j = 0;
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			printf("%.3e\t", A[i][j]);
+		}
+		printf("|%.3e\n", b[i]);
+	}
+}
+
+void printMatrix(double **A, int m, int n) {
+	int i, j = 0;
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			printf("%.3e\t", A[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+void printVector(double *v, int n) {
+	int i, j = 0;
+	for (i = 0; i < n; i++) {
+		printf("%.3e\n", v[i]);
+	}
+}
+
+void vectorAdd(double *up, double *vp, double *ap, int len) {
 	int i = 0;
 	for (i = 0; i < len; i++) {
 		ap[i] = up[i] + vp[i];
 	}
 }
 
-void vectorSub(double up[3], double vp[3], double ap[3], int len) {
+void vectorSub(double *up, double *vp, double *ap, int len) {
 	int i = 0;
 	for (i = 0; i < len; i++) {
 		ap[i] = up[i] - vp[i];
 	}
 }
 
-void vectorScale(double up[3], double ap[3], double scale, int len) {
+void vectorScale(double *up, double *ap, double scale, int len) {
 	int i = 0;
 	for (i = 0; i < len; i++) {
 		ap[i] = scale * up[i];
 	}
 }
 
-double vectorInner(double up[3], double vp[3], int len) {
+double vectorInner(double *up, double *vp, int len) {
 	int i = 0;
 	double ia = 0.0;
 	for (i = 0; i < len; i++) {
@@ -844,13 +873,13 @@ double vectorInner(double up[3], double vp[3], int len) {
 	return ia;
 }
 
-void vectorCross(double up[3], double vp[3], double ap[3], int len) {
+void vectorCross(double *up, double *vp, double *ap, int len) {
 	ap[0] = (up[1] * vp[2]) - (up[2] * vp[1]);
 	ap[1] = (up[2] * vp[0]) - (up[0] * vp[2]);
 	ap[2] = (up[0] * vp[1]) - (up[1] * vp[0]);
 }
 
-double vectorNormL1(double up[3], int len) {
+double vectorNormL1(double *up, int len) {
 	int i = 0;
 	double ia = 0.0;
 	for (i = 0; i < len; i++) {
@@ -859,7 +888,7 @@ double vectorNormL1(double up[3], int len) {
 	return ia;
 }
 
-double vectorNormL2(double up[3], int len) {
+double vectorNormL2(double *up, int len) {
 	int i = 0;
 	double ia = 0.0;
 	for (i = 0; i < len; i++) {
@@ -869,7 +898,7 @@ double vectorNormL2(double up[3], int len) {
 	return ia;
 }
 
-double vectorNormInfinity(double up[3], int len) {
+double vectorNormInfinity(double *up, int len) {
 	int i = 0;
 	double ia = 0.0;
 	ia = fabs(up[0]);
@@ -883,19 +912,26 @@ double vectorNormInfinity(double up[3], int len) {
 
 //**********************************************************************************************************************************
 
-double vectorErrorAbsoluteL1(double xp[3], double yp[3], int len) {
-
+double vectorErrorAbsoluteL1(double *xp, double *yp, int len) {
+	
 	double eabs = 0.0;
-	double e[3] = { 0 };
+	int i = 0;
+
+	// alloc memory for a vector
+	double *e;
+	e = calloc(len, sizeof(double));
 
 	vectorSub(xp, yp, e, len);
 
 	eabs = vectorNormL1(e, len);
 
+	// free memory
+	free(e);
+
 	return eabs;
 }
 
-double vectorErrorRelativeL1(double xp[3], double yp[3], int len) {
+double vectorErrorRelativeL1(double *xp, double *yp, int len) {
 
 	double erel = 0.0;
 	double a = 0.0;
@@ -907,19 +943,26 @@ double vectorErrorRelativeL1(double xp[3], double yp[3], int len) {
 	return erel;
 }
 
-double vectorErrorAbsoluteL2(double xp[3], double yp[3], int len) {
+double vectorErrorAbsoluteL2(double *xp, double *yp, int len) {
 
 	double eabs = 0.0;
-	double e[3] = { 0 };
+	int i = 0;
+
+	// alloc memory for a vector
+	double *e;
+	e = calloc(len, sizeof(double));
 
 	vectorSub(xp, yp, e, len);
 
 	eabs = vectorNormL2(e, len);
 
+	// free memory
+	free(e);
+
 	return eabs;
 }
 
-double vectorErrorRelativeL2(double xp[3], double yp[3], int len) {
+double vectorErrorRelativeL2(double *xp, double *yp, int len) {
 
 	double erel = 0.0;
 	double a = 0.0;
@@ -931,19 +974,26 @@ double vectorErrorRelativeL2(double xp[3], double yp[3], int len) {
 	return erel;
 }
 
-double vectorErrorAbsoluteInfinity(double xp[3], double yp[3], int len) {
+double vectorErrorAbsoluteInfinity(double *xp, double *yp, int len) {
 
 	double eabs = 0.0;
-	double e[3] = { 0 };
+	int i = 0;
+
+	// alloc memory for a vector
+	double *e;
+	e = calloc(len, sizeof(double));
 
 	vectorSub(xp, yp, e, len);
 
 	eabs = vectorNormInfinity(e, len);
 
+	// free memory
+	free(e);
+
 	return eabs;
 }
 
-double vectorErrorRelativeInfinity(double xp[3], double yp[3], int len) {
+double vectorErrorRelativeInfinity(double *xp, double *yp, int len) {
 
 	double erel = 0.0;
 	double a = 0.0;
@@ -957,7 +1007,7 @@ double vectorErrorRelativeInfinity(double xp[3], double yp[3], int len) {
 
 //***************************************************************************************************************************************
 
-void matrixAdd(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
+void matrixAdd(double **A, double **B, double **C, int m, int n) {
 	int i, j = 0;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
@@ -966,7 +1016,7 @@ void matrixAdd(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
 	}
 }
 
-void matrixSub(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
+void matrixSub(double **A, double **B, double **C, int m, int n) {
 	int i, j = 0;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
@@ -975,7 +1025,7 @@ void matrixSub(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
 	}
 }
 
-void vectorXmatrix(double A[3][3], double v[3], double u[3], int m, int n) {
+void vectorXmatrix(double **A, double *v, double *u, int m, int n) {
 	int i, j = 0;
 	for (i = 0; i < m; i++) {
 		u[i] = 0;
@@ -985,7 +1035,24 @@ void vectorXmatrix(double A[3][3], double v[3], double u[3], int m, int n) {
 	}
 }
 
-void parallelVectorXmatrix(double A[3][3], double v[3], double u[3], int m, int n) {
+void matrixXvectorParallel(double **A, double *v, double *u, int m, int n) {
+	int i, j = 0;
+
+	// begin parallel threads
+#pragma omp parallel private(i, j)
+	{
+#pragma omp for
+		for (i = 0; i < m; i++) {
+			u[i] = 0;
+			for (j = 0; j < n; j++) {
+				u[i] = u[i] + (A[i][j] * v[j]);
+			}
+		}
+	}
+
+}
+
+void parallelVectorXmatrix(double **A, double *v, double *u, int m, int n) {
 
 	int i = 0;
 	int id = 0;
@@ -999,7 +1066,7 @@ void parallelVectorXmatrix(double A[3][3], double v[3], double u[3], int m, int 
 			u[0] = 0;
 			for (i = 0; i < m; i++) {
 				u[0] = u[0] + (A[0][i] * v[i]);
-				printf("A[0][%d] * v[%d], thread %d\n", i, i, id);
+				//printf("A[0][%d] * v[%d], thread %d\n", i, i, id);
 			}
 		}
 
@@ -1007,7 +1074,7 @@ void parallelVectorXmatrix(double A[3][3], double v[3], double u[3], int m, int 
 			u[1] = 0;
 			for (i = 0; i < m; i++) {
 				u[1] = u[1] + (A[1][i] * v[i]);
-				printf("A[1][%d] * v[%d], thread %d\n", i, i, id);
+				//printf("A[1][%d] * v[%d], thread %d\n", i, i, id);
 			}
 		}
 
@@ -1015,14 +1082,14 @@ void parallelVectorXmatrix(double A[3][3], double v[3], double u[3], int m, int 
 			u[2] = 0;
 			for (i = 0; i < m; i++) {
 				u[2] = u[2] + (A[2][i] * v[i]);
-				printf("A[2][%d] * v[%d], thread %d\n", i, i, id);
+				//printf("A[2][%d] * v[%d], thread %d\n", i, i, id);
 			}
 		}
 	}
 }
 
 
-void matrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
+void matrixXmatrix(double **A, double **B, double **C, int m, int n) {
 	int i, j, k = 0;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
@@ -1035,13 +1102,13 @@ void matrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m, int n)
 }
 
 
-void parallelMatrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m, int n) {
+void parallelMatrixXmatrix(double **A, double **B, double **C, int m, int n) {
 
-	int i, j, k = 0;
+	int i, j = 0;
 	int id = 0;
 
 	// begin parallel threads
-#pragma omp parallel private(id, i, j, k)
+#pragma omp parallel private(id, i, j)
 	{
 		id = omp_get_thread_num();
 
@@ -1050,7 +1117,7 @@ void parallelMatrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m
 				C[0][i] = 0;
 				for (j = 0; j < n; j++) {
 					C[0][i] = C[0][i] + (A[0][j] * B[j][i]);
-					printf("A[0][%d] * B[%d][%d], thread %d\n", j, j, i, id);
+					//printf("A[0][%d] * B[%d][%d], thread %d\n", j, j, i, id);
 				}
 			}
 		}
@@ -1060,7 +1127,7 @@ void parallelMatrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m
 				C[1][i] = 0;
 				for (j = 0; j < n; j++) {
 					C[1][i] = C[1][i] + (A[1][j] * B[j][i]);
-					printf("A[1][%d] * B[%d][%d], thread %d\n", j, j, i, id);
+					//printf("A[1][%d] * B[%d][%d], thread %d\n", j, j, i, id);
 				}
 			}
 		}
@@ -1070,7 +1137,7 @@ void parallelMatrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m
 				C[2][i] = 0;
 				for (j = 0; j < n; j++) {
 					C[2][i] = C[2][i] + (A[2][j] * B[j][i]);
-					printf("A[2][%d] * B[%d][%d], thread %d\n", j, j, i, id);
+					//printf("A[2][%d] * B[%d][%d], thread %d\n", j, j, i, id);
 				}
 			}
 		}
@@ -1078,7 +1145,7 @@ void parallelMatrixXmatrix(double A[3][3], double B[3][3], double C[3][3], int m
 }
 
 
-double traceMatrix(double A[3][3], int m) {
+double traceMatrix(double **A, int m) {
 	double trace = 0.0;
 	int i = 0;
 	for (i = 0; i < m; i++) {
@@ -1087,7 +1154,7 @@ double traceMatrix(double A[3][3], int m) {
 	return trace;
 }
 
-void scaleMatrix(double A[3][3], double C[3][3], double s, int m, int n) {
+void scaleMatrix(double **A, double **C, double s, int m, int n) {
 	int i, j = 0;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
@@ -1096,7 +1163,7 @@ void scaleMatrix(double A[3][3], double C[3][3], double s, int m, int n) {
 	}
 }
 
-void transposeMatrix(double A[3][3], double C[3][3], int m, int n) {
+void transposeMatrix(double **A, double **C, int m, int n) {
 	int i, j = 0;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
@@ -1105,110 +1172,83 @@ void transposeMatrix(double A[3][3], double C[3][3], int m, int n) {
 	}
 }
 
-double determinantMatrix(double A[3][3], int m) {
+double determinantMatrix(double **A, int m) {
 	double determinant = (A[0][0] * ((A[1][1] * A[2][2]) - (A[1][2] * A[2][1]))) - (A[0][1] * ((A[1][0] * A[2][2]) - (A[1][2] * A[2][0]))) + (A[0][2] * ((A[1][0] * A[2][1]) - (A[1][1] * A[2][0])));
 	return determinant;
 }
 
-void KroneckerMatrix(double A[3][3], double B[3][3], double K[9][9], int m, int n) {
+double determinantMatrixNxN(double **A, int n) {
+	int h, i, j, k, l = 0;
+	double det = 0;
 
-	int i, j, k = 0;
-	double R[3][3] = { 0 };
-	double S[3][3] = { 0 };
-	double T[3][3] = { 0 };
-	double U[3][3] = { 0 };
-	double V[3][3] = { 0 };
-	double W[3][3] = { 0 };
-	double X[3][3] = { 0 };
-	double Y[3][3] = { 0 };
-	double Z[3][3] = { 0 };
-	double s = 0;
-
-	s = A[0][0];
-	scaleMatrix(B, R, s, m, n);
-
-	s = A[0][1];
-	scaleMatrix(B, S, s, m, n);
-
-	s = A[0][2];
-	scaleMatrix(B, T, s, m, n);
-
-	s = A[1][0];
-	scaleMatrix(B, U, s, m, n);
-
-	s = A[1][1];
-	scaleMatrix(B, V, s, m, n);
-
-	s = A[1][2];
-	scaleMatrix(B, W, s, m, n);
-
-	s = A[2][0];
-	scaleMatrix(B, X, s, m, n);
-
-	s = A[2][1];
-	scaleMatrix(B, Y, s, m, n);
-
-	s = A[2][2];
-	scaleMatrix(B, Z, s, m, n);
-
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i][j] = R[i][j];
-		}
+	if (n == 1) {
+		return A[0][0];
 	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i][j + 3] = S[i][j];
-		}
+	else if (n == 2) {
+		det = (A[0][0] * A[1][1] - A[0][1] * A[1][0]);
+		return det;
 	}
+	else {
+		for (l = 0; l < n; l++) {
+			// alloc memory for a matrix
+			double **T;
+			T = calloc(n, sizeof(double*));
 
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i][j + 6] = T[i][j];
+			for (i = 0; i < n; i++)
+			{
+				T[i] = calloc(n, sizeof(double));
+			}
+
+			h = 0;
+			k = 0;
+			for (i = 1; i < n; i++) {
+				for (j = 0; j < n; j++) {
+					if (j == l) {
+						continue;
+					}
+					T[h][k] = A[i][j];
+					k++;
+					if (k == (n - 1)) {
+						h++;
+						k = 0;
+					}
+				}
+			}
+			det = det + A[0][l] * pow(-1, l) * determinantMatrixNxN(T, (n - 1));
+
+			// free memory
+			for (i = 0; i < n; i++)
+			{
+				free(T[i]);
+			}
+
+			free(T);
 		}
-	}
 
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 3][j] = U[i][j];
-		}
+		return det;
 	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 3][j + 3] = V[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 3][j + 6] = W[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 6][j] = X[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 6][j + 3] = Y[i][j];
-		}
-	}
-
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < n; j++) {
-			K[i + 6][j + 6] = Z[i][j];
-		}
-	}
-
 }
 
-double matrixNormL1(double a[3][3], int len) {
+void KroneckerMatrix(double **A, double **B, double **C, int ma, int na, int mb, int nb) {
+	int i, j, k, l = 0;
+	int Row = 0;
+	int Col = 0;
+
+	for (i = 0; i < ma; i++) {
+		for (j = 0; j < na; j++) {
+			Row = i * mb;
+			Col = j * nb;
+			for (k = 0; k < na; k++) {
+				for (l = 0; l < nb; l++) {
+					C[Row + k][Col + l] = A[i][j] * B[k][l];
+				}
+			}
+		}
+	}
+}
+
+
+double matrixNormL1(double **a, int len) {
 	int i, j = 0;
 	double ia = 0.0;
 	double max = 0.0;
@@ -1225,7 +1265,7 @@ double matrixNormL1(double a[3][3], int len) {
 	return max;
 }
 
-double matrixNormFrobenious(double a[3][3], int len) {
+double matrixNormFrobenious(double **a, int len) {
 	int i, j = 0;
 	double ia = 0.0;
 	for (i = 0; i < len; i++) {
@@ -1237,7 +1277,7 @@ double matrixNormFrobenious(double a[3][3], int len) {
 	return ia;
 }
 
-double matrixNormInfinity(double a[3][3], int len) {
+double matrixNormInfinity(double **a, int len) {
 	int i, j = 0;
 	double ia = 0.0;
 	double max = 0.0;
@@ -1254,7 +1294,7 @@ double matrixNormInfinity(double a[3][3], int len) {
 	return max;
 }
 
-void outerProductMatrix(double x[3], double y[3], double C[3][3], int m, int n) {
+void outerProductMatrix(double *x, double *y, double **C, int m, int n) {
 	int i, j = 0;
 
 	for (i = 0; i < m; i++) {
@@ -1264,11 +1304,14 @@ void outerProductMatrix(double x[3], double y[3], double C[3][3], int m, int n) 
 	}
 }
 
-void unitOrthog(double v1[3], double v2[3], double u1[3], double u2[3], int len) {
+void unitOrthog(double *v1, double *v2, double *u1, double *u2, int len) {
 
 	int i = 0;
 	double ia = 0;
-	double a[3] = { 0 };
+
+	// alloc memory for a vector
+	double *a;
+	a = calloc(len, sizeof(double));
 
 	vectorCross(v1, v2, a, len);
 
@@ -1279,4 +1322,718 @@ void unitOrthog(double v1[3], double v2[3], double u1[3], double u2[3], int len)
 	vectorScale(a, u1, ia, len);
 
 	vectorScale(u1, u2, -1.0, len);
+
+	// free memory
+	free(a);
 }
+
+//******************************
+void forwardSub(double **A, double *x, double *b, int n) {
+	int i, j = 0;
+	double sum = 0.0;
+
+	x[0] = b[0] / A[0][0];
+	for (i = 1; i < n; i++) {
+		sum = 0.0;
+		for (j = 0; j < i; j++) {
+			sum = sum + (A[i][j] * x[j]);
+		}
+		x[i] = (b[i] - sum) / A[i][i];
+	}
+}
+
+void backSub(double **A, double *x, double *b, int n) {
+	int i, j = 0;
+	double sum = 0.0;
+
+	x[n-1] = b[n-1] / A[n-1][n-1];
+	for (i = (n - 1); i > -1; i--) {
+		sum = 0.0;
+		for (j = (i + 1); j < n; j++) {
+			sum = sum + (A[i][j] * x[j]);
+		}
+		x[i] = (b[i] - sum) / A[i][i];
+	}
+}
+
+void squareGauss(double **A, double *b, int n) {
+	int i, j, k = 0;
+	double factor = 0.0;
+	for (k = 0; k < (n - 1); k++) {
+		for (i = (k + 1); i < n; i++) {
+			factor = A[i][k] / A[k][k];
+			A[i][k] = 0.0;
+			for (j = (k + 1); j < n; j++) {
+				A[i][j] = A[i][j] - (factor * A[k][j]);
+			}
+			b[i] = b[i] - (factor * b[k]);
+		}
+	}
+}
+
+void squareLU(double **A, double **B, int n) {
+	int i, j, k = 0;
+	double factor = 0.0;
+	for (k = 0; k < (n - 1); k++) {
+		for (i = (k + 1); i < n; i++) {
+			factor = A[i][k] / A[k][k];
+			A[i][k] = 0.0;
+			for (j = (k + 1); j < n; j++) {
+				A[i][j] = A[i][j] - (factor * A[k][j]);
+				B[i][j] = 0.0;
+			}
+			B[i][k] = factor;
+		}
+	}
+
+	for (k = 0; k < n; k++) {
+		B[k][k] = 1.0;
+	}
+}
+
+void generalGauss(double **A, double *b, int m, int n) {
+	int i, j, k = 0;
+	double factor = 0.0;
+	for (k = 0; k < (n - 1); k++) {
+		for (i = (k + 1); i < m; i++) {
+			factor = A[i][k] / A[k][k];
+			A[i][k] = 0.0;
+			for (j = (k + 1); j < n; j++) {
+				A[i][j] = A[i][j] - (factor * A[k][j]);
+			}
+			b[i] = b[i] - (factor * b[k]);
+		}
+	}
+}
+
+void GEsolve(double **A, double *x, double *b, int n) {
+	squareGauss(A, b, n);
+	backSub(A, x, b, n);
+}
+
+void LUsolve(double **A, double **L, double *x, double *b, int n) {
+	int i = 0;
+
+	// alloc memory for a vector
+	double *yd;
+	yd = calloc(n, sizeof(double));
+	
+	squareLU(A, L, n);
+	forwardSub(L, yd, b, n);
+	backSub(A, x, yd, n);
+
+	// free memory
+	free(yd);
+}
+
+void choleskyLU(double **A, double **B, int n) {
+	int i, j, k = 0;
+	for (k = 0; k < (n - 1); k++) {
+		A[k][k] = sqrt(A[k][k]);
+		for (i = (k + 1); i < n; i++) {
+			A[i][k] = A[i][k] / A[k][k];
+		}
+		for (j = (k + 1); j < n; j++) {
+			for (i = j; i < n; i++) {
+				A[i][j] = A[i][j] - (A[i][k] * A[j][k]);
+			}
+		}
+	}
+	A[n - 1][n - 1] = sqrt(A[n - 1][n - 1]);
+	for (k = 0; k < n; k++) {
+		for (i = (k + 1); i < n; i++) {
+			A[k][i] = 0.0;
+		}
+	}
+
+	transposeMatrix(A, B, n, n);
+}
+
+void Choleskysolve(double **A, double **U, double *x, double *b, int n) {
+	int i = 0;
+
+	// alloc memory for a vector
+	double *yd;
+	yd = calloc(n, sizeof(double));
+
+	choleskyLU(A, U, n);
+	forwardSub(A, yd, b, n);
+	backSub(U, x, yd, n);
+
+	// free memory
+	free(yd);
+}
+
+double matrixInducedNormL1(double **A, double *v, int n) {
+	double AvNorm = 0.0;
+	double vNorm = 0.0;
+	double inducedNorm = 0.0;
+
+	// alloc memory for a vector
+	double *u;
+	u = calloc(n, sizeof(double));
+
+	vectorXmatrix(A, v, u, n, n);
+	AvNorm = vectorNormL1(u, n);
+	vNorm = vectorNormL1(v, n);
+	inducedNorm = AvNorm / vNorm;
+
+	// free memory
+	free(u);
+
+	return inducedNorm;
+}
+
+double matrixInducedNormInfinity(double **A, double *v, int n) {
+	double AvNorm = 0.0;
+	double vNorm = 0.0;
+	double inducedNorm = 0.0;
+
+	// alloc memory for a vector
+	double *u;
+	u = calloc(n, sizeof(double));
+
+	vectorXmatrix(A, v, u, n, n);
+	AvNorm = vectorNormInfinity(u, n);
+	vNorm = vectorNormInfinity(v, n);
+	inducedNorm = AvNorm / vNorm;
+
+	// free memory
+	free(u);
+
+	return inducedNorm;
+}
+
+void uniformMatrix(double **A, double *b, int n) {
+	int i, j, k = 0;
+	double sum = 0.0;
+
+	double *ones;
+	ones = calloc(n, sizeof(double));
+
+	for (i = 0; i < n; i++) {
+		ones[i] = 1.0;
+	}
+
+	srand(time(0));
+
+	// upper triangular
+	for (i = 0; i < n; i++) {
+		for (j = (i + 1); j < n; j++) {
+			A[i][j] = ((rand() % 1000) + 1) / 1000.0;
+		}
+	}
+
+	// lower triangular
+	for (i = 0; i < n; i++) {
+		for (j = (i + 1); j < n; j++) {
+			A[j][i] = A[i][j];
+		}
+	}
+
+	// diaginal dominant
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			if (i != j) {
+				sum = sum + A[i][j];
+			}
+		}
+		A[i][i] = sum + 0.01;
+		sum = 0.0;
+	}
+
+	// compute RHS values for vector b
+	vectorXmatrix(A, ones, b, n, n);
+
+	free(ones);
+}
+
+void jacobi(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = 0;
+			for (j = 0; j < n; j++) {
+				if (i != j) {
+					x1[i] = x1[i] + (A[i][j] * x0[j]);
+				}
+			}
+			x1[i] = (b[i] - x1[i]) / A[i][i];
+		}
+
+		err = vectorErrorRelativeL2(x1, x0, n);
+
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+}
+
+void jacobiParallel(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		// begin parallel threads
+#pragma omp parallel private(i, j)
+		{
+#pragma omp for
+			for (i = 0; i < n; i++) {
+				x1[i] = 0;
+				for (j = 0; j < n; j++) {
+					if (i != j) {
+						x1[i] = x1[i] + (A[i][j] * x0[j]);
+					}
+				}
+				x1[i] = (b[i] - x1[i]) / A[i][i];
+			}
+		}
+
+		err = vectorErrorRelativeL2(x1, x0, n);
+
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+}
+
+void gaussSeidel(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = 0;
+			for (j = 0; j < n; j++) {
+				if (i != j) {
+					x1[i] = x1[i] + (A[i][j] * x1[j]);
+				}
+			}
+			x1[i] = (b[i] - x1[i]) / A[i][i];
+		}
+
+		err = vectorErrorRelativeL2(x1, x0, n);
+
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+}
+
+void gaussSeidelParallel(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+	// alloc memory for a vector
+	double *s1;
+	s1 = calloc(n, sizeof(double));
+	// alloc memory for a vector
+	double *s2;
+	s2 = calloc(n, sizeof(double));
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = 0;
+
+			// begin parallel threads
+#pragma omp parallel
+			{
+#pragma omp for
+				for (j = 0; j < n; j++) {
+					s1[j] = 0.0;
+					s2[j] = 0.0;
+				}
+#pragma omp barrier
+#pragma omp for	
+				for (j = 0; j < i; j++) {
+					s1[j] = (A[i][j] * x1[j]);
+				}
+#pragma omp barrier
+#pragma omp for			
+				for (j = (i + 1); j < n; j++) {
+					s2[j] = (A[i][j] * x1[j]);
+				}
+			}
+
+			for (j = 0; j < n; j++) {
+				x1[i] = x1[i] + s1[j] + s2[j];
+			}
+
+			x1[i] = (b[i] - x1[i]) / A[i][i];
+		}
+
+		err = vectorErrorRelativeL2(x1, x0, n);
+
+
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+	free(s1);
+	free(s2);
+}
+
+// steepest descent method
+void gradient(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+	double rnorm = 0.0;
+	double ynorm = 0.0;
+	double alpha = 0.0;
+	double diff = 0.0;
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *r0;
+	r0 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *y;
+	y = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *u;
+	u = calloc(n, sizeof(double));
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		// r0 = b - Ax0
+		// Ax0 = u;
+		vectorXmatrix(A, x0, u, n, n);
+
+		// r0 = b - u
+		for (i = 0; i < n; i++) {
+			r0[i] = b[i] - u[i];
+		}
+
+		rnorm = 0.0;
+		for (i = 0; i < n; i++) {
+			rnorm = rnorm + (r0[i] * r0[i]);
+		}
+
+		vectorXmatrix(A, r0, y, n, n);
+
+		ynorm = 0.0;
+		for (i = 0; i < n; i++) {
+			ynorm = ynorm + (r0[i] * y[i]);
+		}
+
+		alpha = rnorm / ynorm;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = x0[i] + (alpha * r0[i]);
+		}
+
+		// compute error
+		err = 0.0;
+		for (i = 0; i < n; i++) {
+			diff = x1[i] - x0[i];
+			err = err + (diff * diff);
+		}
+		err = sqrt(err);
+
+		// x0 = x1
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+	free(r0);
+	free(y);
+	free(u);
+}
+
+void conjugateGradient(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+	double delta0 = 0.0;
+	double delta1 = 0.0;
+	double alpha = 0.0;
+	double temp = 0.0;
+
+
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *r0;
+	r0 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *r1;
+	r1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *p0;
+	p0 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *p1;
+	p1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *s;
+	s = calloc(n, sizeof(double));
+
+	// r0 = b - Ax0
+	for (i = 0; i < n; i++) {
+		r0[i] = b[i];
+		for (j = 0; j < n; j++) {
+			if (i != j) {
+				r0[i] = r0[i] - (A[i][j] * x0[j]);
+			}
+		}
+	}
+
+	delta0 = vectorInner(r0, r0, n);
+	err = vectorInner(b, b, n);
+
+	for (i = 0; i < n; i++) {
+		p0[i] = r0[i];
+	}
+
+
+	while ((delta0 > (tol * tol * err)) && (iter < maxiter)) {
+		iter++;
+
+		vectorXmatrix(A, p0, s, n, n);
+		temp = vectorInner(p0, s, n);
+		alpha = delta0 / temp;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = x0[i] + (alpha * p0[i]);
+		}
+
+		for (i = 0; i < n; i++) {
+			r1[i] = r0[i] - (alpha * s[i]);
+		}
+
+		delta1 = vectorInner(r1, r1, n);
+
+		for (i = 0; i < n; i++) {
+			p1[i] = r1[i] + ((delta1 / delta0) * p0[i]);
+		}
+
+		for (i = 0; i < n; i++) {
+			p0[i] = p1[i];
+		}
+
+		for (i = 0; i < n; i++) {
+			r0[i] = r1[i];
+		}
+
+		delta0 = delta1;
+
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+	free(r0);
+	free(r1);
+	free(p0);
+	free(p1);
+	free(s);
+}
+
+void conjugateGradientParallel(double **A, double *b, double *x0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double err = 10 * tol;
+	double delta0 = 0.0;
+	double delta1 = 0.0;
+	double alpha = 0.0;
+	double temp = 0.0;
+
+
+
+	// alloc memory for a vector
+	double *x1;
+	x1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *r0;
+	r0 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *r1;
+	r1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *p0;
+	p0 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *p1;
+	p1 = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *s;
+	s = calloc(n, sizeof(double));
+
+	// begin parallel threads
+#pragma omp parallel private(i, j)
+	{
+#pragma omp for
+		// r0 = b - Ax0
+		for (i = 0; i < n; i++) {
+			r0[i] = b[i];
+			for (j = 0; j < n; j++) {
+				if (i != j) {
+					r0[i] = r0[i] - (A[i][j] * x0[j]);
+				}
+			}
+		}
+	}
+
+	delta0 = vectorInner(r0, r0, n);
+	err = vectorInner(b, b, n);
+
+	for (i = 0; i < n; i++) {
+		p0[i] = r0[i];
+	}
+
+
+	while ((delta0 > (tol * tol * err)) && (iter < maxiter)) {
+		iter++;
+
+		vectorXmatrix(A, p0, s, n, n);
+		temp = vectorInner(p0, s, n);
+		alpha = delta0 / temp;
+
+		for (i = 0; i < n; i++) {
+			x1[i] = x0[i] + (alpha * p0[i]);
+		}
+
+		for (i = 0; i < n; i++) {
+			r1[i] = r0[i] - (alpha * s[i]);
+		}
+
+		delta1 = vectorInner(r1, r1, n);
+
+		for (i = 0; i < n; i++) {
+			p1[i] = r1[i] + ((delta1 / delta0) * p0[i]);
+		}
+
+		for (i = 0; i < n; i++) {
+			p0[i] = p1[i];
+		}
+
+		for (i = 0; i < n; i++) {
+			r0[i] = r1[i];
+		}
+
+		delta0 = delta1;
+
+		for (i = 0; i < n; i++) {
+			x0[i] = x1[i];
+		}
+	}
+
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(x1);
+	free(r0);
+	free(r1);
+	free(p0);
+	free(p1);
+	free(s);
+}
+
+
+
+
+
+// code to allocate memory for matrix and vector
+/*
+
+	// alloc memory for a matrix
+	double **A;
+	A = calloc(m, sizeof(double*));
+
+	for (i = 0; i < m; i++)
+	{
+		A[i] = calloc(n, sizeof(double));
+	}
+
+	// free memory
+	for (i = 0; i < m; i++)
+	{
+		free(A[i]);
+	}
+
+	free(A);
+
+
+
+
+	// alloc memory for a vector
+	double *b;
+	b = calloc(n, sizeof(double));
+
+	// free memory
+	free(b);
+
+*/
