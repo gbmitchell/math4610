@@ -15,7 +15,7 @@ will produce an executable **vectorAdd.exe** that can be executed.
 
 **Description/Purpose:** This function will add two vectors of the same size and the computation is done in double precision. 
 
-**Input:** There are four inputs needed in this case. Vectors v1, v2, and a are arguments passed by reference and n is an argument passed to the function to indicate the length of the vectors. The real purpose is to produce values in the vector a that represent the result of u + v.
+**Input:** There are four inputs needed in this case. Vectors v1, v2, and a are arguments passed by reference and n is an argument passed to the function to indicate the length of the vectors. The real purpose is to produce values in the vector a that represent the result of v1 + v2.
 
 **Output:** This function doesnt return a value. Because the vector a was passed by reference, the function can modify the vector a to produce the result of adding the vectors v1 and v2. The resulting vector a can then be used in the main program as needed.
 
