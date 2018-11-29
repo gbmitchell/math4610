@@ -21,23 +21,27 @@ int main() {
 	double *b;
 	b = calloc(n, sizeof(double));
 
+	// alloc memory for a vector
+	double *x;
+	x = calloc(n, sizeof(double));
+
 	A[0][0] = 1.0;  A[0][1] = -2.0; A[0][2] = -6.0;
 	A[1][0] = 2.0;  A[1][1] = 4.0; A[1][2] = 12.0;
 	A[2][0] = 1.0; A[2][1] = -3.0; A[2][2] = -12.0;
 
 	b[0] = 5.0; b[1] = 0.0; b[2] = -2.0;
 
-	printf("Upper triagular augmented matrix A =\n");
+	printf("Augmented matrix A =\n");
 
 	printAugMatrix(A, b, m, n);
 
-	squareGauss(A, b, n);
+	GEsolve(A, x, b, n);
 
 	printf("\n\n\n");
 
-	printf("Gauss Elimination on augmented matrix A=\n");
+	printf("Solution using Gauss Elimination method\n");
 
-	printAugMatrix(A, b, m, n);
+	printVector(x, n);
 
 	printf("\n\n\n");
 
@@ -51,6 +55,7 @@ int main() {
 	free(A);
 
 	free(b);
+	free(x);
 
 	return 0;
 }

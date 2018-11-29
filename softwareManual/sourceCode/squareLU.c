@@ -17,27 +17,37 @@ int main() {
 		A[i] = calloc(n, sizeof(double));
 	}
 
-	// alloc memory for a vector
-	double *b;
-	b = calloc(n, sizeof(double));
+	// alloc memory for a matrix
+	double **L;
+	L = calloc(m, sizeof(double*));
+
+	for (i = 0; i < m; i++)
+	{
+		L[i] = calloc(n, sizeof(double));
+	}
 
 	A[0][0] = 1.0;  A[0][1] = -2.0; A[0][2] = -6.0;
 	A[1][0] = 2.0;  A[1][1] = 4.0; A[1][2] = 12.0;
 	A[2][0] = 1.0; A[2][1] = -3.0; A[2][2] = -12.0;
 
-	b[0] = 5.0; b[1] = 0.0; b[2] = -2.0;
+	printf("Matrix A =\n");
 
-	printf("Upper triagular augmented matrix A =\n");
-
-	printAugMatrix(A, b, m, n);
-
-	squareGauss(A, b, n);
+	printMatrix(A, m, n);
 
 	printf("\n\n\n");
 
-	printf("Gauss Elimination on augmented matrix A=\n");
+	squareLU(A, L, n);
 
-	printAugMatrix(A, b, m, n);
+	printf("LU decomposition on matrix A =\n");
+	printf("\nMatrix U =\n");
+
+	printMatrix(A, m, n);
+
+	printf("\n\n\n");
+
+	printf("Matrix L =\n");
+
+	printMatrix(L, m, n);
 
 	printf("\n\n\n");
 
@@ -50,7 +60,12 @@ int main() {
 
 	free(A);
 
-	free(b);
+	for (i = 0; i < m; i++)
+	{
+		free(L[i]);
+	}
+
+	free(L);
 
 	return 0;
 }
