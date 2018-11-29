@@ -58,13 +58,9 @@ There are four inputs needed in this case. Vectors v1, v2, and a are arguments p
             k++;
         }
 
-        printf("\n\n\n");
-
         printf("\n\nVector v1 =\n");
 
         printVector(v1, n);
-
-        printf("\n\n\n");
 
         printf("\n\nVector v2 =\n");
 
@@ -72,14 +68,9 @@ There are four inputs needed in this case. Vectors v1, v2, and a are arguments p
 
         vectorAdd(v1, v2, a, n);
 
-        printf("\n\n\n");
-
         printf("\n\nVector a = v1 + v2\n");
 
         printVector(a, n);
-
-        printf("\n\n\n");
-
 
         // free memory
         free(v1);
