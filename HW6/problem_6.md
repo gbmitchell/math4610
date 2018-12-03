@@ -138,12 +138,12 @@ Output from the lines above:
 
     Finished after 7 iterations
     Finished after 3 iterations
-    Time serial = 1.131e+01
+    Time serial = 1.173e+01
     2 condition number = 1.004e+00
 
     Finished after 7 iterations
     Finished after 3 iterations
-    Time parallel = 1.116e+01
+    Time parallel = 1.098e+01
     2 condition number = 1.004e+00
 
 The output shows the number of iterations for the power method, the number of iterations for the inverse power method, and 2 condition number for the matrix A computed with both serial and parallel programming. The parallel program takes a little less time for a 2000x2000 matrix. As the matrix grows in size the parallel will take even less time in comparison to the serial program for a matrix the same size.
