@@ -13,7 +13,7 @@ For example,
 
 will produce an executable **inversePowerMethodParallel.exe** that can be executed.
 
-**Description/Purpose:** This routine will compute the largest eigenvalue of a matrix inverse, for example A^(-1). The routine uses openMP to parallelize the program which results in less time to compute large sized matrices.
+**Description/Purpose:** This routine will compute the largest eigenvalue of a matrix inverse, for example A^(-1). The routine uses openMP to parallelize the program which results in less time to compute the eigenvalue for large sized matrices.
 
 **Input:** There are five inputs needed in this case to compute the largest eigenvalue. A square matrix A, a vector v, a variable tol for error, a variable maxiter value to stop infinite loops, and a value n to indicate the size of the matrix and vector. The matrix and vectors are passed to the routine by reference.
 
