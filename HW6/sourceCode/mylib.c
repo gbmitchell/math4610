@@ -2002,8 +2002,351 @@ void conjugateGradientParallel(double **A, double *b, double *x0, double tol, in
 	free(s);
 }
 
+double powerMethod(double **A, double *v0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double temp = 0.0;
+	double eigen0 = 0.0;
+	double eigen1 = 0.0;
+	double err = 10 * tol;
+
+	// alloc memory for a vector
+	double *y;
+	y = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *v1;
+	v1 = calloc(n, sizeof(double));
+
+	vectorXmatrix(A, v0, y, n, n);
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		temp = vectorNormL2(y, n);
+
+		for (i = 0; i < n; i++) {
+			v1[i] = y[i] / temp;
+		}
+
+		eigen1 = vectorInner(v1, y, n);
+
+		vectorXmatrix(A, v1, y, n, n);
+
+		err = eabs(eigen1, eigen0);
+
+		eigen0 = eigen1;
+
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(y);
+	free(v1);
+
+	return eigen0;
+}
+
+double powerMethodParallel(double **A, double *v0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double temp = 0.0;
+	double eigen0 = 0.0;
+	double eigen1 = 0.0;
+	double err = 10 * tol;
+
+	// alloc memory for a vector
+	double *y;
+	y = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *v1;
+	v1 = calloc(n, sizeof(double));
+
+	matrixXvectorParallel(A, v0, y, n, n);
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		temp = vectorNormL2(y, n);
+
+		for (i = 0; i < n; i++) {
+			v1[i] = y[i] / temp;
+		}
+
+		eigen1 = vectorInner(v1, y, n);
+
+		matrixXvectorParallel(A, v1, y, n, n);
+
+		err = eabs(eigen1, eigen0);
+
+		eigen0 = eigen1;
+
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+	// free memory
+	free(y);
+	free(v1);
+
+	return eigen0;
+}
+
+double inversePowerMethod(double **A, double *v0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double temp = 0.0;
+	double eigen0 = 0.0;
+	double eigen1 = 0.0;
+	double err = 10 * tol;
+
+	// alloc memory for a matrix
+	double **L;
+	L = calloc(n, sizeof(double*));
+
+	for (i = 0; i < n; i++)
+	{
+		L[i] = calloc(n, sizeof(double));
+	}
+
+	// alloc memory for a vector
+	double *y;
+	y = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *yd;
+	yd = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *v1;
+	v1 = calloc(n, sizeof(double));
+
+	LUsolve(A, L, y, v0, n);
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		temp = vectorNormL2(y, n);
+
+		for (i = 0; i < n; i++) {
+			v1[i] = y[i] / temp;
+		}
+
+		eigen1 = vectorInner(v1, y, n);
+
+		forwardSub(L, yd, v1, n);
+		backSub(A, y, yd, n);
+
+		err = eabs(eigen1, eigen0);
+
+		eigen0 = eigen1;
+
+	}
+	printf("Finished after %d iterations\n\n", iter);
 
 
+	// free memory
+	for (i = 0; i < n; i++)
+	{
+		free(L[i]);
+	}
+
+	free(L);
+
+	free(y);
+	free(v1);
+	free(yd);
+
+	return eigen0;
+}
+
+double inversePowerMethodParallel(double **A, double *v0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	int iter = 0;
+	double temp = 0.0;
+	double eigen0 = 0.0;
+	double eigen1 = 0.0;
+	double err = 10 * tol;
+
+	// alloc memory for a matrix
+	double **L;
+	L = calloc(n, sizeof(double*));
+
+	for (i = 0; i < n; i++)
+	{
+		L[i] = calloc(n, sizeof(double));
+	}
+
+	// alloc memory for a vector
+	double *y;
+	y = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *yd;
+	yd = calloc(n, sizeof(double));
+
+	// alloc memory for a vector
+	double *v1;
+	v1 = calloc(n, sizeof(double));
+
+	LUsolve(A, L, y, v0, n);
+
+	while ((err > tol) && (iter < maxiter)) {
+		iter++;
+
+		temp = vectorNormL2(y, n);
+
+#pragma omp parallel private(i)
+		{
+#pragma omp for
+			for (i = 0; i < n; i++) {
+				v1[i] = y[i] / temp;
+			}
+		}
+
+		eigen1 = vectorInner(v1, y, n);
+
+		forwardSub(L, yd, v1, n);
+		backSub(A, y, yd, n);
+
+		err = eabs(eigen1, eigen0);
+
+		eigen0 = eigen1;
+
+	}
+	printf("Finished after %d iterations\n\n", iter);
+
+
+	// free memory
+	for (i = 0; i < n; i++)
+	{
+		free(L[i]);
+	}
+
+	free(L);
+
+	free(y);
+	free(v1);
+	free(yd);
+
+	return eigen0;
+}
+
+double conditionNumber(double **A, double *v0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	double power = 0.0;
+	double inversePower = 0.0;
+	double condNum = 0.0;
+
+	// allocate mxn matrix
+	double **T;
+	T = calloc(n, sizeof(double*));
+
+	for (i = 0; i < n; i++)
+	{
+		T[i] = calloc(n, sizeof(double));
+	}
+
+	// allocate vector for solution
+	double *tempv;
+	tempv = calloc(n, sizeof(double));
+
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			T[i][j] = A[i][j];
+		}
+	}
+
+	for (i = 0; i < n; i++) {
+		tempv[i] = v0[i];
+	}
+
+	power = powerMethod(A, v0, tol, maxiter, n);
+
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			A[i][j] = T[i][j];
+		}
+	}
+
+	for (i = 0; i < n; i++) {
+		v0[i] = tempv[i];
+	}
+
+	inversePower = inversePowerMethod(A, v0, tol, maxiter, n);
+
+	condNum = power * inversePower;
+
+	// free memory
+	for (i = 0; i < n; i++)
+	{
+		free(T[i]);
+	}
+
+	free(T);
+
+	free(tempv);
+
+	return condNum;
+}
+
+double conditionNumberParallel(double **A, double *v0, double tol, int maxiter, int n) {
+	int i, j = 0;
+	double power = 0.0;
+	double inversePower = 0.0;
+	double condNum = 0.0;
+
+	// allocate mxn matrix
+	double **T;
+	T = calloc(n, sizeof(double*));
+
+	for (i = 0; i < n; i++)
+	{
+		T[i] = calloc(n, sizeof(double));
+	}
+
+	// allocate vector for solution
+	double *tempv;
+	tempv = calloc(n, sizeof(double));
+
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			T[i][j] = A[i][j];
+		}
+	}
+
+	for (i = 0; i < n; i++) {
+		tempv[i] = v0[i];
+	}
+
+	power = powerMethodParallel(A, v0, tol, maxiter, n);
+
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			A[i][j] = T[i][j];
+		}
+	}
+
+	for (i = 0; i < n; i++) {
+		v0[i] = tempv[i];
+	}
+
+	inversePower = inversePowerMethodParallel(A, v0, tol, maxiter, n);
+
+	condNum = power * inversePower;
+
+	// free memory
+	for (i = 0; i < n; i++)
+	{
+		free(T[i]);
+	}
+
+	free(T);
+
+	free(tempv);
+
+	return condNum;
+}
 
 
 // code to allocate memory for matrix and vector

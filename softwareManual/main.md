@@ -53,6 +53,9 @@
     * [Matrix determinant](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/matrix_determinant)
     * [Unit orthoginal vector pair](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/unitOrthog)
     * [Uniform Diagonally Dominant Matrix Generator](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/uniformDiagDomMatrix)
+    * [Power Method](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/powerMethod)
+    * [Inverse Power Method](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/inversePowerMethod)
+    * [2-Condition Number](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/2conditionNumber)
  
 6. Linear Solvers (Direct Methods)
     * [Guass Elimination (square matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSquare)

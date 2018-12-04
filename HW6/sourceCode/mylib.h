@@ -82,3 +82,9 @@ void gaussSeidelParallel(double **A, double *b, double *x0, double tol, int maxi
 void gradient(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void conjugateGradient(double **A, double *b, double *x0, double tol, int maxiter, int n);
 void conjugateGradientParallel(double **A, double *b, double *x0, double tol, int maxiter, int n);
+double powerMethod(double **A, double *v0, double tol, int maxiter, int n);
+double powerMethodParallel(double **A, double *v0, double tol, int maxiter, int n);
+double inversePowerMethod(double **A, double *v0, double tol, int maxiter, int n);
+double inversePowerMethodParallel(double **A, double *v0, double tol, int maxiter, int n);
+double conditionNumber(double **A, double *v0, double tol, int maxiter, int n);
+double conditionNumberParallel(double **A, double *v0, double tol, int maxiter, int n);
