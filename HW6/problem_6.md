@@ -13,7 +13,7 @@ For example,
 
 will produce an executable **2conditionNumberParallel.exe** that can be executed.
 
-**Description/Purpose:** This routine will compute the largest eigenvalue of a matrix A and the largest eigenvalue of the matrix inverse A^(-1). The L2-Norm is used in computing the eigenvalues and by multiplying the two eigenvalues together, the product is a 2 condition number or factor of the 2 condition number. This routine combines the parallel routies of the power method and inverse power method to create a parallel version of the 2 condition number routine.
+**Description/Purpose:** This routine will compute the largest eigenvalue of a matrix A and the largest eigenvalue of the matrix inverse A^(-1). The L2-Norm is used in computing the eigenvalues and by multiplying the two resulting eigenvalues together, the product is a 2 condition number or factor of the 2 condition number. This routine combines the parallel routies of the power method and inverse power method to create a parallel version of the 2 condition number routine. The majoraty of time gained from the parallel version of the condition number routine is contributed by the parallel power method routine. Not much time is gained from the parallel inverse power method routine. As a result the overall time gained is relativly small.
 
 **Input:** There are five inputs needed in this case to compute the largest eigenvalue. A square matrix A, a vector v, a variable tol for error, a variable maxiter value to stop infinite loops, and a value n to indicate the size of the matrix and vector. The matrix and vectors are passed to the routine by reference.
 
@@ -146,7 +146,7 @@ Output from the lines above:
     Time parallel = 1.098e+01
     2 condition number = 1.004e+00
 
-The output shows the number of iterations for the power method, the number of iterations for the inverse power method, and 2 condition number for the matrix A computed with both serial and parallel programming. The parallel program takes a little less time for a 2000x2000 matrix. As the matrix grows in size the parallel will take even less time in comparison to the serial program for a matrix the same size.
+The output shows the number of iterations for the power method, the number of iterations for the inverse power method, and 2 condition number for the matrix A computed with both serial and parallel programming. The parallel program takes a little less time for a 2000x2000 matrix.
 
 **Implementation/Code:** The following is the code for conditionNumberParallel()
 
