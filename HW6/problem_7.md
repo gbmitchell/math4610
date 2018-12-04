@@ -33,8 +33,8 @@ There are five inputs needed in this case to compute the largest eigenvalue. A s
         clock_t start, end;
         double time1 = 0.0;
         int i, j = 0;
-        int n = 2000;
-        int m = 2000;
+        int n = 4096;
+        int m = 4096;
         int maxiter = n * 6000;
         double tol = 0.0001;
         double condNum = 0.0;
@@ -138,15 +138,15 @@ Output from the lines above:
 
     Finished after 7 iterations
     Finished after 3 iterations
-    Time serial = 1.173e+01
-    2 condition number = 1.004e+00
+    Time serial = 3.870e-01
+    2 condition number = 1.011e+00
 
     Finished after 7 iterations
     Finished after 3 iterations
-    Time parallel = 1.098e+01
-    2 condition number = 1.004e+00
+    Time parallel = 3.740e-01
+    2 condition number = 1.011e+00
 
-The output shows the number of iterations for the power method, the number of iterations for the inverse power method, and 2 condition number for the matrix A computed with both serial and parallel programming. The parallel program takes a little less time for a 2000x2000 matrix.
+The output shows the number of iterations for the power method, the number of iterations for the inverse power method, and 2 condition number for the matrix A computed with both serial and parallel programming. The parallel program takes a little less time for a 4096x4096 matrix.
 
 **Implementation/Code:** The following is the code for conditionNumberParallel()
 
