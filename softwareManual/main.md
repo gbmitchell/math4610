@@ -55,7 +55,7 @@
     * [Uniform Diagonally Dominant Matrix Generator](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/uniformDiagDomMatrix)
     * [Power Method](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/powerMethod)
     * [Inverse Power Method](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/inversePowerMethod)
-    * [2-Condition Number](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/2conditionNumber)
+    * [2-Condition Number](https://gbmitchell.github.io/math4610/softwareManual/matrixVectorOperations/conditionNumber)
  
 6. Linear Solvers (Direct Methods)
     * [Guass Elimination (square matrix)](https://gbmitchell.github.io/math4610/softwareManual/linearSolvers/gaussSquare)
