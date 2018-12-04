@@ -13,7 +13,7 @@ For example,
 
 will produce an executable **inversePowerMethodParallel.exe** that can be executed.
 
-**Description/Purpose:** This routine will compute the largest eigenvalue of a matrix inverse, for example A^(-1). The routine uses openMP to parallelize the program which results in less time to compute the eigenvalue for large sized matrices.
+**Description/Purpose:** This routine will compute the largest eigenvalue of a matrix inverse, for example A^(-1). The routine uses openMP to parallelize the program which results in less time to compute the eigenvalue for large sized matrices. Because the inverse power method uses LU factorization, I was able to find very little of the routine that was able to take advantage of parallel processing. As a result, the parallel version of inverse power method takes a little less time.
 
 **Input:** There are five inputs needed in this case to compute the largest eigenvalue. A square matrix A, a vector v, a variable tol for error, a variable maxiter value to stop infinite loops, and a value n to indicate the size of the matrix and vector. The matrix and vectors are passed to the routine by reference.
 
@@ -148,7 +148,7 @@ Output from the lines above:
     Time parallel = 1.386e+00
     Largest eigenvalue of A^(-1) = 1.014e-03
 
-The output shows the largest eigenvalue of matrix A^(-1), the number of iterations it took to compute the eigenvalue, and the time it took to compute the eigenvalue for both serial and parallel programming. The parallel program took a little less time to compute compared to the serial program with a matrix size of 1000x1000. As the matrix size grows, the time comparison will favor the parallel program more and more for taking less time. 
+The output shows the largest eigenvalue of matrix A^(-1), the number of iterations it took to compute the eigenvalue, and the time it took to compute the eigenvalue for both serial and parallel programming. The parallel program took a little less time to compute compared to the serial program with a matrix size of 1000x1000. 
 
 **Implementation/Code:** The following is the code for inversePowerMethodParallel()
 
